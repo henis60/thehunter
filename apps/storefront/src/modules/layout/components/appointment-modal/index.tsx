@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { AnimatePresence, m as motion } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { AnimatePresence, m as motion, useReducedMotion } from "framer-motion"
 import { useTranslations } from "next-intl"
 import AppointmentDatePicker from "@modules/programare/components/appointment-date-picker"
 import { useRecaptcha } from "@lib/hooks/use-recaptcha"
@@ -55,7 +55,7 @@ export default function AppointmentModal({
   const [step, setStep] = useState(0)
   const [status, setStatus] = useState<Status>("idle")
   const [errorMsg, setErrorMsg] = useState(
-    t("Nu am putut trimite cererea Încearcă din nou")
+    t("Nu am putut trimite cererea Încearcă din nou"),
   )
   const { preload, getToken } = useRecaptcha()
 
@@ -96,6 +96,29 @@ export default function AppointmentModal({
   }
 
   useScrollLock(open)
+
+  // Smooth height transitions: the content area animates to the measured
+  // height of its inner wrapper whenever that changes (step switch, time
+  // slots appearing, validation messages, …). Starts at "auto" so the
+  // modal doesn't grow from 0 on open.
+  const reduceMotion = useReducedMotion()
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentHeight, setContentHeight] = useState<number | "auto">("auto")
+  const [resizing, setResizing] = useState(false)
+
+  useEffect(() => {
+    if (!open) {
+      setContentHeight("auto")
+      return
+    }
+    const el = contentRef.current
+    if (!el) return
+    const ro = new ResizeObserver(() => {
+      setContentHeight(el.getBoundingClientRect().height)
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -157,7 +180,7 @@ export default function AppointmentModal({
       if (!res.success) {
         if (res.reason === "rate_limited") {
           setErrorMsg(
-            t("Prea multe încercări Te rugăm să revii peste câteva minute")
+            t("Prea multe încercări Te rugăm să revii peste câteva minute"),
           )
         }
         setStatus("error")
@@ -247,8 +270,8 @@ export default function AppointmentModal({
                         active
                           ? "border-hunter-gold"
                           : done
-                          ? "border-hunter-gold/30 cursor-pointer hover:border-hunter-gold/60"
-                          : "border-transparent"
+                            ? "border-hunter-gold/30 cursor-pointer hover:border-hunter-gold/60"
+                            : "border-transparent"
                       }`}
                     >
                       <span
@@ -256,8 +279,8 @@ export default function AppointmentModal({
                           active
                             ? "text-[var(--theme-text)]"
                             : done
-                            ? "text-[var(--theme-text-muted)]"
-                            : "text-[var(--theme-text-muted)] opacity-50"
+                              ? "text-[var(--theme-text-muted)]"
+                              : "text-[var(--theme-text-muted)] opacity-50"
                         }`}
                       >
                         {label}
@@ -269,164 +292,192 @@ export default function AppointmentModal({
             )}
 
             {/* Content */}
-            <div className="px-6 py-5 flex-1 min-h-0 overflow-y-auto">
-              {status === "success" ? (
-                <div
-                  key="success"
-                  className="text-center py-6 flex flex-col items-center gap-3"
+            <motion.div
+              className={`min-h-0 ${
+                resizing ? "overflow-hidden" : "overflow-y-auto"
+              }`}
+              initial={false}
+              animate={{ height: contentHeight }}
+              transition={{
+                duration: reduceMotion ? 0 : 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onAnimationStart={() => setResizing(true)}
+              onAnimationComplete={() => setResizing(false)}
+            >
+              <div ref={contentRef} className="px-6 py-5">
+                <motion.div
+                  key={status === "success" ? "success" : step}
+                  initial={reduceMotion ? false : { opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.25, delay: 0.05 }}
                 >
-                  <div className="w-10 h-10 rounded-full border border-hunter-gold/40 flex items-center justify-center mb-2">
-                    <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-                      <path
-                        d="M1 6L6 11L15 1"
-                        stroke="rgba(201,168,76,0.8)"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                  <p className="font-display text-xl text-[var(--theme-text)]">
-                    {t("Cerere trimisă!")}
-                  </p>
-                  <p className="font-sans text-sm text-[var(--theme-text-muted)]">
-                    {t(
-                      "Te contactăm în maximum 24 de ore pentru a confirma programarea"
-                    )}
-                  </p>
-                  <button
-                    onClick={handleCloseAfterSuccess}
-                    className="mt-2 h-11 w-100 px-8 font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors cursor-pointer"
-                  >
-                    {t("Închide")}
-                  </button>
-                </div>
-              ) : step === 0 ? (
-                <div key="intro" className="flex flex-col gap-5 py-2">
-                  <p className="font-sans text-sm text-[var(--theme-text-muted)] leading-relaxed">
-                    {t(
-                      "O întâlnire personalizată în care discutăm despre stilul tău, alegem materialele potrivite și definim fiecare detaliu al costumului dorit Te ghidăm în procesul de creare a unei ținute realizate special pentru tine"
-                    )}
-                  </p>
-                  <div className="flex flex-col gap-2.5 border-t border-[var(--theme-border)] pt-4">
-                    {[
-                      t(
-                        "Alegerea materialelor și a detaliilor potrivite stilului tău"
-                      ),
-                      t("Măsurători precise pentru o potrivire impecabilă"),
-                      t("Recomandări de croială și personalizare"),
-                      t(
-                        "Crearea unei ținute unice, realizate special pentru tine"
-                      ),
-                    ].map((item) => (
-                      <div key={item} className="flex items-start gap-2.5">
-                        <span className="mt-[6px] shrink-0 w-1 h-1 rounded-full bg-hunter-gold/50" />
-                        <p className="font-sans text-[12px] text-[var(--theme-text-muted)] leading-relaxed">
-                          {item}
-                        </p>
+                  {status === "success" ? (
+                    <div
+                      key="success"
+                      className="text-center py-6 flex flex-col items-center gap-3"
+                    >
+                      <div className="w-10 h-10 rounded-full border border-hunter-gold/40 flex items-center justify-center mb-2">
+                        <svg
+                          width="16"
+                          height="12"
+                          viewBox="0 0 16 12"
+                          fill="none"
+                        >
+                          <path
+                            d="M1 6L6 11L15 1"
+                            stroke="rgba(201,168,76,0.8)"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              ) : step === 1 ? (
-                <div key="step1">
-                  <AppointmentDatePicker
-                    inline
-                    hasError={dateError}
-                    initialDate={date}
-                    initialTime={time}
-                    onSelect={(d, t) => {
-                      setDate(d)
-                      setTime(t)
-                      setDateError(false)
-                    }}
-                  />
-                </div>
-              ) : (
-                <div key="step2" className="flex flex-col gap-3">
-                  <div className="flex flex-col gap-3">
-                    <div>
-                      <Label htmlFor="m-name" error={errors.name}>
-                        {t("Nume")}
-                      </Label>
-                      <input
-                        id="m-name"
-                        type="text"
-                        autoComplete="name"
-                        enterKeyHint="next"
-                        value={name}
-                        onChange={(e) => {
-                          setName(e.target.value)
-                          if (errors.name)
-                            setErrors((prev) => ({ ...prev, name: false }))
+                      <p className="font-display text-xl text-[var(--theme-text)]">
+                        {t("Cerere trimisă!")}
+                      </p>
+                      <p className="font-sans text-sm text-[var(--theme-text-muted)]">
+                        {t(
+                          "Te contactăm în maximum 24 de ore pentru a confirma programarea",
+                        )}
+                      </p>
+                      <button
+                        onClick={handleCloseAfterSuccess}
+                        className="mt-2 h-11 w-100 px-8 font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors cursor-pointer"
+                      >
+                        {t("Închide")}
+                      </button>
+                    </div>
+                  ) : step === 0 ? (
+                    <div key="intro" className="flex flex-col gap-5 py-2">
+                      <p className="font-sans text-sm text-[var(--theme-text-muted)] leading-relaxed">
+                        {t(
+                          "O întâlnire personalizată în care discutăm despre stilul tău, alegem materialele potrivite și definim fiecare detaliu al costumului dorit Te ghidăm în procesul de creare a unei ținute realizate special pentru tine",
+                        )}
+                      </p>
+                      <div className="flex flex-col gap-2.5 border-t border-[var(--theme-border)] pt-4">
+                        {[
+                          t(
+                            "Alegerea materialelor și a detaliilor potrivite stilului tău",
+                          ),
+                          t("Măsurători precise pentru o potrivire impecabilă"),
+                          t("Recomandări de croială și personalizare"),
+                          t(
+                            "Crearea unei ținute unice, realizate special pentru tine",
+                          ),
+                        ].map((item) => (
+                          <div key={item} className="flex items-start gap-2.5">
+                            <span className="mt-[6px] shrink-0 w-1 h-1 rounded-full bg-hunter-gold/50" />
+                            <p className="font-sans text-[12px] text-[var(--theme-text-muted)] leading-relaxed">
+                              {item}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : step === 1 ? (
+                    <div key="step1">
+                      <AppointmentDatePicker
+                        inline
+                        hasError={dateError}
+                        initialDate={date}
+                        initialTime={time}
+                        onSelect={(d, t) => {
+                          setDate(d)
+                          setTime(t)
+                          setDateError(false)
                         }}
-                        className={inputClass(errors.name)}
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="m-email" error={errors.email}>
-                        {t("Email")}
-                      </Label>
-                      <input
-                        id="m-email"
-                        type="email"
-                        autoComplete="email"
-                        enterKeyHint="next"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value)
-                          if (errors.email)
-                            setErrors((prev) => ({ ...prev, email: false }))
-                        }}
-                        className={inputClass(errors.email)}
-                      />
+                  ) : (
+                    <div key="step2" className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-3">
+                        <div>
+                          <Label htmlFor="m-name" error={errors.name}>
+                            {t("Nume")}
+                          </Label>
+                          <input
+                            id="m-name"
+                            type="text"
+                            autoComplete="name"
+                            enterKeyHint="next"
+                            value={name}
+                            onChange={(e) => {
+                              setName(e.target.value)
+                              if (errors.name)
+                                setErrors((prev) => ({ ...prev, name: false }))
+                            }}
+                            className={inputClass(errors.name)}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="m-email" error={errors.email}>
+                            {t("Email")}
+                          </Label>
+                          <input
+                            id="m-email"
+                            type="email"
+                            autoComplete="email"
+                            enterKeyHint="next"
+                            value={email}
+                            onChange={(e) => {
+                              setEmail(e.target.value)
+                              if (errors.email)
+                                setErrors((prev) => ({ ...prev, email: false }))
+                            }}
+                            className={inputClass(errors.email)}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="m-phone" error={errors.phone}>
+                          {t("Telefon")}
+                        </Label>
+                        <input
+                          id="m-phone"
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          enterKeyHint="next"
+                          value={phone}
+                          onChange={(e) => {
+                            setPhone(e.target.value)
+                            if (errors.phone)
+                              setErrors((prev) => ({ ...prev, phone: false }))
+                          }}
+                          className={inputClass(errors.phone)}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="m-message" error={errors.message}>
+                          {t("Mesaj")}
+                        </Label>
+                        <textarea
+                          id="m-message"
+                          rows={3}
+                          value={message}
+                          onChange={(e) => {
+                            setMessage(e.target.value)
+                            if (errors.message)
+                              setErrors((prev) => ({ ...prev, message: false }))
+                          }}
+                          className={`w-full bg-transparent border px-3 py-2.5 font-sans text-sm text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus:outline-none transition-colors resize-none ${
+                            errors.message
+                              ? "border-red-400/60"
+                              : "border-[var(--theme-border)] focus:border-hunter-gold/60"
+                          }`}
+                        />
+                      </div>
+                      {status === "error" && (
+                        <p className="font-sans text-xs text-red-400">
+                          {errorMsg}
+                        </p>
+                      )}
                     </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="m-phone" error={errors.phone}>
-                      {t("Telefon")}
-                    </Label>
-                    <input
-                      id="m-phone"
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      enterKeyHint="next"
-                      value={phone}
-                      onChange={(e) => {
-                        setPhone(e.target.value)
-                        if (errors.phone)
-                          setErrors((prev) => ({ ...prev, phone: false }))
-                      }}
-                      className={inputClass(errors.phone)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="m-message" error={errors.message}>
-                      {t("Mesaj")}
-                    </Label>
-                    <textarea
-                      id="m-message"
-                      rows={3}
-                      value={message}
-                      onChange={(e) => {
-                        setMessage(e.target.value)
-                        if (errors.message)
-                          setErrors((prev) => ({ ...prev, message: false }))
-                      }}
-                      className={`w-full bg-transparent border px-3 py-2.5 font-sans text-sm text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus:outline-none transition-colors resize-none ${
-                        errors.message
-                          ? "border-red-400/60"
-                          : "border-[var(--theme-border)] focus:border-hunter-gold/60"
-                      }`}
-                    />
-                  </div>
-                  {status === "error" && (
-                    <p className="font-sans text-xs text-red-400">{errorMsg}</p>
                   )}
-                </div>
-              )}
-            </div>
+                </motion.div>
+              </div>
+            </motion.div>
 
             {/* Footer nav */}
             {status !== "success" && (
