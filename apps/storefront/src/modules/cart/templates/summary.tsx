@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartTotals from "@modules/common/components/cart-totals"
 import { HttpTypes } from "@medusajs/types"
+import { hasAllShippingMethods } from "@lib/util/dropshipping"
 
 type SummaryProps = {
   cart: HttpTypes.StoreCart
@@ -11,7 +12,7 @@ type SummaryProps = {
 
 function getCheckoutStep(cart: HttpTypes.StoreCart) {
   if (!cart?.shipping_address?.address_1 || !cart.email) return "adresa"
-  if (cart?.shipping_methods?.length === 0) return "livrare"
+  if (!hasAllShippingMethods(cart)) return "livrare"
   return "sumar"
 }
 

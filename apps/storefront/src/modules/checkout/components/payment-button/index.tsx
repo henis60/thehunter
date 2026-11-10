@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import ErrorMessage from "../error-message"
 import { getDisplayableErrorMessage } from "@lib/util/stale-deployment"
 import Spinner from "@modules/common/icons/spinner"
+import { hasAllShippingMethods } from "@lib/util/dropshipping"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -26,7 +27,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     !cart.shipping_address ||
     !cart.billing_address ||
     !cart.email ||
-    (cart.shipping_methods?.length ?? 0) < 1
+    !hasAllShippingMethods(cart)
 
   // Provider-ul se ia din metodele disponibile, NU dintr-o sesiune de plată
   // existentă. Înainte, pasul de review crea o sesiune doar ca butonul să afle

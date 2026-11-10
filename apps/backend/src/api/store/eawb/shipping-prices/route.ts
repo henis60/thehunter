@@ -1,5 +1,6 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { Modules } from "@medusajs/framework/utils"
+import { ContainerRegistrationKeys, Modules } from "@medusajs/framework/utils"
+import { resolveShippingProfileIds } from "../../../../lib/dropshipping"
 import { EuroparcelClient } from "../../../../modules/eawb/lib/client"
 import { EuroparcelApiError } from "../../../../modules/eawb/lib/errors"
 import { buildContent, roundShippingPrice, toEpAddress } from "../../../../modules/eawb/lib/pricing"
@@ -43,16 +44,33 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     return res.json({ prices: {} })
   }
 
-  const cartModule = req.scope.resolve(Modules.CART)
-  const cart = await cartModule.retrieveCart(cartId, {
-    select: ["id", "email"],
-    relations: ["shipping_address", "items"],
+  const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
+  const { data: [cart] } = await query.graph({
+    entity: "cart",
+    fields: [
+      "id",
+      "shipping_address.*",
+      "items.id",
+      "items.quantity",
+      "items.variant.product.shipping_profile.id",
+    ],
+    filters: { id: cartId },
   })
 
   const shippingAddress = cart?.shipping_address as unknown as
     | Record<string, unknown>
     | null
   if (!shippingAddress?.city) {
+    return res.json({ prices: {} })
+  }
+
+  // Doar produsele care pleacă efectiv cu curierul: cele în dropshipping au
+  // livrare separată, gratuită, de la furnizor.
+  const { dropship } = await resolveShippingProfileIds(req.scope)
+  const courierItems = ((cart.items ?? []) as any[]).filter(
+    (i) => i && (!dropship || i.variant?.product?.shipping_profile?.id !== dropship)
+  )
+  if (!courierItems.length) {
     return res.json({ prices: {} })
   }
 
@@ -87,7 +105,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
       billing_to: { billing_address_id: billingId },
       address_from: { address_from_id: fromId },
       address_to: toEpAddress(shippingAddress),
-      content: buildContent((cart.items ?? []) as Array<{ quantity?: number }>),
+      content: buildContent(courierItems as Array<{ quantity?: number }>),
       extra: { parcel_content: "Produse" },
     })
 

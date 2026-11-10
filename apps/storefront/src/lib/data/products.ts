@@ -237,7 +237,7 @@ export const getProductByHandle = async (
           // — Medusa's default scalar set (unlike +title, +handle) doesn't
           // include either, so every product silently fell back to the
           // title-only meta description.
-          "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*variants.options,+variants.variant_rank,*options,*options.values,+metadata,+tags,*categories,+description,+subtitle",
+          "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*variants.options,+variants.variant_rank,*options,*options.values,+metadata,+tags,*categories,+shipping_profile.type,+description,+subtitle",
       },
       next: { tags: ["products"], revalidate: 3600 },
       cache: "force-cache",

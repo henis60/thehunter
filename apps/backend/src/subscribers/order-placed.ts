@@ -1,6 +1,7 @@
 import { SubscriberArgs, type SubscriberConfig } from "@medusajs/framework";
 import { capturePaymentWorkflow } from "@medusajs/core-flows";
 import { runCreateOblioInvoice } from "../workflows/create-oblio-invoice";
+import { resolveShippingProfileIds } from "../lib/dropshipping";
 
 export default async function sendOrderConfirmationEmail({
   event: { data, name: eventName },
@@ -71,6 +72,7 @@ export default async function sendOrderConfirmationEmail({
         "customer.last_name",
         "items.*",
         "items.variant.product.title",
+        "items.variant.product.shipping_profile.id",
         "shipping_address.*",
       ],
       filters: { id: data.id },
@@ -82,6 +84,21 @@ export default async function sendOrderConfirmationEmail({
     }
 
     const order = orders[0];
+
+    // Produsele în dropshipping vin direct de la furnizor, gratuit, în 7–10
+    // zile — separat de coletul cu curier. Marcate în ambele emailuri: clientul
+    // trebuie să știe că primește două colete, echipa că trebuie comandat la
+    // furnizor.
+    const { dropship: dropshipProfileId } = await resolveShippingProfileIds(container);
+    const isDropshipItem = (item: any) =>
+      !!dropshipProfileId &&
+      item?.variant?.product?.shipping_profile?.id === dropshipProfileId;
+    order.items = (order.items ?? []).map((item: any) => ({
+      ...item,
+      is_dropship: isDropshipItem(item),
+    }));
+    const hasDropship = order.items.some((i: any) => i.is_dropship);
+    const hasCourier = order.items.some((i: any) => !i.is_dropship);
 
     await notifyAdmins(container, order);
 
@@ -135,6 +152,13 @@ export default async function sendOrderConfirmationEmail({
           unit_price: `${Number(item.unit_price ?? 0).toFixed(2)} ${(order.currency_code ?? "RON").toUpperCase()}`,
           subtotal: `${Number(item.subtotal ?? (item.unit_price ?? 0) * (item.quantity ?? 1)).toFixed(2)} ${(order.currency_code ?? "RON").toUpperCase()}`,
         })),
+        // Text gata de afișat în șablonul Brevo (null = comandă fără dropshipping).
+        // Fără „livrare gratuită”: transportul gratuit nu se menționează.
+        dropship_notice: hasDropship
+          ? hasCourier
+            ? "Comanda ta ajunge în două colete: o parte din produse ajung în 7–10 zile, iar restul pleacă prin curier, cu cod de urmărire."
+            : "Produsele din comanda ta ajung în 7–10 zile."
+          : null,
         total: `${Number(order.total ?? 0).toFixed(2)} ${(order.currency_code ?? "RON").toUpperCase()}`,
         discount_total: Number(order.discount_total ?? 0) > 0
           ? `${Number(order.discount_total).toFixed(2)} ${(order.currency_code ?? "RON").toUpperCase()}`
@@ -208,7 +232,7 @@ async function sendAdminNotification(
         customer_phone: addr.phone ?? "—",
         shipping_city: [addr.city, addr.province].filter(Boolean).join(", ") || "—",
         items: (order.items ?? []).map((item: any) => ({
-          title: item.title,
+          title: item.is_dropship ? `[Dropshipping] ${item.title}` : item.title,
           quantity: item.quantity,
           subtotal: money(item.subtotal ?? (item.unit_price ?? 0) * (item.quantity ?? 1)),
         })),

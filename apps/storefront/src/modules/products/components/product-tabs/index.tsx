@@ -3,6 +3,7 @@
 import Accordion from "./accordion"
 import { HttpTypes } from "@medusajs/types"
 import { useTranslations } from "next-intl"
+import { isDropshipProduct } from "@lib/util/dropshipping"
 
 type ProductTabsProps = {
   product: HttpTypes.StoreProduct
@@ -26,7 +27,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
     }] : []),
     {
       label: t("Livrare & Retururi"),
-      component: <ShippingInfoTab />,
+      component: <ShippingInfoTab dropship={isDropshipProduct(product)} />,
     },
   ]
 
@@ -93,10 +94,15 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
   )
 }
 
-const ShippingInfoTab = () => {
+const ShippingInfoTab = ({ dropship }: { dropship: boolean }) => {
   const t = useTranslations("products")
   const items = [
-    { label: t("Livrare rapidă"), desc: t("Coletul ajunge în 3–5 zile lucrătoare la adresa ta sau la un punct de ridicare") },
+    dropship
+      ? {
+          label: t("Livrare gratuită"),
+          desc: t("Livrare gratuită, în 7–10 zile"),
+        }
+      : { label: t("Livrare rapidă"), desc: t("Coletul ajunge în 3–5 zile lucrătoare la adresa ta sau la un punct de ridicare") },
     { label: t("Schimburi simple"), desc: t("Nu se potrivește? Schimbăm produsul fără bătăi de cap") },
     { label: t("Retururi ușoare"), desc: t("Ai 14 zile să returnezi produsul și îți rambursăm banii") },
   ]

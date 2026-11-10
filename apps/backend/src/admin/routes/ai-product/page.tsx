@@ -30,6 +30,7 @@ type Row = {
   stock: string;
   technical_details: string;
   inStoreOnly: boolean;
+  dropshipping: boolean;
   libraryUrls: string[];
   status: RowStatus;
   error?: string;
@@ -528,9 +529,9 @@ const AIProductPage = () => {
   const { data: shippingProfilesData } = useQuery({
     queryKey: ["admin-shipping-profiles"],
     queryFn: () =>
-      sdk.client.fetch<{ shipping_profiles: { id: string; name: string }[] }>(
-        "/admin/shipping-profiles?limit=10",
-      ),
+      sdk.client.fetch<{
+        shipping_profiles: { id: string; name: string; type: string }[];
+      }>("/admin/shipping-profiles?limit=20&fields=id,name,type"),
   });
 
   const categories = categoriesData?.product_categories ?? [];
@@ -548,6 +549,11 @@ const AIProductPage = () => {
   const defaultShippingProfileId =
     (shippingProfilesData?.shipping_profiles ?? []).find((sp: any) =>
       sp.name?.toLowerCase().includes("default"),
+    )?.id ?? null;
+  // Creat de src/scripts/setup-dropshipping.ts (type „dropshipping”).
+  const dropshipShippingProfileId =
+    (shippingProfilesData?.shipping_profiles ?? []).find(
+      (sp: any) => sp.type === "dropshipping",
     )?.id ?? null;
 
   // ── CSV ──────────────────────────────────────────────────────────────────
@@ -584,6 +590,9 @@ const AIProductPage = () => {
               stock: raw.stock ?? "",
               technical_details: raw.technical_details ?? "",
               inStoreOnly: false,
+              dropshipping: /^(1|true|da|yes|x)$/i.test(
+                String(raw.dropshipping ?? "").trim(),
+              ),
               libraryUrls: [],
               status: "idle" as RowStatus,
             }
@@ -628,6 +637,7 @@ const AIProductPage = () => {
         stock: "",
         technical_details: "",
         inStoreOnly: false,
+        dropshipping: false,
         libraryUrls: [],
         status: "idle",
       },
@@ -640,22 +650,39 @@ const AIProductPage = () => {
     rows.length > 0 &&
     rows.every((r) => r.libraryUrls.length > 0 || r.status === "done");
   const pendingRows = rows.filter((r) => r.status !== "done");
+  // Liniile încă modificabile — bifa „Dropshipping” din antet le comută pe toate.
+  const editableRows = pendingRows;
 
   const processAll = async () => {
     setProcessing(true);
 
     const CONCURRENCY = 5;
     const hasImages = (r: Row) => r.libraryUrls.length > 0;
+    const missingDropshipProfile = (r: Row) =>
+      r.dropshipping && !dropshipShippingProfileId;
     const toProcess = rows.filter(
-      (r) => r.status !== "done" && r.sku_prefix && hasImages(r),
+      (r) =>
+        r.status !== "done" &&
+        r.sku_prefix &&
+        hasImages(r) &&
+        !missingDropshipProfile(r),
     );
     const errored = rows.filter(
-      (r) => r.status !== "done" && (!r.sku_prefix || !hasImages(r)),
+      (r) =>
+        r.status !== "done" &&
+        (!r.sku_prefix || !hasImages(r) || missingDropshipProfile(r)),
     );
     errored.forEach((row) => {
       if (!row.sku_prefix)
         updateRow(row.index, { status: "error", error: "SKU prefix lipsă" });
-      else updateRow(row.index, { status: "error", error: "Lipsă imagini" });
+      else if (!hasImages(row))
+        updateRow(row.index, { status: "error", error: "Lipsă imagini" });
+      else
+        updateRow(row.index, {
+          status: "error",
+          error:
+            "Profilul de livrare „Dropshipping” nu există — rulează scriptul setup-dropshipping",
+        });
     });
 
     let doneCount = 0;
@@ -844,9 +871,11 @@ const AIProductPage = () => {
           ...(onlineChannelId
             ? { sales_channels: [{ id: onlineChannelId }] }
             : {}),
-          ...(defaultShippingProfileId
-            ? { shipping_profile_id: defaultShippingProfileId }
-            : {}),
+          ...(row.dropshipping && dropshipShippingProfileId
+            ? { shipping_profile_id: dropshipShippingProfileId }
+            : defaultShippingProfileId
+              ? { shipping_profile_id: defaultShippingProfileId }
+              : {}),
           options: buildOptions(colors, sizes),
           variants: buildVariants(
             colors,
@@ -1427,6 +1456,28 @@ const AIProductPage = () => {
                 <th className="text-left py-2 px-3 text-ui-fg-subtle font-medium text-xs whitespace-nowrap">
                   Doar magazin
                 </th>
+                <th className="text-left py-2 px-3 text-ui-fg-subtle font-medium text-xs whitespace-nowrap">
+                  <div
+                    className="flex items-center gap-1.5"
+                    title="Livrare gratuită, fără AWB, în 7–10 zile. Bifa din antet se aplică tuturor liniilor."
+                  >
+                    <CheckCell
+                      checked={
+                        editableRows.length > 0 &&
+                        editableRows.every((r) => r.dropshipping)
+                      }
+                      onChange={(v) =>
+                        setRows((prev) =>
+                          prev.map((r) =>
+                            r.status === "done" ? r : { ...r, dropshipping: v },
+                          ),
+                        )
+                      }
+                      disabled={processing || editableRows.length === 0}
+                    />
+                    Dropshipping
+                  </div>
+                </th>
                 <th className="text-left py-2 px-3 text-ui-fg-subtle font-medium text-xs">
                   Status
                 </th>
@@ -1563,6 +1614,15 @@ const AIProductPage = () => {
                         checked={row.inStoreOnly}
                         onChange={(v) =>
                           updateField(row.index, "inStoreOnly", v)
+                        }
+                        disabled={disabled}
+                      />
+                    </td>
+                    <td className="py-2 px-3">
+                      <CheckCell
+                        checked={row.dropshipping}
+                        onChange={(v) =>
+                          updateField(row.index, "dropshipping", v)
                         }
                         disabled={disabled}
                       />

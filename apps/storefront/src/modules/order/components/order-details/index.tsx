@@ -6,13 +6,6 @@ type OrderDetailsProps = {
   showStatus?: boolean
 }
 
-// The store API expands `labels` onto each fulfillment when queried via
-// `*fulfillments.labels`, but @medusajs/types doesn't declare it on
-// StoreOrderFulfillment — it's only typed for the admin fulfillment entity.
-type FulfillmentWithLabels = HttpTypes.StoreOrderFulfillment & {
-  labels?: { tracking_url?: string | null }[]
-}
-
 const STATUS_RO: Record<string, string> = {
   pending: "În așteptare",
   not_fulfilled: "Nelivrată",
@@ -44,17 +37,10 @@ const formatStatus = (
     .join(" ")
 }
 
-const trackingUrl = (order: HttpTypes.StoreOrder): string | null => {
-  for (const fulfillment of (order.fulfillments ?? []) as FulfillmentWithLabels[]) {
-    const url = fulfillment.labels?.[0]?.tracking_url
-    if (url) return url
-  }
-  return null
-}
-
+// „Urmărește comanda" stă în order-details-template, lângă celelalte butoane
+// de acțiune (în afara chenarului, full width pe mobil).
 const OrderDetails = async ({ order, showStatus }: OrderDetailsProps) => {
   const t = await getTranslations("order")
-  const trackUrl = trackingUrl(order)
 
   return (
     <div className="small:px-8 py-6 grid grid-cols-2 small:grid-cols-4 gap-6">
@@ -96,17 +82,6 @@ const OrderDetails = async ({ order, showStatus }: OrderDetailsProps) => {
             >
               {formatStatus(order.fulfillment_status, t)}
             </p>
-            {trackUrl && (
-              <a
-                href={trackUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-2 h-9 px-4 flex items-center justify-center bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity font-sans uppercase tracking-[2px] text-[10px]"
-                data-testid="order-track-link"
-              >
-                {t("Urmărește comanda")}
-              </a>
-            )}
           </div>
           <div>
             <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-1.5">

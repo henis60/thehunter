@@ -199,7 +199,7 @@ export default class EawbFulfillmentProviderService extends AbstractFulfillmentP
 
   async calculatePrice(
     optionData: CalculateShippingOptionPriceDTO["optionData"],
-    _data: CalculateShippingOptionPriceDTO["data"],
+    data: CalculateShippingOptionPriceDTO["data"],
     context: CalculateShippingOptionPriceDTO["context"]
   ): Promise<CalculatedShippingOptionPrice> {
     const shippingAddress = context.shipping_address as Record<string, unknown> | undefined
@@ -211,8 +211,15 @@ export default class EawbFulfillmentProviderService extends AbstractFulfillmentP
     try {
       const billingAddressId = await this.getBillingAddressId()
 
+      // Produsele în dropshipping pleacă de la furnizor, nu în coletul nostru:
+      // ruta /store/carts/:id/profile-shipping-method pune id-urile lor pe
+      // `data` metodei eAWB, ca greutatea să le excludă.
+      const dropshipProductIds = new Set(
+        ((data as any)?.dropship_product_ids as string[] | undefined) ?? []
+      )
       const content = buildContent(
-        ((context as any)?.items as Array<{ quantity?: number }>) ?? []
+        (((context as any)?.items as Array<{ quantity?: number; product_id?: string }>) ?? [])
+          .filter((i) => !i.product_id || !dropshipProductIds.has(i.product_id))
       )
       const parcel = content.parcels?.[0]?.size
 
