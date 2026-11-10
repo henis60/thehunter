@@ -35,7 +35,7 @@ export default function Membership() {
       <div className="section-inner">
         <div className="kicker rv">
           <span>{t("Membership")}</span>
-          <span className="font-sans text-[12px] uppercase tracking-[3px] text-hunter-gold leading-none">
+          <span className="font-sans text-[11px] uppercase tracking-[3px] text-hunter-gold leading-none">
             {t("Coming Soon")}
           </span>
         </div>

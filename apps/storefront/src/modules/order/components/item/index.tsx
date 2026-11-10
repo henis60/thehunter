@@ -48,7 +48,7 @@ const Item = async ({ item, currencyCode }: ItemProps) => {
             data-testid="product-variant"
           />
           <span
-            className="font-sans text-[12px] text-[var(--theme-text-muted)]"
+            className="font-sans text-[11px] text-[var(--theme-text-muted)]"
             data-testid="product-quantity"
           >
             {t("Cant: {quantity}", { quantity: item.quantity })}
@@ -60,7 +60,7 @@ const Item = async ({ item, currencyCode }: ItemProps) => {
             style="tight"
             currencyCode={currencyCode}
           />
-          <div className="font-display text-[17px] text-hunter-gold">
+          <div className="font-display text-[16px] text-hunter-gold">
             <LineItemPrice
               item={item}
               style="tight"

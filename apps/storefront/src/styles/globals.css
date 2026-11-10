@@ -72,6 +72,10 @@
 
   body {
     min-width: 320px;
+    /* Raleway/Cormorant at 400 read as hairline-thin at the small sizes
+       used across the site, so 500 is the base for body text. Headings
+       stay at 400 (below). */
+    font-weight: 500;
     background-color: var(--theme-bg);
     color: var(--theme-text);
     font-family: var(--rl);
@@ -90,6 +94,29 @@
   h2,
   h3 {
     font-family: var(--pd);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-display {
+    font-weight: 400;
+  }
+
+  /* Selected / current items stand out from the 500 base. Components mark
+     the selected element with the matching ARIA state (or the Headless UI
+     data-headlessui-state attribute), so this one rule covers them all. */
+  [aria-pressed="true"],
+  [aria-selected="true"],
+  [aria-checked="true"],
+  [aria-current]:not([aria-current="false"]),
+  [data-headlessui-state~="selected"],
+  [data-headlessui-state~="checked"],
+  [data-selected],
+  [data-checked] {
+    font-weight: 600;
   }
 }
 
@@ -491,7 +518,7 @@ body.hunter-landing-active::before {
 }
 .eyebrow-text {
   font-family: var(--rl);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 7px;
   text-transform: uppercase;
@@ -524,6 +551,29 @@ body.hunter-landing-active::before {
   color: var(--gold);
   overflow: hidden;
   white-space: nowrap;
+}
+/* Phones: the desktop clamp() bottoms out at 46/54px, and THE HUNTER's wide
+   tracking made it wider than the hero's content area. With tighter tracking
+   line 1 is sized from the available width (100vw minus the 16px side
+   padding below; ~7.1em is the line's width, 7.3 leaves a few px of air), so
+   it always fits; HOUSE, which is much shorter, grows the most. Both meet the
+   desktop sizes at 600px.
+   padding-left = letter-spacing balances the space letter-spacing adds after
+   the last letter, so the lines are truly centered. */
+@media (max-width: 600px) {
+  .hero {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .logo-l1 {
+    font-size: min(calc((100vw - 32px) / 7.3), calc(42px + 2vw));
+    letter-spacing: 0.05em;
+    padding-left: 0.05em;
+  }
+  .logo-l2 {
+    font-size: min(17.6vw, 66px);
+    padding-left: 0.06em;
+  }
 }
 .char {
   display: inline-block;
@@ -577,7 +627,7 @@ body.hunter-landing-active::before {
 /* shop subtitle — appears between logo ornament and badge */
 .hero-sub {
   font-family: var(--rl);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 9px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.5);
@@ -594,7 +644,7 @@ body.hunter-landing-active::before {
   border: 1px solid rgba(201, 168, 76, 0.25);
   padding: 11px 26px;
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: var(--gold);
@@ -686,7 +736,7 @@ body.hunter-landing-active::before {
 }
 .cd-lbl {
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -736,7 +786,8 @@ body.hunter-landing-active::before {
 }
 .hero-cta-text {
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.75);
@@ -787,7 +838,7 @@ body.hunter-landing-active::before {
 }
 .tf-btn-text {
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.6);
@@ -797,7 +848,7 @@ body.hunter-landing-active::before {
   color: rgba(232, 213, 163, 0.9);
 }
 .tf-btn-arrow {
-  font-size: 18px;
+  font-size: 17px;
   color: rgba(201, 168, 76, 0.6);
   transition: transform 0.3s, color 0.3s;
   display: inline-block;
@@ -825,7 +876,7 @@ body.hunter-landing-active::before {
 }
 .mqitem {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -885,7 +936,7 @@ body.hunter-landing-active::before {
   padding-top: 0;
 }
 .newsletter-email-input::placeholder {
-  font-size: 16px;
+  font-size: 15px;
 }
 .newsletter-email-input {
   height: 44px;
@@ -898,7 +949,7 @@ body.hunter-landing-active::before {
 .newsletter-submit-btn {
   flex-shrink: 0;
   font-family: var(--rl);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--dark);
@@ -910,7 +961,7 @@ body.hunter-landing-active::before {
 }
 @media (max-width: 768px) {
   .newsletter-submit-btn {
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 2px;
     padding: 0 14px;
     height: 38px;
@@ -939,9 +990,9 @@ body.hunter-landing-active::before {
 }
 .subscribe-panel-copy {
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 16px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   color: rgba(232, 213, 163, 0.64);
   margin-bottom: 16px;
@@ -953,7 +1004,7 @@ body.hunter-landing-active::before {
 
 .kicker {
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 7px;
   text-transform: uppercase;
   color: var(--gold-d);
@@ -979,7 +1030,7 @@ body.hunter-landing-active::before {
   font-family: var(--cg);
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.65);
   line-height: 1.75;
   max-width: 600px;
@@ -1083,7 +1134,7 @@ body.hunter-landing-active::before {
 .dviz-label {
   position: absolute;
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.55);
@@ -1093,7 +1144,7 @@ body.hunter-landing-active::before {
   transition: opacity 0.4s;
 }
 .dviz-label.hub {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--gold);
   letter-spacing: 4px;
 }
@@ -1165,7 +1216,7 @@ body.hunter-landing-active::before {
 }
 .dviz-caption-sub {
   font-family: var(--cg);
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.5);
   margin-top: 3px;
@@ -1220,16 +1271,16 @@ body.hunter-landing-active::before {
 }
 .pl-name {
   font-family: var(--ci);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 5px;
 }
 .pl-desc {
-  font-size: 18px;
+  font-size: 17px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.62);
   line-height: 1.65;
 }
@@ -1305,16 +1356,16 @@ body.hunter-landing-active::before {
 } /* icons removed */
 .svc-name {
   font-family: var(--ci);
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 11px;
 }
 .svc-desc {
-  font-size: 17px;
+  font-size: 16px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.62);
   line-height: 1.7;
   flex: 1;
@@ -1322,7 +1373,7 @@ body.hunter-landing-active::before {
 .svc-foot {
   margin-top: 22px;
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.45);
@@ -1393,7 +1444,7 @@ body.hunter-landing-active::before {
 .band-source {
   margin-top: 4px;
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.55);
@@ -1479,7 +1530,7 @@ body.hunter-landing-active::before {
 .coll-sub {
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.65);
   line-height: 1.75;
   max-width: 380px;
@@ -1538,7 +1589,7 @@ body.hunter-landing-active::before {
 
 .ev-freq {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--gold-d);
@@ -1558,16 +1609,16 @@ body.hunter-landing-active::before {
 }
 .ev-when {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.5);
   margin-bottom: 12px;
 }
 .ev-desc {
-  font-size: 16px;
+  font-size: 15px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.65);
   line-height: 1.6;
   margin-bottom: 14px;
@@ -1581,9 +1632,9 @@ body.hunter-landing-active::before {
   display: flex;
   align-items: flex-start;
   gap: 9px;
-  font-size: 17px;
+  font-size: 16px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.55);
 }
 .ev-perk::before {
@@ -1701,7 +1752,7 @@ body.hunter-landing-active::before {
 
 .zone-num {
   font-family: var(--pd);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
   color: rgba(201, 168, 76, 0.3);
@@ -1710,7 +1761,7 @@ body.hunter-landing-active::before {
 }
 .zone-vname {
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
@@ -1762,7 +1813,7 @@ body.hunter-landing-active::before {
 
 .zone-tag {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.55);
@@ -1784,9 +1835,9 @@ body.hunter-landing-active::before {
 
 .zone-desc {
   font-family: var(--cg);
-  font-size: 16px;
+  font-size: 15px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.58);
   line-height: 1.7;
   max-width: 280px;
@@ -1830,7 +1881,7 @@ body.hunter-landing-active::before {
 }
 .stat-lbl {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.5);
@@ -1894,7 +1945,7 @@ body.hunter-landing-active::before {
 .bar-body {
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.72);
   line-height: 1.75;
   margin-bottom: 34px;
@@ -1920,7 +1971,7 @@ body.hunter-landing-active::before {
 }
 .bs-lbl {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
@@ -2060,9 +2111,9 @@ body.hunter-landing-active::before {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.6);
 }
 .mem-perk::before {
@@ -2103,7 +2154,7 @@ body.hunter-landing-active::before {
 }
 .soc {
   font-family: var(--rl);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.75);
@@ -2152,7 +2203,7 @@ body.hunter-landing-active::before {
 }
 .cb-value {
   font-family: var(--cg);
-  font-size: 18px;
+  font-size: 17px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.7);
   text-decoration: none;
@@ -2163,7 +2214,7 @@ a.cb-value:hover {
 }
 .cb-note {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.28);
@@ -2204,7 +2255,7 @@ a.cb-value:hover {
 }
 .cb-appt-channels {
   font-family: var(--rl);
-  font-size: 7.5px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -2219,7 +2270,7 @@ a.cb-value:hover {
 }
 .cb-appt-desc {
   font-family: var(--cg);
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.56);
   margin-top: 14px;
@@ -2255,7 +2306,7 @@ a.cb-value:hover {
 }
 .fl1 {
   font-family: var(--pd);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -2264,7 +2315,7 @@ a.cb-value:hover {
 }
 .fl2 {
   font-family: var(--pd);
-  font-size: 18px;
+  font-size: 17px;
   font-style: italic;
   font-weight: 400;
   color: rgba(201, 168, 76, 0.65);
@@ -2394,9 +2445,9 @@ a.cb-value:hover {
 
 .modal-sub {
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 16px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.72);
   line-height: 1.65;
   margin-bottom: 28px;
@@ -2442,7 +2493,7 @@ a.cb-value:hover {
   padding: 12px;
   margin-top: 6px;
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--dark);
@@ -2462,7 +2513,7 @@ a.cb-value:hover {
 
 .modal-note {
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.4);
@@ -2513,7 +2564,7 @@ a.cb-value:hover {
   font-family: var(--cg);
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.6);
   line-height: 1.75;
   margin: 16px 0 24px;
@@ -2764,7 +2815,7 @@ a.cb-value:hover {
 .mtm-sub {
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.55);
   line-height: 1.75;
 }
@@ -2806,16 +2857,16 @@ a.cb-value:hover {
 }
 .ms-name {
   font-family: var(--ci);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 9px;
 }
 .ms-desc {
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.45);
   line-height: 1.65;
 }
@@ -2964,7 +3015,7 @@ a.cb-value:hover {
   right: 20px;
   z-index: 3;
   font-family: var(--rl);
-  font-size: 6px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.32);
@@ -3023,7 +3074,7 @@ a.cb-value:hover {
 .gc-desc {
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(232, 213, 163, 0.55);
   line-height: 1.75;
   margin-bottom: 20px;
@@ -3087,7 +3138,7 @@ a.cb-value:hover {
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.7);
@@ -3205,8 +3256,13 @@ a.cb-value:hover {
     --appt-angle: 360deg;
   }
 }
+/* The sweep spins continuously; the button component toggles visibility
+   (--on, faded) and whether it's running at all (--running). */
 .appt-ping {
-  animation: apptSpin 2.5s linear 1.2s 3;
+  animation: apptSpin 2.5s linear infinite;
+  animation-play-state: paused;
+  opacity: 0;
+  transition: opacity 0.6s ease;
   background: conic-gradient(
     from var(--appt-angle),
     transparent 0%,
@@ -3219,9 +3275,16 @@ a.cb-value:hover {
   mask-composite: exclude;
   padding: 1px;
 }
-/* While the page is actively scrolling, keep the golden sweep running. */
-.appt-ping--scrolling {
-  animation: apptSpin 2.5s linear infinite;
+.appt-ping--running {
+  animation-play-state: running;
+}
+.appt-ping--on {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .appt-ping {
+    display: none;
+  }
 }
 
 /* ════════════════════════════════════
@@ -3311,7 +3374,7 @@ a.cb-value:hover {
     padding: 20px;
   }
   .subscribe-panel-copy {
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 18px;
   }
   .svc-grid,
@@ -3378,7 +3441,7 @@ a.cb-value:hover {
   }
   .sc {
     flex: 0 0 calc(50% - 4px);
-    font-size: 6.5px;
+    font-size: 10px;
     letter-spacing: 2px;
     padding: 6px 8px;
     text-align: center;
@@ -3387,7 +3450,7 @@ a.cb-value:hover {
     bottom: 8px;
     left: 8px;
     right: 8px;
-    font-size: 6.5px;
+    font-size: 10px;
     letter-spacing: 2px;
     padding: 6px 8px;
   }
@@ -3567,7 +3630,7 @@ a.cb-value:hover {
     display: none;
   }
   .coll-sub {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
   }
   #cur,
@@ -3610,7 +3673,7 @@ a.cb-value:hover {
     bottom: 6px;
     left: 6px;
     right: 6px;
-    font-size: 5.5px;
+    font-size: 10px;
     letter-spacing: 1.5px;
     padding: 5px 6px;
   }
@@ -3685,8 +3748,10 @@ a.cb-value:hover {
     letter-spacing: 2px;
   }
   .eyebrow-text {
-    letter-spacing: 4px;
-    font-size: 12px;
+    letter-spacing: 3px;
+    /* balances the space letter-spacing leaves after the last letter */
+    padding-left: 3px;
+    font-size: 11px;
     line-height: 1.7;
   }
   .hero-sub {
@@ -3703,13 +3768,13 @@ a.cb-value:hover {
     padding: 28px 20px;
   }
   .modal-submit {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 1.5px;
     padding: 8px 6px;
     margin-top: 4px;
   }
   .modal-note {
-    font-size: 9px;
+    font-size: 10px;
   }
 }
 
@@ -3795,7 +3860,7 @@ html {
 }
 .count-badge::after {
   content: attr(data-badge);
-  font-size: 12px;
+  font-size: 11px;
   font-family: var(--rl);
   font-weight: 700;
   letter-spacing: normal;
@@ -3866,7 +3931,7 @@ html {
 }
 @media (max-width: 768px) {
   #sib-container .sib-form-block__button {
-    font-size: 11px !important;
+    font-size: 10px !important;
     letter-spacing: 1.5px !important;
     padding: 14px 6px !important;
     margin-top: 4px !important;
@@ -3977,7 +4042,7 @@ html {
   opacity: 0;
   transition: opacity 0.3s, background 0.3s;
   font-family: var(--rl);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
   color: #e8d5a3;
@@ -4284,7 +4349,7 @@ html {
     flex-direction: column;
     align-items: center !important;
     white-space: normal !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
     gap: 4px;
   }
   .thm-eyebrow-sep {

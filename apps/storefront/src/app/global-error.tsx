@@ -21,7 +21,7 @@ const buttonBase: React.CSSProperties = {
   padding: "0.75rem 1.5rem",
   border: "1px solid #c9a84c",
   fontFamily: "inherit",
-  fontSize: "12px",
+  fontSize: "11px",
   lineHeight: 1.2,
   textTransform: "uppercase",
   letterSpacing: "4px",

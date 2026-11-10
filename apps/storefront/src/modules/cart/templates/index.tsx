@@ -21,7 +21,7 @@ const CartTemplate = ({
           <>
             <CartViewTracker cart={cart} event="view_cart" />
             {/* <div className="mb-5 small:mb-10 border-b border-[var(--theme-border)] pb-4 small:pb-6">
-              <h1 className="font-sans text-[13px] small:text-[15px] uppercase tracking-[5px] text-[var(--theme-text)]">
+              <h1 className="font-sans text-[12px] small:text-[14px] uppercase tracking-[5px] text-[var(--theme-text)]">
                 Coș
                 <span className="ml-3 text-[var(--theme-text-muted)]">
                   ({cart.items.reduce((s, i) => s + i.quantity, 0)})

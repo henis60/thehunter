@@ -11,7 +11,7 @@ const inputClass = (err?: boolean) =>
   }`
 
 const Label = ({ htmlFor, children, error }: { htmlFor: string; children: React.ReactNode; error?: boolean }) => (
-  <label htmlFor={htmlFor} className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 flex items-center gap-1">
+  <label htmlFor={htmlFor} className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 flex items-center gap-1">
     {children}
     <span className={`text-base normal-case tracking-normal transition-colors ${error ? "text-red-400/80" : "text-hunter-gold/50"}`}>*</span>
   </label>
@@ -119,7 +119,7 @@ export default function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-2 self-center h-11 px-8 font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity"
+          className="mt-2 self-center h-11 px-8 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity"
         >
           {t("Trimite alt mesaj")}
         </button>
@@ -166,11 +166,11 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="self-start h-11 px-8 font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity disabled:opacity-50"
+            className="self-start h-11 px-8 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity disabled:opacity-50"
           >
             {status === "loading" ? t("Se trimite") : t("Trimite mesajul")}
           </button>
-          <p className="font-sans text-[11px] text-[var(--theme-text-muted)] leading-relaxed">
+          <p className="font-sans text-[10px] text-[var(--theme-text-muted)] leading-relaxed">
             {t("Protejat de reCAPTCHA")}{" "}
             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-hunter-gold transition-colors">
               {t("Confidențialitate")}

@@ -15,27 +15,27 @@ const PaymentDetails = async ({ order }: PaymentDetailsProps) => {
 
   return (
     <div className="small:px-8">
-      <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-5">
+      <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-5">
         {t("Plată")}
       </p>
       <div className="grid grid-cols-1 small:grid-cols-2 gap-6">
         <div>
-          <p className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
+          <p className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
             {t("Metodă de plată")}
           </p>
           <p
-            className="font-sans text-[14px] text-[var(--theme-text)]"
+            className="font-sans text-[13px] text-[var(--theme-text)]"
             data-testid="payment-method"
           >
             {paymentInfoMap[payment.provider_id]?.title ?? payment.provider_id}
           </p>
         </div>
         <div>
-          <p className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
+          <p className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
             {t("Detalii")}
           </p>
           <p
-            className="font-sans text-[14px] text-[var(--theme-text)]"
+            className="font-sans text-[13px] text-[var(--theme-text)]"
             data-testid="payment-amount"
           >
             {isStripeLike(payment.provider_id) && payment.data?.card_last4

@@ -109,7 +109,7 @@ export default function CardImages({ product, isFeatured, noOverlay, activeImage
       )}
 
       {!noOverlay && isInStoreOnly(product) && (
-        <div className="sm:hidden py-2 font-sans text-[10px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] bg-[var(--theme-bg)] text-center">
+        <div className="sm:hidden py-2 font-sans text-[9px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] bg-[var(--theme-bg)] text-center">
           {t("Disponibil în magazin")}
         </div>
       )}

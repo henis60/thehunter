@@ -27,7 +27,7 @@ function FooterLink({
   return (
     <LocalizedClientLink
       href={href}
-      className="font-serif text-[17px] leading-none text-[rgba(232,213,163,0.75)] hover:text-hunter-gold transition-colors w-fit inline-block py-3"
+      className="font-serif text-[16px] leading-none text-[rgba(232,213,163,0.75)] hover:text-hunter-gold transition-colors w-fit inline-block py-3"
     >
       {children}
     </LocalizedClientLink>
@@ -109,7 +109,7 @@ export default function HomepageFooter() {
             </span>
           </div>
 
-          <span className="font-sans text-[11px] uppercase tracking-[3px] text-[rgba(232,213,163,0.6)]">
+          <span className="font-sans text-[10px] uppercase tracking-[3px] text-[rgba(232,213,163,0.6)]">
             © {new Date().getFullYear()} {t("Toate drepturile rezervate")}
           </span>
         </div>

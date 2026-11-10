@@ -24,11 +24,11 @@ const Row = ({
   testId?: string
 }) => (
   <div className="py-5 flex flex-col gap-1">
-    <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+    <span className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
       {label}
     </span>
     <span
-      className="font-serif text-[17px] text-[var(--theme-text)]"
+      className="font-serif text-[16px] text-[var(--theme-text)]"
       data-testid={testId}
     >
       {value}
@@ -89,7 +89,7 @@ const ProfileDetails = ({ customer }: ProfileDetailsProps) => {
 
       <div className="mt-1 pt-5 border-t border-[var(--theme-border)]">
         <button
-          className="w-full small:w-auto h-12 small:px-8 bg-hunter-gold text-hunter-dark hover:bg-hunter-gold/90 transition-colors font-sans uppercase tracking-[3px] text-[13px]"
+          className="w-full small:w-auto h-12 small:px-8 bg-hunter-gold text-hunter-dark hover:bg-hunter-gold/90 transition-colors font-sans uppercase tracking-[3px] text-[12px]"
           onClick={open}
           data-testid="profile-edit-button"
         >
@@ -136,13 +136,13 @@ const ProfileDetails = ({ customer }: ProfileDetailsProps) => {
                 defaultValue={customer.phone ?? ""}
                 data-testid="phone-input"
               />
-              <p className="font-sans text-[12px] text-[var(--theme-text-muted)] mt-1">
+              <p className="font-sans text-[11px] text-[var(--theme-text-muted)] mt-1">
                 {t("Adresa de email nu poate fi modificată")}
               </p>
             </div>
             {formState.error && (
               <p
-                className="font-sans text-[12px] text-rose-500 mt-2"
+                className="font-sans text-[11px] text-rose-500 mt-2"
                 data-testid="profile-error"
               >
                 {formState.error}
@@ -154,13 +154,13 @@ const ProfileDetails = ({ customer }: ProfileDetailsProps) => {
               <button
                 type="reset"
                 onClick={close}
-                className="h-10 px-6 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
+                className="h-10 px-6 font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
                 data-testid="cancel-button"
               >
                 {t("Anulează")}
               </button>
               <SubmitButton
-                className="h-10 px-6 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[12px]"
+                className="h-10 px-6 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[11px]"
                 data-testid="save-button"
               >
                 {t("Salvează")}

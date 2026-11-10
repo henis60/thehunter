@@ -44,20 +44,20 @@ const ResetPassword = ({ token }: Props) => {
         <h1 className="font-display text-[42px] leading-[1] text-[var(--theme-text)] mb-2">
           {t("Parolă Nouă")}
         </h1>
-        <p className="font-sans text-[16px] text-[var(--theme-text-muted)] mb-10 text-center">
+        <p className="font-sans text-[15px] text-[var(--theme-text-muted)] mb-10 text-center">
           {t("Alege o parolă nouă pentru contul tău")}
         </p>
 
         {isSuccess ? (
           <div className="w-full text-center flex flex-col items-center gap-6">
             <div className="border border-[var(--theme-border)] px-6 py-5 w-full">
-              <p className="font-sans text-[16px] text-[var(--theme-text)] leading-relaxed">
+              <p className="font-sans text-[15px] text-[var(--theme-text)] leading-relaxed">
                 {t("Parola a fost schimbată cu succes Te poți autentifica acum")}
               </p>
             </div>
             <LocalizedClientLink
               href="/profil"
-              className="w-full h-12 flex items-center justify-center bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity font-sans uppercase tracking-[3px] text-[15px]"
+              className="w-full h-12 flex items-center justify-center bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity font-sans uppercase tracking-[3px] text-[14px]"
             >
               {t("Mergi la autentificare")}
             </LocalizedClientLink>
@@ -84,7 +84,7 @@ const ResetPassword = ({ token }: Props) => {
               />
             </div>
             <ErrorMessage error={validationError || message} />
-            <SubmitButton className="w-full mt-6 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[15px]">
+            <SubmitButton className="w-full mt-6 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[14px]">
               {t("Salvează Parola")}
             </SubmitButton>
           </form>

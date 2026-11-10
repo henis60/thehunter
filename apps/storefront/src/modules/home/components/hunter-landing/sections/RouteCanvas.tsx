@@ -391,13 +391,14 @@ export default function RouteCanvas() {
           ? px - textW - 12
           : px + 10
         const lx = Math.max(4, Math.min(lxRaw, W - textW - 8))
-        let ty = py - baseR - 6
+        // a little more air above the dot on phones
+        let ty = py - baseR - (small ? 9 : 6)
 
         const box = () => ({
           x: lx - 2,
-          y: ty - fontPx,
+          y: ty - fontPx * 0.75, // uppercase cap height, not the full em
           w: textW + 4,
-          h: fontPx + 4,
+          h: fontPx * 0.75 + 4,
         })
         for (let n = 0; n < 40; n++) {
           const b = box()

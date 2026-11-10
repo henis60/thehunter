@@ -55,7 +55,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
     return (
       <div className="flex flex-col w-full gap-1">
         {(label || resolvedPlaceholder) && (
-          <label className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+          <label className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
             {label || resolvedPlaceholder}
             {required && <span className="text-rose-500 ml-0.5">*</span>}
           </label>
@@ -71,7 +71,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             onInvalid={handleInvalid}
             aria-invalid={error ? true : undefined}
             {...props}
-            className={`appearance-none w-full h-10 px-3 pr-8 bg-transparent border text-[var(--theme-text)] font-sans text-[14px] focus:outline-none transition-colors ${
+            className={`appearance-none w-full h-10 px-3 pr-8 bg-transparent border text-[var(--theme-text)] font-sans text-[13px] focus:outline-none transition-colors ${
               error
                 ? "border-rose-500 focus:border-rose-500"
                 : "border-[var(--theme-border)] focus:border-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)]"
@@ -87,7 +87,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
           </span>
         </div>
         {error && (
-          <span className="font-sans text-[12px] text-rose-500" role="alert">
+          <span className="font-sans text-[11px] text-rose-500" role="alert">
             {error}
           </span>
         )}

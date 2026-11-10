@@ -58,14 +58,14 @@ const ErrorContent = ({
               reset()
               window.location.reload()
             }}
-            className="flex items-center justify-center min-h-[48px] px-6 py-3 font-sans text-[12px] uppercase tracking-[4px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity"
+            className="flex items-center justify-center min-h-[48px] px-6 py-3 font-sans text-[11px] uppercase tracking-[4px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity"
           >
             {t("Reîncearcă")}
           </button>
         )}
         <LocalizedClientLink
           href={homeHref}
-          className="flex items-center justify-center min-h-[48px] px-6 py-3 font-sans text-[12px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
+          className="flex items-center justify-center min-h-[48px] px-6 py-3 font-sans text-[11px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
         >
           {resolvedHomeLabel}
         </LocalizedClientLink>

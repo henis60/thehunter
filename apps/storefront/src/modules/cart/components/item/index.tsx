@@ -105,7 +105,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
           )}
         </div>
         <div className="flex flex-col flex-1 min-w-0 justify-between py-2">
-          <p className="font-sans text-[11px] uppercase tracking-[2px] text-[var(--theme-text)] truncate">
+          <p className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text)] truncate">
             {displayTitle}
           </p>
           {(() => {
@@ -119,12 +119,12 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   .join(" · ") || item.variant?.title
               : item.variant?.title
             return label ? (
-              <p className="font-serif italic text-[13px] text-[var(--theme-text-muted)]">
+              <p className="font-serif italic text-[12px] text-[var(--theme-text-muted)]">
                 {label}
               </p>
             ) : null
           })()}
-          <p className="font-sans text-[12px] text-[var(--theme-text)]">
+          <p className="font-sans text-[11px] text-[var(--theme-text)]">
             {convertToLocale({
               amount: item.total ?? 0,
               currency_code: currencyCode,
@@ -165,7 +165,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
               data-testid="product-link"
               className="flex-1 min-w-0"
             >
-              <span className="font-sans text-[13px] small:text-[15px] uppercase tracking-[2.5px] leading-[1.6] text-[var(--theme-text)] hover:text-hunter-gold transition-colors">
+              <span className="font-sans text-[12px] small:text-[14px] uppercase tracking-[2.5px] leading-[1.6] text-[var(--theme-text)] hover:text-hunter-gold transition-colors">
                 {displayTitle}
               </span>
             </LocalizedClientLink>
@@ -203,7 +203,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
               .join(" · ")
             const label = fromOpts || item.variant?.title
             return label ? (
-              <p className="font-serif italic text-[14px] small:text-[16px] text-[var(--theme-text-muted)] mt-1">
+              <p className="font-serif italic text-[13px] small:text-[15px] text-[var(--theme-text-muted)] mt-1">
                 {label}
               </p>
             ) : null
@@ -237,7 +237,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
               </svg>
             </button>
             <span
-              className="font-sans text-[13px] w-4 text-center text-[var(--theme-text)]"
+              className="font-sans text-[12px] w-4 text-center text-[var(--theme-text)]"
               data-testid="product-select-button"
               data-value={item.quantity}
             >
@@ -266,7 +266,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
           {/* Price stack */}
           <div className="flex flex-col items-end gap-0.5">
-            <span className="font-sans text-[11px] small:text-[12px] uppercase tracking-[1.5px] text-[var(--theme-text-muted)]">
+            <span className="font-sans text-[10px] small:text-[11px] uppercase tracking-[1.5px] text-[var(--theme-text-muted)]">
               {convertToLocale({
                 amount: item.unit_price ?? 0,
                 currency_code: currencyCode,
@@ -275,7 +275,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
             </span>
             <div className="relative flex flex-col items-end">
               {hasDiscount && (
-                <span className="font-serif italic text-[13px] text-[var(--theme-text-muted)] line-through">
+                <span className="font-serif italic text-[12px] text-[var(--theme-text-muted)] line-through">
                   {convertToLocale({
                     amount: originalTotal,
                     currency_code: currencyCode,
@@ -283,7 +283,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                 </span>
               )}
               <span
-                className="font-display text-[17px] small:text-[18px] text-[var(--theme-text)]"
+                className="font-display text-[16px] small:text-[18px] text-[var(--theme-text)]"
                 data-testid="product-price"
               >
                 {convertToLocale({

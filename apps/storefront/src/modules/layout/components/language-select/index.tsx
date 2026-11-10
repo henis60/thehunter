@@ -41,7 +41,7 @@ const LanguageSelect = ({ locales, currentLocale }: LanguageSelectProps) => {
   }
 
   return (
-    <div className="flex items-center justify-between font-sans text-[15px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
+    <div className="flex items-center justify-between font-sans text-[14px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
       <span>{t("Limbă")}</span>
       <div
         className="relative flex items-center border border-[var(--theme-border)]"
@@ -68,7 +68,7 @@ const LanguageSelect = ({ locales, currentLocale }: LanguageSelectProps) => {
               onClick={() => handleChange(l.code)}
               aria-pressed={isSelected}
               className={clx(
-                "relative z-10 w-10 py-0.5 font-sans text-[12px] uppercase tracking-[2px] transition-colors duration-300",
+                "relative z-10 w-10 py-0.5 font-sans text-[11px] uppercase tracking-[2px] transition-colors duration-300",
                 i > 0 && "border-l border-[var(--theme-border)]",
                 isSelected
                   ? "text-hunter-dark"

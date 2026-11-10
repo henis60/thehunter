@@ -37,7 +37,7 @@ export function Pagination({
       key={p}
       aria-current={isCurrent ? "page" : undefined}
       className={clx(
-        "font-sans text-[13px] tracking-[2px] tabular-nums pb-1 border-b transition-colors",
+        "font-sans text-[12px] tracking-[2px] tabular-nums pb-1 border-b transition-colors",
         isCurrent
           ? "text-[var(--theme-text)] border-hunter-gold"
           : "text-[var(--theme-text-muted)] border-transparent hover:text-[var(--theme-text)]"
@@ -52,7 +52,7 @@ export function Pagination({
   const renderEllipsis = (key: string) => (
     <span
       key={key}
-      className="font-sans text-[13px] text-[var(--theme-text-muted)] select-none cursor-default pb-1"
+      className="font-sans text-[12px] text-[var(--theme-text-muted)] select-none cursor-default pb-1"
     >
       —
     </span>
@@ -100,7 +100,7 @@ export function Pagination({
 
   const arrowClass = (disabled: boolean) =>
     clx(
-      "inline-flex items-center gap-2 font-sans text-[12px] uppercase tracking-[3px] transition-colors",
+      "inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-[3px] transition-colors",
       disabled
         ? "text-[var(--theme-border)] cursor-not-allowed"
         : "text-[var(--theme-text-muted)] hover:text-hunter-gold"

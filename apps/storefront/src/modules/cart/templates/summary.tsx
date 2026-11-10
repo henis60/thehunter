@@ -29,14 +29,14 @@ const Summary = ({ cart }: SummaryProps) => {
           href={"/finalizare-comanda?pas=" + step}
           data-testid="checkout-button"
         >
-          <button className="w-full h-12 font-sans uppercase tracking-[3px] text-[13px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity">
+          <button className="w-full h-12 font-sans uppercase tracking-[3px] text-[12px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity">
             {t("Finalizează comanda")}
           </button>
         </LocalizedClientLink>
 
         <LocalizedClientLink
           href="/ready-to-wear"
-          className="flex items-center justify-center w-full mt-3 h-12 font-sans uppercase tracking-[3px] text-[13px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
+          className="flex items-center justify-center w-full mt-3 h-12 font-sans uppercase tracking-[3px] text-[12px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
         >
           {t("Continuă cumpărăturile")}
         </LocalizedClientLink>

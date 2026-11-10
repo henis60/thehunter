@@ -52,20 +52,20 @@ const ForgotPassword = ({ setCurrentView }: Props) => {
       <h1 className="font-display text-[42px] leading-[1] text-[var(--theme-text)] mb-2">
         {t("Resetare Parolă")}
       </h1>
-      <p className="font-sans text-[16px] text-[var(--theme-text-muted)] mb-10 text-center">
+      <p className="font-sans text-[15px] text-[var(--theme-text-muted)] mb-10 text-center">
         {t("Introdu adresa de email și îți vom trimite un link pentru resetarea parolei")}
       </p>
 
       {isSuccess ? (
         <div className="w-full text-center">
           <div className="border border-[var(--theme-border)] px-6 py-5 mb-8">
-            <p className="font-sans text-[16px] text-[var(--theme-text)] leading-relaxed">
+            <p className="font-sans text-[15px] text-[var(--theme-text)] leading-relaxed">
               {t("Dacă adresa de email există în sistem, vei primi un link de resetare în câteva minute")}
             </p>
           </div>
           <button
             onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
-            className="w-full h-12 flex items-center justify-center gap-2 bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity font-sans uppercase tracking-[3px] text-[15px]"
+            className="w-full h-12 flex items-center justify-center gap-2 bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity font-sans uppercase tracking-[3px] text-[14px]"
           >
             <svg
               width="18"
@@ -99,11 +99,11 @@ const ForgotPassword = ({ setCurrentView }: Props) => {
           <ErrorMessage error={isSuccess ? null : recaptchaError || message} />
           <SubmitButton
             pending={pending}
-            className="w-full mt-6 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[15px]"
+            className="w-full mt-6 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[14px]"
           >
             {t("Trimite Link")}
           </SubmitButton>
-          <p className="font-sans text-[13px] text-[var(--theme-text-muted)] mt-4 text-center leading-relaxed">
+          <p className="font-sans text-[12px] text-[var(--theme-text-muted)] mt-4 text-center leading-relaxed">
             {t("Protejat de reCAPTCHA")}{" "}
             <a
               href="https://policies.google.com/privacy"

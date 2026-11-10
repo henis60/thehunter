@@ -144,7 +144,7 @@ export default function DesktopFilterDrawer({
       <button
         onClick={() => setOpen(true)}
         className={clx(
-          "flex items-center gap-2 font-sans text-[12px] uppercase tracking-[3px] transition-colors",
+          "flex items-center gap-2 font-sans text-[11px] uppercase tracking-[3px] transition-colors",
           filterCount > 0
             ? "text-hunter-gold"
             : "text-[var(--theme-text-muted)] hover:text-[var(--theme-text)]"
@@ -171,7 +171,7 @@ export default function DesktopFilterDrawer({
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between px-8 h-16 border-b border-[var(--theme-border)] shrink-0">
-          <span className="font-sans text-[12px] uppercase tracking-[4px] text-[var(--theme-text)]">
+          <span className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text)]">
             {t("Filtru")}
           </span>
           <button
@@ -193,7 +193,7 @@ export default function DesktopFilterDrawer({
         <div className="overflow-y-auto px-6 py-2 flex-1">
           {/* Sortare */}
           <div className="py-4 border-b border-[var(--theme-border)]">
-            <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+            <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
               {t("Sortare")}
             </p>
             <div
@@ -208,9 +208,10 @@ export default function DesktopFilterDrawer({
                   <button
                     key={opt.value}
                     onClick={() => setDraftSort(opt.value)}
+                    aria-pressed={active}
                     disabled={!hasProducts}
                     className={clx(
-                      "flex items-center gap-2.5 py-1.5 font-sans text-[13px] uppercase tracking-[1px] transition-colors text-left",
+                      "flex items-center gap-2.5 py-1.5 font-sans text-[12px] uppercase tracking-[1px] transition-colors text-left",
                       active
                         ? "text-hunter-gold"
                         : "text-[var(--theme-text-muted)] hover:text-[var(--theme-text)]"
@@ -232,7 +233,7 @@ export default function DesktopFilterDrawer({
           </div>
 
           <div className="py-4">
-            <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+            <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
               {t("Preț")}
             </p>
             <PriceRangeSlider
@@ -246,7 +247,7 @@ export default function DesktopFilterDrawer({
           </div>
 
           <div className="py-4 border-t border-[var(--theme-border)]">
-            <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+            <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
               {t("Culoare")}
             </p>
             {displayedColors.length > 0 ? (
@@ -257,8 +258,9 @@ export default function DesktopFilterDrawer({
                     <button
                       key={label}
                       onClick={() => toggleDraftColor(label)}
+                      aria-pressed={active}
                       className={clx(
-                        "px-3 py-1.5 font-sans text-[13px] uppercase tracking-[1px] border transition-colors",
+                        "px-3 py-1.5 font-sans text-[12px] uppercase tracking-[1px] border transition-colors",
                         active
                           ? "border-hunter-gold text-hunter-gold"
                           : "border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)]"
@@ -270,7 +272,7 @@ export default function DesktopFilterDrawer({
                 })}
               </div>
             ) : (
-              <p className="font-sans text-[13px] text-[var(--theme-text-muted)] opacity-40">
+              <p className="font-sans text-[12px] text-[var(--theme-text-muted)] opacity-40">
                 {t("Nicio culoare disponibilă")}
               </p>
             )}
@@ -281,13 +283,13 @@ export default function DesktopFilterDrawer({
           <button
             onClick={clearFacets}
             disabled={draftFilterCount === 0}
-            className="flex-1 h-11 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] whitespace-nowrap disabled:opacity-40 hover:border-[var(--theme-text-muted)] transition-colors"
+            className="flex-1 h-11 font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] whitespace-nowrap disabled:opacity-40 hover:border-[var(--theme-text-muted)] transition-colors"
           >
             {t("Resetează")}
           </button>
           <button
             onClick={applyDraft}
-            className="flex-1 h-11 font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity"
+            className="flex-1 h-11 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity"
           >
             {t("Aplică filtre")}
           </button>

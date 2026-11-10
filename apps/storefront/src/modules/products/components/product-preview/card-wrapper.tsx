@@ -18,7 +18,7 @@ function HoverOverlay({
 }) {
   return (
     <div
-      className={`hidden sm:block absolute inset-x-0 bottom-0 z-30 py-3.5 font-sans text-[12px] uppercase tracking-[3px] border text-center pointer-events-none translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 ${
+      className={`hidden sm:block absolute inset-x-0 bottom-0 z-30 py-3.5 font-sans text-[11px] uppercase tracking-[3px] border text-center pointer-events-none translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 ${
         dark
           ? "border-white/40 text-white bg-black"
           : "border-[var(--theme-border)] text-[var(--theme-text)] bg-[var(--theme-bg)]"

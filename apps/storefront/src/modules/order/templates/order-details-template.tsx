@@ -120,7 +120,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
         {!standalone ? (
           <LocalizedClientLink
             href="/profil/comenzi"
-            className="inline-flex items-end gap-1.5 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+            className="inline-flex items-end gap-1.5 font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
             data-testid="back-to-overview-button"
           >
             <svg
@@ -164,7 +164,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
               href={trackUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full small:w-auto h-12 small:px-8 flex items-center justify-center border border-[var(--theme-border)] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold transition-colors font-sans uppercase tracking-[3px] text-[13px]"
+              className="w-full small:w-auto h-12 small:px-8 flex items-center justify-center border border-[var(--theme-border)] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold transition-colors font-sans uppercase tracking-[3px] text-[12px]"
               data-testid="order-track-link"
             >
               {t("Urmărește comanda")}
@@ -178,7 +178,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
             <button
               onClick={handleDownloadInvoice}
               disabled={downloading}
-              className="w-full small:w-auto h-12 small:px-8 bg-hunter-gold text-hunter-dark hover:bg-hunter-gold/90 transition-colors font-sans uppercase tracking-[3px] text-[13px] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full small:w-auto h-12 small:px-8 bg-hunter-gold text-hunter-dark hover:bg-hunter-gold/90 transition-colors font-sans uppercase tracking-[3px] text-[12px] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {downloading ? t("Se descarcă") : t("Descarcă factura")}
             </button>
@@ -191,7 +191,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
           <div className="small:px-8 pt-1 small:pt-6 pb-2 small:pb-8 !border-t-0 flex flex-col small:items-end">
             <button
               onClick={() => router.push("/")}
-              className="w-full small:w-auto h-12 small:px-8 bg-hunter-gold text-hunter-dark hover:bg-hunter-gold/90 transition-colors font-sans uppercase tracking-[3px] text-[13px] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full small:w-auto h-12 small:px-8 bg-hunter-gold text-hunter-dark hover:bg-hunter-gold/90 transition-colors font-sans uppercase tracking-[3px] text-[12px] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {t("Continuă cumpărăturile")}
             </button>

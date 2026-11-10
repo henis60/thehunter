@@ -101,14 +101,15 @@ export default function AppointmentButton({ transparent, hideOnTop, onClick }: P
     return () => window.removeEventListener("scroll", onScroll)
   }, [hideOnTop])
 
-  // Keep the golden border sweep animating while the page is being scrolled
-  // (stops ~250ms after the last scroll event).
+  // Keep the golden border sweep showing while the page is being scrolled
+  // (until ~400ms after the last scroll event — touch momentum scrolling
+  // fires in bursts, so a shorter gap made it flicker on phones).
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout> | null = null
     const onScroll = () => {
       setIsScrolling(true)
       if (timeout) clearTimeout(timeout)
-      timeout = setTimeout(() => setIsScrolling(false), 250)
+      timeout = setTimeout(() => setIsScrolling(false), 400)
     }
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => {
@@ -116,6 +117,33 @@ export default function AppointmentButton({ transparent, hideOnTop, onClick }: P
       if (timeout) clearTimeout(timeout)
     }
   }, [])
+
+  // Intro: the sweep shows for three laps (2.5s each) after a short delay.
+  const [intro, setIntro] = useState(false)
+  useEffect(() => {
+    const start = setTimeout(() => setIntro(true), 1200)
+    const end = setTimeout(() => setIntro(false), 1200 + 3 * 2500)
+    return () => {
+      clearTimeout(start)
+      clearTimeout(end)
+    }
+  }, [])
+
+  // The sweep always spins continuously; only its visibility fades in/out.
+  // (It used to switch between a 3-lap and an infinite animation, which cut
+  // the glint off mid-lap whenever scrolling stopped — very visible with
+  // stop-and-go touch scrolling.) Once faded out it's paused, so an idle
+  // button isn't repainting every frame.
+  const sweepOn = intro || isScrolling
+  const [sweepRunning, setSweepRunning] = useState(false)
+  useEffect(() => {
+    if (sweepOn) {
+      setSweepRunning(true)
+      return
+    }
+    const t = setTimeout(() => setSweepRunning(false), 700)
+    return () => clearTimeout(t)
+  }, [sweepOn])
 
   const visible = !hideOnTop || scrolled
 
@@ -157,20 +185,28 @@ export default function AppointmentButton({ transparent, hideOnTop, onClick }: P
     >
       <button
         onClick={handleClick}
+        // Background and subtle border as before; the gold, bolder text is
+        // what makes it stand out.
         className={`flex transition-colors cursor-pointer border-y ${
           // The edge-facing side omits its border (flush against the screen
           // edge); the inner-facing side keeps it, mirroring when docked left.
           dockSide === "left" ? "border-r" : "border-l"
-        } ${
+        } text-hunter-gold hover:text-[#e2c77a] ${
           transparent
-            ? "bg-transparent border-white/20 text-white/60 hover:text-hunter-gold hover:border-hunter-gold/60"
-            : "bg-[var(--theme-bg)] border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:text-hunter-gold hover:border-hunter-gold"
+            ? "bg-transparent border-white/20 hover:border-hunter-gold/60"
+            : "bg-[var(--theme-bg)] border-[var(--theme-border)] hover:border-hunter-gold"
         }`}
         aria-label={t("Programare")}
       >
+        {/* The sweep traces the three bordered sides. Its box overhangs the
+            screen edge the button is docked to, so the edge side (which has
+            no border) falls off-screen instead of being the only side where
+            the glint shows. */}
         <span
-          className={`appt-ping absolute inset-0 pointer-events-none ${
-            isScrolling ? "appt-ping--scrolling" : ""
+          className={`appt-ping absolute inset-y-0 pointer-events-none ${
+            dockSide === "left" ? "-left-1 right-0" : "left-0 -right-1"
+          } ${sweepOn ? "appt-ping--on" : ""} ${
+            sweepRunning ? "appt-ping--running" : ""
           }`}
           aria-hidden="true"
         />
@@ -186,7 +222,7 @@ export default function AppointmentButton({ transparent, hideOnTop, onClick }: P
         </span>
 
         {/* Desktop: text vertical */}
-        <span className="hidden small:flex items-center justify-center font-sans text-[11px] uppercase tracking-[4px] py-5 px-2.5 [writing-mode:vertical-rl] rotate-180">
+        <span className="hidden small:flex items-center justify-center font-sans text-[10px] font-semibold uppercase tracking-[4px] py-5 px-2.5 [writing-mode:vertical-rl] rotate-180">
           {t("Programare")}
         </span>
       </button>

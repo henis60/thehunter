@@ -227,11 +227,11 @@ const CartDropdown = ({
                     {/* Header */}
                     <div className="flex items-center justify-between px-7 h-16 border-b border-[var(--theme-border)] shrink-0">
                       <div className="flex items-baseline gap-3">
-                        <h2 className="font-sans text-[12px] uppercase tracking-[0.2em] text-[var(--theme-text)]">
+                        <h2 className="font-sans text-[11px] uppercase tracking-[0.2em] text-[var(--theme-text)]">
                           {t("Coș")}
                         </h2>
                         {totalItems > 0 && (
-                          <span className="font-sans text-[12px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
+                          <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
                             ({totalItems})
                           </span>
                         )}
@@ -315,7 +315,7 @@ const CartDropdown = ({
                                         onClick={close}
                                         className="flex-1 min-w-0"
                                       >
-                                        <span className="font-sans text-[12px] uppercase tracking-[2px] leading-[1.4] text-[var(--theme-text)] hover:text-hunter-gold transition-colors line-clamp-2 block">
+                                        <span className="font-sans text-[11px] uppercase tracking-[2px] leading-[1.4] text-[var(--theme-text)] hover:text-hunter-gold transition-colors line-clamp-2 block">
                                           {displayTitle}
                                         </span>
                                       </LocalizedClientLink>
@@ -355,7 +355,7 @@ const CartDropdown = ({
                                           .join(" · ") || item.variant?.title
                                       return label ? (
                                         <span
-                                          className="font-serif italic text-[13px] text-[var(--theme-text-muted)] mt-0.5 block"
+                                          className="font-serif italic text-[12px] text-[var(--theme-text-muted)] mt-0.5 block"
                                           data-testid="cart-item-variant"
                                         >
                                           {label}
@@ -400,7 +400,7 @@ const CartDropdown = ({
                                           </svg>
                                         </button>
                                         <span
-                                          className="font-sans text-[12px] w-4 text-center text-[var(--theme-text)]"
+                                          className="font-sans text-[11px] w-4 text-center text-[var(--theme-text)]"
                                           data-testid="cart-item-quantity"
                                           data-value={item.quantity}
                                         >
@@ -451,7 +451,7 @@ const CartDropdown = ({
                                       </div>
 
                                       <div className="flex flex-col items-end gap-0.5">
-                                        <span className="font-sans text-[10px] uppercase tracking-[1.5px] text-[var(--theme-text-muted)]">
+                                        <span className="font-sans text-[9px] uppercase tracking-[1.5px] text-[var(--theme-text-muted)]">
                                           {convertToLocale({
                                             amount: item.unit_price ?? 0,
                                             currency_code:
@@ -460,7 +460,7 @@ const CartDropdown = ({
                                           {t("/ buc")}
                                         </span>
                                         {hasDiscount && (
-                                          <span className="font-serif italic text-[13px] text-[var(--theme-text-muted)] line-through">
+                                          <span className="font-serif italic text-[12px] text-[var(--theme-text-muted)] line-through">
                                             {convertToLocale({
                                               amount:
                                                 (compareAtUnitPrice ?? 0) *
@@ -471,7 +471,7 @@ const CartDropdown = ({
                                           </span>
                                         )}
                                         <span
-                                          className="font-display text-[15px] text-[var(--theme-text)]"
+                                          className="font-display text-[14px] text-[var(--theme-text)]"
                                           data-testid="product-price"
                                         >
                                           {convertToLocale({
@@ -491,7 +491,7 @@ const CartDropdown = ({
                         {/* Footer */}
                         <div className="shrink-0 px-7 pb-7 pt-5 border-t border-[var(--theme-border)] flex flex-col gap-4">
                           <div className="flex items-baseline justify-between">
-                            <span className="font-sans text-[12px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
+                            <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
                               {t("Subtotal")}
                             </span>
                             <span
@@ -513,7 +513,7 @@ const CartDropdown = ({
                               className="w-full"
                             >
                               <Button
-                                className="w-full h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent hover:!bg-hunter-gold-b font-sans uppercase tracking-[3px] text-[13px]"
+                                className="w-full h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent hover:!bg-hunter-gold-b font-sans uppercase tracking-[3px] text-[12px]"
                                 data-testid="go-to-cart-button"
                               >
                                 {t("Vezi coșul")}
@@ -523,7 +523,7 @@ const CartDropdown = ({
                               type="button"
                               onClick={close}
                               data-testid="continue-shopping-button"
-                              className="w-full h-12 font-sans uppercase tracking-[3px] text-[13px] text-[var(--theme-text)] border border-[var(--theme-border)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
+                              className="w-full h-12 font-sans uppercase tracking-[3px] text-[12px] text-[var(--theme-text)] border border-[var(--theme-border)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
                             >
                               {t("Continuă cumpărăturile")}
                             </button>
@@ -532,7 +532,7 @@ const CartDropdown = ({
                       </>
                     ) : (
                       <div className="flex flex-1 flex-col items-center justify-center gap-6 px-7 pb-6 text-center">
-                        <p className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+                        <p className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
                           {t("Coșul este gol")}
                         </p>
                         <p className="font-sans text-sm text-[var(--theme-text-muted)] max-w-xs">
@@ -542,7 +542,7 @@ const CartDropdown = ({
                           href="/ready-to-wear"
                           onClick={close}
                         >
-                          <button className="mt-2 px-8 py-3 font-sans text-[12px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors">
+                          <button className="mt-2 px-8 py-3 font-sans text-[11px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors">
                             {t("Descoperă colecția")}
                           </button>
                         </LocalizedClientLink>

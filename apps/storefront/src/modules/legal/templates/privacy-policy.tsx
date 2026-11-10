@@ -13,7 +13,7 @@ function Section({
     <section className="grid grid-cols-1 small:grid-cols-[180px_1fr] gap-4 small:gap-10 border-t border-[var(--theme-border)] pt-8">
       <div>
         {label && (
-          <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
+          <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
             {label}
           </p>
         )}
@@ -35,7 +35,7 @@ const PrivacyPolicyTemplate = async () => {
       {/* Header */}
       <div className="page-container pt-6 pb-5">
         <div className="mb-3">
-          <span className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+          <span className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
             {t("Legal")}
           </span>
         </div>

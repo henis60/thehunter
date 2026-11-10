@@ -123,7 +123,7 @@ export default function LockerMap({ lockers, selectedLocker, onSelect, origin }:
         {origin && (
           <Marker position={[origin.lat, origin.lng]} icon={addressIcon}>
             <Popup>
-              <span className="font-sans text-[14px]">Adresa ta de livrare</span>
+              <span className="font-sans text-[13px]">Adresa ta de livrare</span>
             </Popup>
           </Marker>
         )}
@@ -135,7 +135,7 @@ export default function LockerMap({ lockers, selectedLocker, onSelect, origin }:
             eventHandlers={{ click: () => onSelect(locker) }}
           >
             <Popup>
-              <span className="font-sans text-[14px]">
+              <span className="font-sans text-[13px]">
                 <strong>{locker.name}</strong>
                 <br />
                 {locker.address}

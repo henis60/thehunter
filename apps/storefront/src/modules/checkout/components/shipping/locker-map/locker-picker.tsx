@@ -74,7 +74,7 @@ export default function LockerPicker({
 
   if (lockers.length === 0) {
     return (
-      <span className="font-serif italic text-[15px] text-[var(--theme-text-muted)]">
+      <span className="font-serif italic text-[14px] text-[var(--theme-text-muted)]">
         {t("Niciun locker disponibil pentru acest curier în localitatea ta Alege livrare la ușă")}
       </span>
     )
@@ -90,7 +90,7 @@ export default function LockerPicker({
       >
         <div className="relative w-full">
           <ComboboxInput
-            className="appearance-none w-full h-10 px-3 pr-8 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans text-[14px] focus:outline-none focus:border-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
+            className="appearance-none w-full h-10 px-3 pr-8 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans text-[13px] focus:outline-none focus:border-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
             displayValue={(l: EawbLocker | null) => l?.name ?? ""}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder={t("Caută locker după nume sau adresă")}
@@ -106,7 +106,7 @@ export default function LockerPicker({
             style={{ width: "var(--input-width)" }}
           >
             {filteredLockers.length === 0 ? (
-              <div className="px-3 py-1.5 font-sans text-[14px] text-[var(--theme-text-muted)]">
+              <div className="px-3 py-1.5 font-sans text-[13px] text-[var(--theme-text-muted)]">
                 {t("Niciun rezultat")}
               </div>
             ) : (
@@ -114,10 +114,10 @@ export default function LockerPicker({
                 <ComboboxOption
                   key={l.id}
                   value={l}
-                  className="cursor-pointer px-3 py-1.5 font-sans text-[14px] leading-tight text-[var(--theme-text)] data-[focus]:bg-hunter-gold/10 data-[focus]:text-hunter-gold"
+                  className="cursor-pointer px-3 py-1.5 font-sans text-[13px] leading-tight text-[var(--theme-text)] data-[focus]:bg-hunter-gold/10 data-[focus]:text-hunter-gold"
                 >
                   <span className="block truncate">{l.name}</span>
-                  <span className="block text-[13px] text-[var(--theme-text-muted)] truncate">
+                  <span className="block text-[12px] text-[var(--theme-text-muted)] truncate">
                     {l.address}
                   </span>
                 </ComboboxOption>

@@ -18,7 +18,7 @@ export default async function Footer() {
           {t("Return of the Elegant Gentleman")}
         </span>
 
-        <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+        <span className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
           {t("© {year} Toate drepturile rezervate", { year: new Date().getFullYear() })}
         </span>
       </div>

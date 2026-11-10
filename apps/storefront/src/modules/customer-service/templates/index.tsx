@@ -17,7 +17,7 @@ function Section({
     <section id={id} className="grid grid-cols-1 small:grid-cols-[180px_1fr] gap-4 small:gap-10 border-t border-[var(--theme-border)] pt-8 scroll-mt-24">
       <div>
         {label && (
-          <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
+          <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
             {label}
           </p>
         )}
@@ -40,7 +40,7 @@ const CustomerServiceTemplate = async () => {
       {/* Header */}
       <div className="page-container pt-6 pb-5">
         <div className="mb-3">
-          <span className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+          <span className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
             {t("Asistență")}
           </span>
         </div>
@@ -95,7 +95,7 @@ const CustomerServiceTemplate = async () => {
           </p>
           <LocalizedClientLink
             href="/contact"
-            className="shrink-0 h-11 px-6 inline-flex items-center justify-center border border-[var(--theme-border)] font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors w-fit"
+            className="shrink-0 h-11 px-6 inline-flex items-center justify-center border border-[var(--theme-border)] font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors w-fit"
           >
             {t("Deschide formularul de contact")}
           </LocalizedClientLink>
@@ -203,19 +203,19 @@ const CustomerServiceTemplate = async () => {
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             <LocalizedClientLink
               href="/terms-of-use"
-              className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
             >
               {t("Termeni și condiții")}
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/privacy-policy"
-              className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
             >
               {t("Politica de confidențialitate")}
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/cookie-policy"
-              className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
             >
               {t("Politica de cookies")}
             </LocalizedClientLink>
@@ -227,14 +227,14 @@ const CustomerServiceTemplate = async () => {
             <p className="font-display text-[20px] leading-[1.1] text-[var(--theme-text)] mb-1.5 small:mb-2">
               {t("Întrebări frecvente")}
             </p>
-            <p className="font-sans text-[14px] text-[var(--theme-text-muted)]">
+            <p className="font-sans text-[13px] text-[var(--theme-text-muted)]">
               {t("Încă ai întrebări? Răspunsurile la cele mai comune întrebări despre comenzi, livrare, retur și plată sunt pe pagina dedicată"
               )}
             </p>
           </div>
           <LocalizedClientLink
             href="/faq"
-            className="shrink-0 h-11 px-6 inline-flex items-center justify-center border border-[var(--theme-border)] font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors"
+            className="shrink-0 h-11 px-6 inline-flex items-center justify-center border border-[var(--theme-border)] font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors"
           >
             {t("Vezi întrebările frecvente")}
           </LocalizedClientLink>

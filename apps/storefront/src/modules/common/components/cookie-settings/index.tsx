@@ -13,14 +13,14 @@ export default function CookieSettings() {
         <button
           type="button"
           onClick={reject}
-          className="h-11 rounded-none border border-[var(--theme-border)] bg-transparent px-6 font-sans text-[13px] uppercase tracking-[3px] text-[var(--theme-text)] transition-colors hover:border-[var(--theme-text)]"
+          className="h-11 rounded-none border border-[var(--theme-border)] bg-transparent px-6 font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] transition-colors hover:border-[var(--theme-text)]"
         >
           {t("Doar necesare")}
         </button>
         <button
           type="button"
           onClick={accept}
-          className="h-11 rounded-none bg-hunter-gold px-6 font-sans text-[13px] uppercase tracking-[3px] text-hunter-dark transition-colors hover:bg-hunter-gold-b"
+          className="h-11 rounded-none bg-hunter-gold px-6 font-sans text-[12px] uppercase tracking-[3px] text-hunter-dark transition-colors hover:bg-hunter-gold-b"
         >
           {t("Accept toate")}
         </button>

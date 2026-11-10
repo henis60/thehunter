@@ -209,7 +209,7 @@ export default function StoreResultsBar({
       {loading ? (
         <span className="h-2.5 w-16 bg-[var(--theme-surface)] animate-pulse" />
       ) : (
-        <span className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
+        <span className="font-sans text-[11px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
           {t("{count, plural, one {# produs} other {# produse}}", { count })}
         </span>
       )}
@@ -268,7 +268,7 @@ export default function StoreResultsBar({
           <div className="overflow-y-auto px-5 py-2 pb-8">
             {/* Same sections + order as the desktop drawer: sort → price → colors */}
             <div className="py-3">
-              <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+              <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
                 {t("Sortare")}
               </p>
               <div
@@ -283,9 +283,10 @@ export default function StoreResultsBar({
                     <button
                       key={opt.value}
                       onClick={() => setDraftSort(opt.value)}
+                      aria-pressed={active}
                       disabled={!hasProducts}
                       className={clx(
-                        "flex items-center gap-2.5 py-2 font-sans text-[13px] uppercase tracking-[1px] transition-colors text-left",
+                        "flex items-center gap-2.5 py-2 font-sans text-[12px] uppercase tracking-[1px] transition-colors text-left",
                         active
                           ? "text-hunter-gold"
                           : "text-[var(--theme-text-muted)]"
@@ -307,7 +308,7 @@ export default function StoreResultsBar({
             </div>
 
             <div className="py-3 border-t border-[var(--theme-border)]">
-              <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+              <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
                 {t("Preț")}
               </p>
               <PriceRangeSlider
@@ -321,7 +322,7 @@ export default function StoreResultsBar({
             </div>
 
             <div className="py-3 border-t border-[var(--theme-border)]">
-              <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+              <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
                 {t("Culoare")}
               </p>
               {displayedColors.length > 0 ? (
@@ -332,8 +333,9 @@ export default function StoreResultsBar({
                       <button
                         key={label}
                         onClick={() => toggleDraftColor(label)}
+                        aria-pressed={active}
                         className={clx(
-                          "px-3 py-1.5 font-sans text-[13px] uppercase tracking-[1px] border transition-colors",
+                          "px-3 py-1.5 font-sans text-[12px] uppercase tracking-[1px] border transition-colors",
                           active
                             ? "border-hunter-gold text-hunter-gold"
                             : "border-[var(--theme-border)] text-[var(--theme-text-muted)]"
@@ -345,7 +347,7 @@ export default function StoreResultsBar({
                   })}
                 </div>
               ) : (
-                <p className="font-sans text-[13px] text-[var(--theme-text-muted)] opacity-40">
+                <p className="font-sans text-[12px] text-[var(--theme-text-muted)] opacity-40">
                   {t("Nicio culoare disponibilă")}
                 </p>
               )}
@@ -356,13 +358,13 @@ export default function StoreResultsBar({
             <button
               onClick={clearFacets}
               disabled={draftFilterCount === 0}
-              className="flex-1 h-11 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] whitespace-nowrap disabled:opacity-40"
+              className="flex-1 h-11 font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] whitespace-nowrap disabled:opacity-40"
             >
               {t("Resetează")}
             </button>
             <button
               onClick={applyDraft}
-              className="flex-1 h-11 font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark"
+              className="flex-1 h-11 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark"
             >
               {t("Aplică filtre")}
             </button>

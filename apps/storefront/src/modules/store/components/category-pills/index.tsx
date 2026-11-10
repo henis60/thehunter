@@ -125,7 +125,7 @@ export default function CategoryPills({
 
   const link = (active: boolean) =>
     clx(
-      "shrink-0 scroll-ml-6 scroll-mr-6 font-sans text-[14px] tracking-[0.5px] leading-none pb-1 border-b-[1.5px] whitespace-nowrap transition-colors",
+      "shrink-0 scroll-ml-6 scroll-mr-6 font-sans text-[13px] tracking-[0.5px] leading-none pb-1 border-b-[1.5px] whitespace-nowrap transition-colors",
       active
         ? "text-[var(--theme-text)] border-[var(--theme-text)]"
         : "text-[var(--theme-text-muted)] border-transparent hover:text-[var(--theme-text)]"
@@ -168,6 +168,7 @@ export default function CategoryPills({
             data-active={!selectedCategory && !selectedCollection ? "true" : undefined}
             onClick={onClearFilters}
             className={link(!selectedCategory && !selectedCollection)}
+            aria-current={!selectedCategory && !selectedCollection ? "true" : undefined}
           >
             {t("Toate")}
           </Link>
@@ -199,6 +200,7 @@ export default function CategoryPills({
                       )
                     }
                     className={link(activeCategoryId === sub.id)}
+                    aria-current={activeCategoryId === sub.id ? "true" : undefined}
                   >
                     {sub.name}
                   </Link>
@@ -215,6 +217,7 @@ export default function CategoryPills({
                 data-active={activeCategoryId === c.id || activeParentId === c.id ? "true" : undefined}
                 onClick={() => onSelectCategory(activeCategoryId === c.id ? null : c.id)}
                 className={link(activeCategoryId === c.id || activeParentId === c.id)}
+                aria-current={activeCategoryId === c.id || activeParentId === c.id ? "true" : undefined}
               >
                 {c.name}
               </Link>
@@ -232,6 +235,7 @@ export default function CategoryPills({
               data-active={selectedCollection === c.id ? "true" : undefined}
               onClick={() => onSelectCollection(selectedCollection === c.id ? null : c.id)}
               className={link(selectedCollection === c.id)}
+              aria-current={selectedCollection === c.id ? "true" : undefined}
             >
               {c.title}
             </Link>
@@ -265,6 +269,7 @@ export default function CategoryPills({
                   onSelectCategory(activeCategoryId === sub.id ? (activeParentId as string) : sub.id)
                 }
                 className={link(activeCategoryId === sub.id)}
+                aria-current={activeCategoryId === sub.id ? "true" : undefined}
               >
                 {sub.name}
               </Link>
@@ -306,6 +311,7 @@ export default function CategoryPills({
                     onSelectCollectionCategory(selectedCollection!, selectedCategory === cat.id ? null : cat.id)
                   }
                   className={link(selectedCategory === cat.id)}
+                  aria-current={selectedCategory === cat.id ? "true" : undefined}
                 >
                   {cat.name}
                 </Link>

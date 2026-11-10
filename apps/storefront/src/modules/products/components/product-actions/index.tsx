@@ -317,7 +317,7 @@ export default function ProductActions({
                 className="flex flex-col gap-y-3"
                 data-testid="product-material"
               >
-                <span className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+                <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
                   {t("Material")}
                 </span>
                 <div className="flex flex-wrap gap-2">
@@ -368,7 +368,7 @@ export default function ProductActions({
 
         <div ref={buttonRef}>
           {isInStoreOnly(product) ? (
-            <div className="w-full font-sans text-[10px] uppercase tracking-[4px] text-[#cfd8d2] border border-[rgba(207,216,210,0.35)] px-3 py-[10px] text-center cursor-default">
+            <div className="w-full font-sans text-[9px] uppercase tracking-[4px] text-[#cfd8d2] border border-[rgba(207,216,210,0.35)] px-3 py-[10px] text-center cursor-default">
               {t("Disponibil în magazin")}
             </div>
           ) : (
@@ -382,7 +382,7 @@ export default function ProductActions({
                 !isValidVariant
               }
               variant="primary"
-              className="w-full h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent hover:!bg-hunter-gold-b font-sans uppercase tracking-[3px] text-[13px] transition-colors disabled:!bg-[var(--theme-surface)] disabled:!text-[var(--theme-text-muted)]"
+              className="w-full h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent hover:!bg-hunter-gold-b font-sans uppercase tracking-[3px] text-[12px] transition-colors disabled:!bg-[var(--theme-surface)] disabled:!text-[var(--theme-text-muted)]"
               isLoading={isAdding}
               data-testid="add-product-button"
             >

@@ -51,13 +51,13 @@ async function fetchLocalities(countyId: number): Promise<Locality[]> {
 }
 
 const fieldLabelCls =
-  "font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]"
+  "font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]"
 const controlCls =
-  "appearance-none w-full h-10 px-3 pr-8 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans text-[14px] focus:outline-none focus:border-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+  "appearance-none w-full h-10 px-3 pr-8 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans text-[13px] focus:outline-none focus:border-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
 const optionsCls =
   "z-50 max-h-60 overflow-auto border border-[var(--theme-border)] bg-[var(--theme-bg,#0D0D0D)] shadow-lg focus:outline-none [--anchor-gap:4px]"
 const optionCls =
-  "cursor-pointer px-3 py-2 font-sans text-[14px] text-[var(--theme-text)] data-[focus]:bg-hunter-gold/10 data-[focus]:text-hunter-gold"
+  "cursor-pointer px-3 py-2 font-sans text-[13px] text-[var(--theme-text)] data-[focus]:bg-hunter-gold/10 data-[focus]:text-hunter-gold"
 
 function ComboField<T extends { id: number; name: string }>({
   label,
@@ -164,7 +164,7 @@ function ComboField<T extends { id: number; name: string }>({
             style={{ width: "var(--input-width)" }}
           >
             {filtered.length === 0 ? (
-              <div className="px-3 py-2 font-sans text-[14px] text-[var(--theme-text-muted)]">
+              <div className="px-3 py-2 font-sans text-[13px] text-[var(--theme-text-muted)]">
                 {noResultsLabel}
               </div>
             ) : (
@@ -175,7 +175,7 @@ function ComboField<T extends { id: number; name: string }>({
                   </ComboboxOption>
                 ))}
                 {truncated && (
-                  <div className="px-3 py-2 font-sans text-[13px] text-[var(--theme-text-muted)]">
+                  <div className="px-3 py-2 font-sans text-[12px] text-[var(--theme-text-muted)]">
                     {typeToSearchLabel}
                   </div>
                 )}
@@ -185,7 +185,7 @@ function ComboField<T extends { id: number; name: string }>({
         </div>
       </Combobox>
       {error && (
-        <span className="font-sans text-[12px] text-rose-500" role="alert">
+        <span className="font-sans text-[11px] text-rose-500" role="alert">
           {error}
         </span>
       )}

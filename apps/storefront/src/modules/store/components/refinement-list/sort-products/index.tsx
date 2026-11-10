@@ -28,7 +28,7 @@ const SortProducts = ({
 
   return (
     <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2" data-testid={dataTestId}>
-      <span className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+      <span className="font-sans text-[10px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
         {t("Sortare")}
       </span>
       <div className="flex items-center gap-5">
@@ -37,7 +37,7 @@ const SortProducts = ({
             key={opt.value}
             onClick={() => handleChange(opt.value)}
             className={clx(
-              "font-sans text-[12px] uppercase tracking-[3px] transition-colors pb-1 border-b",
+              "font-sans text-[11px] uppercase tracking-[3px] transition-colors pb-1 border-b",
               sortBy === opt.value
                 ? "text-[var(--theme-text)] border-hunter-gold"
                 : "text-[var(--theme-text-muted)] hover:text-[var(--theme-text)] border-transparent"

@@ -10,7 +10,7 @@ const OPTIONS = [
 ]
 
 const labelClass =
-  "font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 block"
+  "font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 block"
 
 export default function AppointmentTypeSelect({ hasError, onSelect }: { hasError?: boolean; onSelect?: (v: string) => void }) {
   const t = useTranslations("programare")

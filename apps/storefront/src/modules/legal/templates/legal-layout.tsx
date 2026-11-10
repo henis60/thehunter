@@ -16,7 +16,7 @@ const LegalLayout = ({ kicker, title, intro, sections }: Props) => {
       {/* Header */}
       <div className="page-container pt-6 pb-5">
         <div className="mb-3">
-          <span className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+          <span className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
             {kicker}
           </span>
         </div>

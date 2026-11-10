@@ -13,7 +13,7 @@ export default function AccountBackLink() {
   return (
     <LocalizedClientLink
       href="/account"
-      className="small:hidden inline-flex items-center gap-1.5 font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors mt-4 mb-2"
+      className="small:hidden inline-flex items-center gap-1.5 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors mt-4 mb-2"
       data-testid="account-back-link"
     >
       <svg

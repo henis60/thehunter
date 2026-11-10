@@ -31,7 +31,7 @@ const AddressSelect = ({ addresses, addressInput, onSelect }: AddressSelectProps
         >
           {({ open }) => (
             <>
-              <span className="font-sans text-[14px] text-[var(--theme-text)] truncate">
+              <span className="font-sans text-[13px] text-[var(--theme-text)] truncate">
                 {selectedAddress ? selectedAddress.address_1 : t("Alege o adresă salvată")}
               </span>
               <svg
@@ -72,21 +72,21 @@ const AddressSelect = ({ addresses, addressInput, onSelect }: AddressSelectProps
                   <div className="flex items-start gap-3">
                     <span className={`w-3 h-3 rounded-full border flex-shrink-0 mt-0.5 ${selected ? "border-hunter-gold bg-hunter-gold" : "border-[var(--theme-border)]"}`} />
                     <div className="flex flex-col gap-0.5">
-                      <span className="font-sans text-[13px] text-[var(--theme-text)] flex items-center gap-2">
+                      <span className="font-sans text-[12px] text-[var(--theme-text)] flex items-center gap-2">
                         {address.first_name} {address.last_name}
                         {address.is_default_billing && (
-                          <span className="font-sans text-[11px] uppercase tracking-[2px] text-hunter-gold">
+                          <span className="font-sans text-[10px] uppercase tracking-[2px] text-hunter-gold">
                             {t("Facturare")}
                           </span>
                         )}
                       </span>
                       {address.company && (
-                        <span className="font-sans text-[12px] text-[var(--theme-text-muted)]">{address.company}</span>
+                        <span className="font-sans text-[11px] text-[var(--theme-text-muted)]">{address.company}</span>
                       )}
-                      <span className="font-sans text-[12px] text-[var(--theme-text-muted)]">
+                      <span className="font-sans text-[11px] text-[var(--theme-text-muted)]">
                         {address.address_1}{address.address_2 && `, ${address.address_2}`}
                       </span>
-                      <span className="font-sans text-[12px] text-[var(--theme-text-muted)]">
+                      <span className="font-sans text-[11px] text-[var(--theme-text-muted)]">
                         {address.postal_code}, {address.city}
                         {address.province && `, ${address.province}`}
                         {`, ${address.country_code?.toUpperCase()}`}

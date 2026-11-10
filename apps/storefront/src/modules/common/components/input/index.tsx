@@ -116,7 +116,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {(topLabel || label) && (
           <label
             htmlFor={name}
-            className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]"
+            className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]"
           >
             {topLabel || label}
             {required && <span className="text-rose-500 ml-0.5">*</span>}
@@ -133,7 +133,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             onKeyDown={handleKeyDown}
             onInvalid={handleInvalid}
             aria-invalid={error ? true : undefined}
-            className={`w-full h-10 px-3 bg-transparent border text-[var(--theme-text)] font-sans text-base placeholder:text-[var(--theme-text-muted)] placeholder:text-[16px] focus:outline-none transition-colors ${
+            className={`w-full h-10 px-3 bg-transparent border text-[var(--theme-text)] font-sans text-base placeholder:text-[var(--theme-text-muted)] placeholder:text-[15px] focus:outline-none transition-colors ${
               error
                 ? "border-rose-500 focus:border-rose-500"
                 : "border-[var(--theme-border)] focus:border-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)]"
@@ -159,7 +159,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error && (
-          <span className="font-sans text-[12px] text-rose-500" role="alert">
+          <span className="font-sans text-[11px] text-rose-500" role="alert">
             {error}
           </span>
         )}

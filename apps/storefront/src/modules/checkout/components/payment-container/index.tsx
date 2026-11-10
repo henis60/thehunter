@@ -44,7 +44,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
               ? "border-hunter-gold bg-hunter-gold"
               : "border-[var(--theme-border)]"
           )} />
-          <span className="font-serif text-[16px] text-[var(--theme-text)]">
+          <span className="font-serif text-[15px] text-[var(--theme-text)]">
             {paymentInfoMap[paymentProviderId]?.title || paymentProviderId}
           </span>
           {isManual(paymentProviderId) && isDevelopment && (
@@ -56,7 +56,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
         </span>
       </div>
       {isManual(paymentProviderId) && isDevelopment && (
-        <PaymentTest className="small:hidden text-[12px]" />
+        <PaymentTest className="small:hidden text-[11px]" />
       )}
       {children}
     </RadioGroupOption>

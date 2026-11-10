@@ -101,7 +101,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
         type="button"
         onClick={toggleOpen}
         data-testid="add-discount-button"
-        className="flex items-center gap-2 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors w-fit"
+        className="flex items-center gap-2 font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors w-fit"
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <line x1="5" y1="1" x2="5" y2="9" />
@@ -119,13 +119,13 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             autoFocus={false}
             disabled={isSubmitting}
             data-testid="discount-input"
-            className="flex-1 min-w-0 h-9 bg-transparent border border-[var(--theme-border)] px-3 font-sans text-[13px] uppercase tracking-[2px] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-hunter-gold/50 transition-colors disabled:opacity-50"
+            className="flex-1 min-w-0 h-9 bg-transparent border border-[var(--theme-border)] px-3 font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-hunter-gold/50 transition-colors disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={isSubmitting}
             data-testid="discount-apply-button"
-            className="shrink-0 h-9 font-sans text-[11px] uppercase tracking-[3px] px-4 border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold/50 hover:text-hunter-gold transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+            className="shrink-0 h-9 font-sans text-[10px] uppercase tracking-[3px] px-4 border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold/50 hover:text-hunter-gold transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? t("Se aplică…") : t("Aplică")}
           </button>
@@ -144,13 +144,13 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             >
               <div className="flex items-center gap-2">
                 <span
-                  className="font-sans text-[11px] uppercase tracking-[2px] text-hunter-gold border border-hunter-gold/30 px-2 py-0.5"
+                  className="font-sans text-[10px] uppercase tracking-[2px] text-hunter-gold border border-hunter-gold/30 px-2 py-0.5"
                   data-testid="discount-code"
                 >
                   {promotion.code}
                 </span>
                 {promotion.application_method?.value !== undefined && (
-                  <span className="font-sans text-[11px] text-[var(--theme-text-muted)]">
+                  <span className="font-sans text-[10px] text-[var(--theme-text-muted)]">
                     {promotion.application_method.type === "percentage"
                       ? `−${promotion.application_method.value}%`
                       : promotion.application_method.currency_code

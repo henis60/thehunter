@@ -29,7 +29,7 @@ export default function FilterToggle({ collections, categories, selectedCollecti
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-[var(--theme-text)] transition-colors"
+        className="flex items-center gap-2 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-[var(--theme-text)] transition-colors"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
           <line x1="4" y1="6" x2="20" y2="6" />

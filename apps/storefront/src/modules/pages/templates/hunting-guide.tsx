@@ -56,7 +56,7 @@ const HuntingGuideTemplate = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/75" />
         <div className="absolute bottom-0 left-0 right-0 page-container pb-10 small:pb-14">
           <div className="mb-4">
-            <span className="font-sans text-[12px] uppercase tracking-[5px] text-white/60">
+            <span className="font-sans text-[11px] uppercase tracking-[5px] text-white/60">
               {t("The Hunter House · Heritage")}
             </span>
           </div>
@@ -154,13 +154,13 @@ const HuntingGuideTemplate = () => {
           <div className="flex flex-col small:flex-row gap-4 shrink-0">
             <button
               onClick={() => setOpen(true)}
-              className="h-11 px-8 flex items-center font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
+              className="h-11 px-8 flex items-center font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
             >
               {t("Vezi colecția")}
             </button>
             <button
               onClick={() => setOpen(true)}
-              className="h-11 px-8 flex items-center font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:text-hunter-gold hover:border-hunter-gold/40 transition-colors cursor-pointer"
+              className="h-11 px-8 flex items-center font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:text-hunter-gold hover:border-hunter-gold/40 transition-colors cursor-pointer"
             >
               {t("Consultație")}
             </button>

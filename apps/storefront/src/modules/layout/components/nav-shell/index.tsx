@@ -37,7 +37,7 @@ const NavShell = ({ children }: { children: React.ReactNode }) => {
             : "bg-[var(--theme-chrome)] border-[var(--theme-border)] dark:border-hunter-gold/20 text-[var(--theme-text)]")
         }
       >
-        <nav className="content-container flex items-center justify-between w-full h-full font-sans text-[13px] uppercase tracking-[3px]">
+        <nav className="content-container flex items-center justify-between w-full h-full font-sans text-[12px] uppercase tracking-[3px]">
           {children}
         </nav>
       </header>

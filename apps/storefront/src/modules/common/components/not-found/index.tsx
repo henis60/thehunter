@@ -52,7 +52,7 @@ const NotFoundContent = async ({
           locale prefix is needed on the href either way. */}
       <a
         href="/"
-        className="mt-2 px-6 py-3 font-sans text-[12px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
+        className="mt-2 px-6 py-3 font-sans text-[11px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
       >
         {t("Înapoi la pagina principală")}
       </a>

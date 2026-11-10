@@ -27,20 +27,20 @@ const OrderOverview = ({ orders }: { orders: HttpTypes.StoreOrder[] }) => {
       data-testid="no-orders-container"
     >
       <div>
-        <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
+        <p className="font-sans text-[10px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-3">
           {t("Istoric comenzi")}
         </p>
         <h2 className="font-display text-[28px] leading-[1.1] text-[var(--theme-text)] mb-3">
           {t("Nicio comandă încă")}
         </h2>
-        <p className="font-serif italic text-[16px] text-[var(--theme-text-muted)] max-w-[240px] mx-auto">
+        <p className="font-serif italic text-[15px] text-[var(--theme-text-muted)] max-w-[240px] mx-auto">
           {t("Descoperă colecția noastră și plasează prima ta comandă")}
         </p>
       </div>
       <LocalizedClientLink href="/ready-to-wear" passHref>
         <Button
           data-testid="continue-shopping-button"
-          className="h-12 small:px-8 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[13px]"
+          className="h-12 small:px-8 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[12px]"
         >
           {t("Vezi colecția")}
         </Button>

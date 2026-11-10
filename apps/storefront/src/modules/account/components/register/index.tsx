@@ -57,7 +57,7 @@ const Register = ({ setCurrentView }: Props) => {
       <h1 className="font-display text-[42px] leading-[1] text-[var(--theme-text)] mb-2">
         {t("Creează un Cont")}
       </h1>
-      <p className="font-sans text-[16px] text-[var(--theme-text-muted)] mb-10 text-center">
+      <p className="font-sans text-[15px] text-[var(--theme-text-muted)] mb-10 text-center">
         {t("Creează-ți profilul și accesează o experiență de cumpărături îmbunătățită")}
       </p>
 
@@ -116,7 +116,7 @@ const Register = ({ setCurrentView }: Props) => {
           error={recaptchaError || message}
           data-testid="register-error"
         />
-        <p className="font-sans text-[13px] text-[var(--theme-text-muted)] mt-6 leading-relaxed">
+        <p className="font-sans text-[12px] text-[var(--theme-text-muted)] mt-6 leading-relaxed">
           {t("Prin crearea unui cont, ești de acord cu")}{" "}
           <LocalizedClientLink
             href="/privacy-policy"
@@ -135,7 +135,7 @@ const Register = ({ setCurrentView }: Props) => {
         </p>
         <SubmitButton
           pending={pending}
-          className="w-full mt-4 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[15px]"
+          className="w-full mt-4 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[14px]"
           data-testid="register-button"
         >
           {t("Creează Cont")}
@@ -144,13 +144,13 @@ const Register = ({ setCurrentView }: Props) => {
         <button
           type="button"
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
-          className="w-full mt-3 h-12 font-sans uppercase tracking-[3px] text-[13px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
+          className="w-full mt-3 h-12 font-sans uppercase tracking-[3px] text-[12px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
           data-testid="switch-to-login-button"
         >
           {t("Am deja un cont")}
         </button>
 
-        <p className="font-sans text-[13px] text-[var(--theme-text-muted)] mt-4 text-center leading-relaxed">
+        <p className="font-sans text-[12px] text-[var(--theme-text-muted)] mt-4 text-center leading-relaxed">
           {t("Protejat de reCAPTCHA")}{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-hunter-gold transition-colors">{t("Confidențialitate")}</a>
           {" "}&amp;{" "}

@@ -124,7 +124,7 @@ export default async function PaginatedProducts({
 
     return (
       <div className="flex flex-col items-center justify-center py-24 gap-6 text-center">
-        <p className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+        <p className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
           {t("Niciun produs găsit")}
         </p>
         <p className="font-serif text-lg text-[var(--theme-text-muted)] max-w-xs">
@@ -134,7 +134,7 @@ export default async function PaginatedProducts({
         </p>
         <LocalizedClientLink
           href="/ready-to-wear"
-          className="mt-2 px-8 py-3 font-sans text-[12px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
+          className="mt-2 px-8 py-3 font-sans text-[11px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
         >
           {isFixedContext ? t("Vezi toate produsele") : t("Resetează filtrele")}
         </LocalizedClientLink>
