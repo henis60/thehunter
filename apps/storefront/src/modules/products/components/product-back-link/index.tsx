@@ -12,7 +12,11 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 // (Google, a shared link) has nothing meaningful to go back to, so those
 // fall through to the plain link below instead of leaving the site or
 // no-op'ing on an empty history stack.
-export default function ProductBackLink({ fallbackHref }: { fallbackHref: string }) {
+export default function ProductBackLink({
+  fallbackHref,
+}: {
+  fallbackHref: string
+}) {
   const t = useTranslations("products")
   const router = useRouter()
 
@@ -34,7 +38,7 @@ export default function ProductBackLink({ fallbackHref }: { fallbackHref: string
     <LocalizedClientLink
       href={fallbackHref}
       onClick={handleClick}
-      className="inline-flex items-end gap-2 text-[var(--theme-text-muted)] hover:text-[var(--theme-gold)] transition-colors font-sans text-[12px] uppercase tracking-[3px]"
+      className="inline-flex items-center gap-2 text-[var(--theme-text-muted)] hover:text-[var(--theme-gold)] transition-colors font-sans text-[12px] uppercase tracking-[3px]"
     >
       <svg
         width="18"
