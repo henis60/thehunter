@@ -1,5 +1,6 @@
 "use client"
 
+import { useReloadOnStaleDeployment } from "@lib/util/stale-deployment"
 import ErrorContent from "@modules/common/components/error-content"
 import { isConnectionError } from "@lib/util/is-connection-error"
 import { useTranslations } from "next-intl"
@@ -16,6 +17,7 @@ export default function CheckoutError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useReloadOnStaleDeployment(error)
   const t = useTranslations("checkout")
 
   if (isConnectionError(error)) {

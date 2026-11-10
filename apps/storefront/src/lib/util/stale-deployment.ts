@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect } from "react"
+
 /**
  * The cart drawer lives in the persistent layout — it never remounts on
  * navigation, so a tab left open across a deploy keeps calling Server
@@ -27,6 +29,12 @@ export function isStaleDeploymentError(err: unknown): boolean {
   const message = err instanceof Error ? err.message : String(err ?? "")
   return (
     /failed to find server action/i.test(message) ||
+    // Next 15+ wording: 'Server Action "<id>" was not found on the server.'
+    /server action.*not found/i.test(message) ||
+    /failed-to-find-server-action/i.test(message) ||
+    // Thrown by Next's action client when, mid-deploy, the server answers an
+    // action POST with an HTML page (or nothing) instead of an RSC payload.
+    /unexpected response was received from the server/i.test(message) ||
     /older or newer deployment/i.test(message) ||
     /loading chunk [\w.-]+ failed/i.test(message) ||
     /chunkloaderror/i.test(message) ||
@@ -93,6 +101,40 @@ export function getDisplayableErrorMessage(
     reloadForNewDeployment()
     return fallback
   }
-  if (err instanceof Error && err.message) return err.message
-  return fallback
+  const message = err instanceof Error ? err.message : ""
+  if (!message || isFrameworkInternalMessage(message)) return fallback
+  return message
+}
+
+/**
+ * Messages that come from the browser/Next.js runtime rather than from our
+ * backend — never meaningful to a customer, so they get the generic
+ * fallback instead of being shown verbatim.
+ */
+function isFrameworkInternalMessage(message: string): boolean {
+  return (
+    /nextjs\.org\/docs/i.test(message) ||
+    /server action/i.test(message) ||
+    /failed to fetch/i.test(message) ||
+    /networkerror/i.test(message) ||
+    /^load failed$/i.test(message.trim()) ||
+    /network request failed/i.test(message) ||
+    /unexpected token .* json/i.test(message) ||
+    /cannot read propert/i.test(message) ||
+    /is not a function/i.test(message) ||
+    /is not defined/i.test(message)
+  )
+}
+
+/**
+ * For error boundaries (error.tsx / global-error.tsx): a stale server action
+ * called through useActionState/startTransition throws during render and
+ * lands in the nearest boundary rather than in a try/catch or on `window`,
+ * so ChunkErrorGuard never sees it. Reload to pick up the new deployment
+ * instead of leaving the customer on an error screen.
+ */
+export function useReloadOnStaleDeployment(error: unknown) {
+  useEffect(() => {
+    if (isStaleDeploymentError(error)) reloadForNewDeployment()
+  }, [error])
 }

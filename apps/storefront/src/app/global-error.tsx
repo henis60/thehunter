@@ -1,5 +1,7 @@
 "use client"
 
+import { useReloadOnStaleDeployment } from "@lib/util/stale-deployment"
+
 // Plasă de siguranță finală: prinde erori aruncate chiar din RootLayout
 // (providers, fonturi etc.), unde error.tsx-urile din grupurile de rute nu
 // ajung să se monteze. Next.js cere ca acest fișier să randeze propriile
@@ -33,6 +35,7 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useReloadOnStaleDeployment(error)
   return (
     <html lang="en">
       <body style={{ margin: 0, background: "#0D0D0D" }}>

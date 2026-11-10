@@ -1,5 +1,6 @@
 "use client"
 
+import { useReloadOnStaleDeployment } from "@lib/util/stale-deployment"
 import ErrorContent from "@modules/common/components/error-content"
 import { isConnectionError } from "@lib/util/is-connection-error"
 
@@ -14,6 +15,7 @@ export default function MainError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useReloadOnStaleDeployment(error)
   if (isConnectionError(error)) {
     return (
       <ErrorContent
