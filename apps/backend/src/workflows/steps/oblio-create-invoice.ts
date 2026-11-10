@@ -1,6 +1,6 @@
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 import { requireOblioCui, requireOblioManagement } from "./oblio-get-token"
-import { oblioProductName } from "../../lib/oblio-product-name"
+import { OBLIO_ITEM_FIELDS, oblioProductName } from "../../lib/oblio-product-name"
 import { countryNameRo } from "../../lib/country-name"
 
 type Input = {
@@ -50,8 +50,7 @@ export const oblioCreateInvoiceStep = createStep(
         "billing_address.phone",
         "items.id",
         "items.title",
-        "items.variant.product.title",
-        "items.variant.product.categories.name",
+        ...OBLIO_ITEM_FIELDS,
         "items.quantity",
         "items.unit_price",
         "items.adjustments.amount",
@@ -122,10 +121,10 @@ export const oblioCreateInvoiceStep = createStep(
       return unitPrice - adjustmentTotal / quantity
     }
 
-    // Pe factură merge NUMELE CATEGORIEI produsului, nu titlul din Medusa: în
-    // nomenclatorul Oblio există câte un produs pentru fiecare categorie, cu
-    // același nume. Fără o categorie clară se oprește, cu produsele numite —
-    // nu ghicim o clasificare fiscală.
+    // Pe factură merge numele din nomenclatorul Oblio, nu titlul din Medusa:
+    // metadata `oblio` pe produs → metadata `oblio` pe categorie → numele
+    // categoriei (vezi lib/oblio-product-name.ts). Fără un nume clar se
+    // oprește, cu produsele numite — nu ghicim o clasificare fiscală.
     const resolved = (order.items ?? []).map((item: any) => ({
       item,
       result: oblioProductName(item),
@@ -135,8 +134,9 @@ export const oblioCreateInvoiceStep = createStep(
     )
     if (problems.length) {
       throw new Error(
-        `Oblio: ${problems.join("; ")}. Fiecare produs trebuie să aibă exact o ` +
-          `categorie, al cărei nume există identic în nomenclatorul Oblio.`
+        `Oblio: ${problems.join("; ")}. Fiecare produs trebuie să ducă la un singur ` +
+          `nume din nomenclatorul Oblio: metadata „oblio" pe produs sau pe categorie, ` +
+          `altfel numele categoriei, scris identic.`
       )
     }
 
