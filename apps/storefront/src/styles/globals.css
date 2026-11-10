@@ -369,13 +369,25 @@ body.hunter-landing-active::before {
     height: 100svh;
     justify-content: center;
     padding-top: 0;
-    padding-bottom: 60px; /* space for mqstrip */
+    /* space for mqstrip, plus the home-indicator safe area */
+    padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
   }
   .hero-content {
     flex: 1;
     justify-content: space-between;
-    padding-top: clamp(120px, 28vh, 200px);
-    padding-bottom: clamp(20px, 5vh, 48px);
+    /* svh (not vh): vh is the *large* viewport on iOS, so 28vh overshot the
+       visible height and, with the bigger phone logo, pushed the CTA down
+       under Safari's bottom toolbar. */
+    padding-top: clamp(100px, 22svh, 180px);
+    padding-bottom: clamp(20px, 5svh, 48px);
+  }
+  /* iOS Safari only (-webkit-touch-callout is WebKit-on-iOS): its bottom
+     toolbar floats over the page, so 100svh still reaches underneath it.
+     Keep the CTA clear of it. */
+  @supports (-webkit-touch-callout: none) {
+    .hero-content {
+      padding-bottom: calc(clamp(20px, 5svh, 48px) + 28px);
+    }
   }
   .hero-top-group {
     display: flex;
