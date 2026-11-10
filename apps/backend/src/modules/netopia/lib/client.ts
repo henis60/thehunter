@@ -126,17 +126,24 @@ export class NetopiaClient {
     return this.request<NetopiaOperationResponse>("/operation/void", body);
   }
 
-  async refund(
-    ntpID: string,
-    amount: number,
-    currency = "RON",
-  ): Promise<NetopiaOperationResponse> {
-    const body: NetopiaOperationRequest = {
+  /**
+   * Refund (credit). Per the v2 OpenAPI spec (secure.sandbox.netopia-payments.com/spec),
+   * `OperationRequest` is flat `{ ntpID, amount }` only: no posSignature and no
+   * currency. Sending those extra fields got a 400 "general error" back.
+   */
+  async refund(ntpID: string, amount: number): Promise<NetopiaOperationResponse> {
+    const body = {
       ntpID,
-      posSignature: this.posSignature,
-      amount,
-      currency,
+      amount: Math.round(amount * 100) / 100,
     };
-    return this.request<NetopiaOperationResponse>("/operation/credit", body);
+    const res = await this.request<NetopiaOperationResponse>("/operation/credit", body);
+    // Netopia can answer 200 with an error object; that is not a refund.
+    const code = res?.error?.code;
+    if (code && code !== "00" && code !== "0" && !res?.payment) {
+      throw new Error(
+        `Netopia /operation/credit refused [${code}]: ${res.error?.message ?? "-"}`,
+      );
+    }
+    return res;
   }
 }

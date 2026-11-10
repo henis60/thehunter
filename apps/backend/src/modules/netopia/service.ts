@@ -448,14 +448,22 @@ export class NetopiaProviderService extends AbstractPaymentProvider<NetopiaOptio
 
     if (!ntpID) return { data };
 
+    // Errors must propagate: swallowing them made Medusa record a refund that
+    // Netopia had rejected, so the admin showed "refunded" with no money back.
+    const amountRON = toNumber(input.amount);
     try {
-      const amountRON = toNumber(input.amount);
-      const currency = (data.currency as string) ?? "RON";
-      await this.client.refund(ntpID, amountRON, currency);
+      await this.client.refund(ntpID, amountRON);
     } catch (err) {
-      this.logger.warn(`Netopia refund error: ${(err as Error).message}`);
+      this.logger.error(
+        `Netopia refund FAILED ntpID=${ntpID} amount=${amountRON}: ${(err as Error).message}`,
+      );
+      throw new MedusaError(
+        MedusaError.Types.UNEXPECTED_STATE,
+        `Rambursarea Netopia a eșuat: ${(err as Error).message}`,
+      );
     }
 
+    this.logger.info(`Netopia refund OK ntpID=${ntpID} amount=${amountRON}`);
     return { data };
   }
 
