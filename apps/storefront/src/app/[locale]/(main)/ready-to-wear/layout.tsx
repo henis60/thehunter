@@ -111,7 +111,7 @@ export default async function ReadyToWearLayout({
                   <li key={c.id}>
                     <Link
                       href={`/ready-to-wear/${c.handle}`}
-                      className="font-sans text-[11px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
+                      className="font-sans text-[13px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
                     >
                       {c.title}
                     </Link>
@@ -125,7 +125,7 @@ export default async function ReadyToWearLayout({
                   <li key={c.id}>
                     <Link
                       href={`/ready-to-wear/${c.handle}`}
-                      className="font-sans text-[11px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
+                      className="font-sans text-[13px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
                     >
                       {c.name}
                     </Link>

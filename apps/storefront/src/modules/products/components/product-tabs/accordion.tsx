@@ -53,7 +53,7 @@ const Item: React.FC<AccordionItemProps> = ({
     >
       <AccordionPrimitive.Header className="px-1">
         <AccordionPrimitive.Trigger className="flex w-full items-center justify-between cursor-pointer">
-          <span className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text)]">{title}</span>
+          <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text)]">{title}</span>
           {customTrigger || <MorphingTrigger />}
         </AccordionPrimitive.Trigger>
         {subtitle && (

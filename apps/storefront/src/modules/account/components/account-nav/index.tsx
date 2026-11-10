@@ -95,7 +95,7 @@ const MobileNav = ({ route, t }: { route: string; t: NavT }) => {
         <div>
           <LocalizedClientLink
             href={backTarget(route)}
-            className="inline-flex items-end gap-2 small:py-3 small:-my-3 small:px-3 small:-mx-3 small:px-3 small:-mx-3 font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-[var(--theme-gold)] active:text-[var(--theme-gold)] transition-colors"
+            className="inline-flex items-end gap-2 small:py-3 small:-my-3 small:px-3 small:-mx-3 small:px-3 small:-mx-3 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-[var(--theme-gold)] active:text-[var(--theme-gold)] transition-colors"
             data-testid="account-back-link"
           >
             <svg
@@ -156,7 +156,7 @@ const DesktopNav = ({ route, t }: { route: string; t: NavT }) => (
       type="button"
       onClick={handleLogout}
       data-testid="logout-button"
-      className="mt-10 w-full h-11 px-6 inline-flex items-center justify-center gap-2 border border-[var(--theme-border)] font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
+      className="mt-10 w-full h-11 px-6 inline-flex items-center justify-center gap-2 border border-[var(--theme-border)] font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
     >
       <ArrowRightOnRectangle className="w-3.5 h-3.5" />
       {t("Deconectare")}

@@ -38,7 +38,7 @@ const Item = async ({ item, currencyCode }: ItemProps) => {
       <div className="flex flex-1 min-w-0 items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <p
-            className="font-display text-[17px] leading-[1.2] text-[var(--theme-text)]"
+            className="font-display text-[18px] leading-[1.2] text-[var(--theme-text)]"
             data-testid="product-name"
           >
             {displayTitle}
@@ -48,7 +48,7 @@ const Item = async ({ item, currencyCode }: ItemProps) => {
             data-testid="product-variant"
           />
           <span
-            className="font-sans text-[10px] text-[var(--theme-text-muted)]"
+            className="font-sans text-[12px] text-[var(--theme-text-muted)]"
             data-testid="product-quantity"
           >
             {t("Cant: {quantity}", { quantity: item.quantity })}
@@ -60,7 +60,7 @@ const Item = async ({ item, currencyCode }: ItemProps) => {
             style="tight"
             currencyCode={currencyCode}
           />
-          <div className="font-display text-[15px] text-hunter-gold">
+          <div className="font-display text-[17px] text-hunter-gold">
             <LineItemPrice
               item={item}
               style="tight"

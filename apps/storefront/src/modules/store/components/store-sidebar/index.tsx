@@ -35,7 +35,7 @@ const isAlwaysOpen = (category: HttpTypes.StoreProductCategory) => {
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-4">
-      <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)]">
+      <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)]">
         {children}
       </p>
     </div>
@@ -278,7 +278,7 @@ export default function StoreSidebar({
               href={buildHref([])}
               prefetch={false}
               onClick={onClearFilters}
-              className="inline-block font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors border-b border-transparent hover:border-hunter-gold pb-0.5"
+              className="inline-block font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors border-b border-transparent hover:border-hunter-gold pb-0.5"
             >
               {t("Resetează filtrele")}
             </Link>

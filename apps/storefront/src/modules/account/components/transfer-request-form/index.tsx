@@ -30,13 +30,13 @@ export default function TransferRequestForm() {
   return (
     <div className="flex flex-col gap-y-6 w-full">
       <div>
-        <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
+        <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
           {t("Revendicare comandă")}
         </p>
         <h2 className="font-display text-[22px] leading-[1.1] text-[var(--theme-text)] mb-1">
           {t("Asociază o comandă la cont")}
         </h2>
-        <p className="font-sans text-[11px] text-[var(--theme-text-muted)]">
+        <p className="font-sans text-[13px] text-[var(--theme-text-muted)]">
           {t("Ai plasat o comandă fără cont? Introdu ID-ul comenzii din emailul de confirmare pentru a o asocia contului tău")}
         </p>
       </div>
@@ -51,13 +51,13 @@ export default function TransferRequestForm() {
             label={t("ID comandă")}
           />
         </div>
-        <SubmitButton className="!w-auto h-10 px-6 !py-0 !bg-transparent !text-[var(--theme-text-muted)] border border-[var(--theme-border)] hover:!opacity-100 hover:border-hunter-gold hover:!text-hunter-gold font-sans text-[10px] uppercase tracking-[3px] whitespace-nowrap self-end small:self-auto">
+        <SubmitButton className="!w-auto h-10 px-6 !py-0 !bg-transparent !text-[var(--theme-text-muted)] border border-[var(--theme-border)] hover:!opacity-100 hover:border-hunter-gold hover:!text-hunter-gold font-sans text-[12px] uppercase tracking-[3px] whitespace-nowrap self-end small:self-auto">
           {t("Trimite cerere")}
         </SubmitButton>
       </form>
 
       {!state.success && state.error && (
-        <p className="font-sans text-[10px] text-rose-500">
+        <p className="font-sans text-[12px] text-rose-500">
           {state.error}
         </p>
       )}
@@ -67,12 +67,12 @@ export default function TransferRequestForm() {
           <div className="flex gap-3 items-start">
             <CheckCircleMiniSolid className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-sans text-[11px] text-[var(--theme-text)] mb-0.5">
+              <p className="font-sans text-[13px] text-[var(--theme-text)] mb-0.5">
                 {t("Cerere trimisă pentru comanda {id}", {
                   id: state.order?.id ?? "",
                 })}
               </p>
-              <p className="font-sans text-[10px] text-[var(--theme-text-muted)]">
+              <p className="font-sans text-[12px] text-[var(--theme-text-muted)]">
                 {t("Email de confirmare trimis la {email}", {
                   email: state.order?.email ?? "",
                 })}

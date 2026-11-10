@@ -16,15 +16,15 @@ const ShippingDetails = async ({ order }: ShippingDetailsProps) => {
 
   return (
     <div className="small:px-8 py-6">
-      <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-5">
+      <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-5">
         {t("Livrare")}
       </p>
       <div className="grid grid-cols-1 small:grid-cols-3 gap-6">
         <div data-testid="shipping-address-summary">
-          <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
+          <p className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
             {t("Adresă de livrare")}
           </p>
-          <div className="flex flex-col gap-0.5 font-sans text-[12px] text-[var(--theme-text)]">
+          <div className="flex flex-col gap-0.5 font-sans text-[14px] text-[var(--theme-text)]">
             <span>
               {addr?.first_name} {addr?.last_name}
             </span>
@@ -40,10 +40,10 @@ const ShippingDetails = async ({ order }: ShippingDetailsProps) => {
         </div>
 
         <div data-testid="shipping-contact-summary">
-          <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
+          <p className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
             {t("Contact")}
           </p>
-          <div className="flex flex-col gap-0.5 font-sans text-[12px] text-[var(--theme-text)]">
+          <div className="flex flex-col gap-0.5 font-sans text-[14px] text-[var(--theme-text)]">
             {addr?.phone && <span>{addr.phone}</span>}
             <span>{order.email}</span>
           </div>
@@ -51,14 +51,14 @@ const ShippingDetails = async ({ order }: ShippingDetailsProps) => {
 
         {paidShippingMethods.length > 0 && (
           <div data-testid="shipping-method-summary">
-            <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
+            <p className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
               {t("Metodă de livrare")}
             </p>
             <div className="flex flex-col gap-2">
               {paidShippingMethods.map((sm) => (
                 <div
                   key={sm.id}
-                  className="flex flex-col gap-0.5 font-sans text-[12px] text-[var(--theme-text)]"
+                  className="flex flex-col gap-0.5 font-sans text-[14px] text-[var(--theme-text)]"
                 >
                   <span>{(sm as { name?: string }).name}</span>
                   <span className="text-[var(--theme-text-muted)]">

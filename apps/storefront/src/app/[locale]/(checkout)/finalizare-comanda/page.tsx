@@ -61,7 +61,7 @@ export default async function Checkout({
       <div className="content-container pt-4 pb-0">
         <LocalizedClientLink
           href="/cos"
-          className="inline-flex items-end gap-2 text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors font-sans text-[11px] uppercase tracking-[3px]"
+          className="inline-flex items-end gap-2 text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors font-sans text-[13px] uppercase tracking-[3px]"
         >
           <svg
             width="18"

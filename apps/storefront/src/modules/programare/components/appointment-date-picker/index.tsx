@@ -44,7 +44,7 @@ function getSlots(date: Date, now: Date): string[] {
   return slots
 }
 
-const labelClass = "font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 flex items-center gap-1"
+const labelClass = "font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 flex items-center gap-1"
 const inputBase = "w-full h-10 bg-transparent border border-[var(--theme-border)] px-3 font-sans text-sm focus:outline-none transition-colors"
 const dropUpBase =
   "absolute bottom-full mb-1 z-[9025] left-0 w-[272px] bg-white border border-gray-200 shadow-xl"
@@ -198,7 +198,7 @@ export default function AppointmentDatePicker({
                     <polyline points="15 18 9 12 15 6" />
                   </svg>
                 </button>
-                <span className="font-sans text-[10px] uppercase tracking-[3px] text-gray-800">
+                <span className="font-sans text-[12px] uppercase tracking-[3px] text-gray-800">
                   {t(MONTHS_RO[viewMonth])} {viewYear}
                 </span>
                 <button type="button" onClick={nextMonth} className="p-1 text-gray-400 hover:text-gray-700 transition-colors">
@@ -212,7 +212,7 @@ export default function AppointmentDatePicker({
               <div className="px-2.5 pt-2.5 pb-2">
                 <div className="grid grid-cols-7 mb-1">
                   {DAYS_LABEL.map((d) => (
-                    <div key={d} className="text-center font-sans text-[9px] uppercase tracking-[1px] text-gray-400 py-1">{t(d)}</div>
+                    <div key={d} className="text-center font-sans text-[11px] uppercase tracking-[1px] text-gray-400 py-1">{t(d)}</div>
                   ))}
                 </div>
                 <div className="grid grid-cols-7 gap-0.5">
@@ -228,7 +228,7 @@ export default function AppointmentDatePicker({
                         disabled={disabled}
                         onClick={() => selectDay(day)}
                         className={[
-                          "h-7 w-full font-sans text-[11px] transition-colors",
+                          "h-7 w-full font-sans text-[13px] transition-colors",
                           disabled ? "text-gray-300 cursor-not-allowed" : "hover:bg-gray-50 cursor-pointer text-gray-800",
                           selected ? "!bg-hunter-gold !text-hunter-dark font-medium" : "",
                           tod && !selected ? "underline decoration-hunter-gold decoration-1 underline-offset-2" : "",
@@ -294,7 +294,7 @@ export default function AppointmentDatePicker({
                       onSelect?.(hiddenDate, slot)
                     }}
                     className={[
-                      "h-7 w-full font-sans text-[11px] border transition-colors",
+                      "h-7 w-full font-sans text-[13px] border transition-colors",
                       selectedTime === slot
                         ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                         : "border-gray-200 text-gray-700 hover:border-hunter-gold/60",

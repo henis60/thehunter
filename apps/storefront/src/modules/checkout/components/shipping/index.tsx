@@ -30,7 +30,7 @@ import {
 import { useSearchParams } from "next/navigation"
 import { usePathname, useRouter } from "@i18n/navigation"
 import { useCallback, useEffect, useState } from "react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { getDisplayableErrorMessage } from "@lib/util/stale-deployment"
 import {
   isDropshipOption,
@@ -73,6 +73,7 @@ const Shipping: React.FC<ShippingProps> = ({
   availableShippingMethods,
 }) => {
   const t = useTranslations("checkout")
+  const locale = useLocale()
 
   // Coș mixt: produsele obișnuite pleacă prin curier (metoda aleasă mai jos),
   // cele în dropshipping au livrarea lor gratuită, de la furnizor — setată
@@ -469,7 +470,7 @@ const Shipping: React.FC<ShippingProps> = ({
                           : "border-[var(--theme-border)]"
                       }`}
                     />
-                    <span className="font-serif text-[14px] text-[var(--theme-text)]">
+                    <span className="font-serif text-[16px] text-[var(--theme-text)]">
                       {t("Ridicare din magazin")}
                     </span>
                   </div>
@@ -519,7 +520,7 @@ const Shipping: React.FC<ShippingProps> = ({
                               : "border-[var(--theme-border)]"
                           }`}
                         />
-                        <span className="font-serif text-[14px] text-[var(--theme-text)]">
+                        <span className="font-serif text-[16px] text-[var(--theme-text)]">
                           {option.name}
                         </span>
                       </div>
@@ -563,7 +564,7 @@ const Shipping: React.FC<ShippingProps> = ({
                   onClick={() =>
                     router.push(`${pathname}?pas=adresa`, { scroll: false })
                   }
-                  className="font-sans text-[10px] uppercase tracking-[2px] text-hunter-gold hover:underline shrink-0"
+                  className="font-sans text-[12px] uppercase tracking-[2px] text-hunter-gold hover:underline shrink-0"
                 >
                   {t("Modifică adresa")}
                 </button>
@@ -580,7 +581,7 @@ const Shipping: React.FC<ShippingProps> = ({
                 <button
                   type="button"
                   onClick={fetchPrices}
-                  className="font-sans text-[10px] uppercase tracking-[2px] text-hunter-gold hover:underline shrink-0"
+                  className="font-sans text-[12px] uppercase tracking-[2px] text-hunter-gold hover:underline shrink-0"
                 >
                   {t("Reîncearcă")}
                 </button>
@@ -646,10 +647,10 @@ const Shipping: React.FC<ShippingProps> = ({
                       }`}
                     />
                     <div className="flex flex-col">
-                      <span className="font-serif text-[14px] text-[var(--theme-text)]">
+                      <span className="font-serif text-[16px] text-[var(--theme-text)]">
                         {option.name}
                       </span>
-                      <span className="font-serif italic text-[12px] text-[var(--theme-text-muted)]">
+                      <span className="font-serif italic text-[14px] text-[var(--theme-text-muted)]">
                         {formatAddress(
                           (option as any).service_zone?.fulfillment_set
                             ?.location?.address as HttpTypes.StoreCartAddress
@@ -679,8 +680,12 @@ const Shipping: React.FC<ShippingProps> = ({
                   <div className={radioClass(true)}>
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 rounded-full border flex-shrink-0 border-hunter-gold bg-hunter-gold" />
-                      <span className="font-serif text-[14px] text-[var(--theme-text)]">
-                        {dropshipOption.name}
+                      <span className="font-serif text-[16px] text-[var(--theme-text)]">
+                        {/* Medusa nu traduce opțiunile de livrare: în română
+                            rămâne numele din admin, altfel textul tradus. */}
+                        {locale === "ro"
+                          ? dropshipOption.name
+                          : t("Livrare gratuită (7–10 zile)")}
                       </span>
                     </div>
                     <span className={priceTextClass}>{t("Gratuit")}</span>
@@ -749,7 +754,7 @@ const Shipping: React.FC<ShippingProps> = ({
                 .map((sm) => (
                 <span
                   key={sm.id}
-                  className="font-serif italic text-[14px] text-[var(--theme-text)]"
+                  className="font-serif italic text-[16px] text-[var(--theme-text)]"
                 >
                   {sm.name}{" "}
                   <span className={priceTextClass}>

@@ -35,7 +35,7 @@ function FilterGroup({
             key={item.id}
             onClick={() => onSelect(paramKey, active ? null : item.id)}
             className={clx(
-              "font-sans text-[10px] uppercase tracking-[3px] transition-colors pb-0.5",
+              "font-sans text-[12px] uppercase tracking-[3px] transition-colors pb-0.5",
               active
                 ? "text-[var(--theme-text)] border-b border-hunter-gold"
                 : "text-[var(--theme-text-muted)] hover:text-[var(--theme-text)] border-b border-transparent"

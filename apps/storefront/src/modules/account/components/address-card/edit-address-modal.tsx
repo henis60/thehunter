@@ -89,13 +89,13 @@ const EditAddress: React.FC<EditAddressProps> = ({
           </p>
           {address.company && (
             <p
-              className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
+              className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
               data-testid="address-company"
             >
               {address.company}
             </p>
           )}
-          <div className="flex flex-col font-sans text-[12px] text-[var(--theme-text-muted)] mt-2 gap-0.5">
+          <div className="flex flex-col font-sans text-[14px] text-[var(--theme-text-muted)] mt-2 gap-0.5">
             <span data-testid="address-address">
               {address.address_1}
               {address.address_2 && `, ${address.address_2}`}
@@ -112,14 +112,14 @@ const EditAddress: React.FC<EditAddressProps> = ({
 
         <div className="flex flex-col small:flex-row items-stretch small:items-center gap-3 mt-5 pt-4 border-t border-[var(--theme-border)]">
           <button
-            className="h-11 small:h-9 px-5 rounded-none bg-hunter-gold text-hunter-dark hover:bg-hunter-gold-b transition-colors font-sans uppercase tracking-[3px] text-[10px] small:text-[9px]"
+            className="h-11 small:h-9 px-5 rounded-none bg-hunter-gold text-hunter-dark hover:bg-hunter-gold-b transition-colors font-sans uppercase tracking-[3px] text-[12px] small:text-[11px]"
             onClick={open}
             data-testid="address-edit-button"
           >
             {t("Editează")}
           </button>
           <button
-            className="small:ml-auto h-11 small:h-9 px-5 rounded-none border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-rose-500 hover:text-rose-500 transition-colors font-sans uppercase tracking-[3px] text-[10px] small:text-[9px] flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[var(--theme-border)] disabled:hover:text-[var(--theme-text-muted)]"
+            className="small:ml-auto h-11 small:h-9 px-5 rounded-none border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-rose-500 hover:text-rose-500 transition-colors font-sans uppercase tracking-[3px] text-[12px] small:text-[11px] flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[var(--theme-border)] disabled:hover:text-[var(--theme-text-muted)]"
             onClick={removeAddress}
             disabled={removing}
             data-testid="address-delete-button"
@@ -134,7 +134,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
         </div>
         {actionError && (
           <p
-            className="font-sans text-[10px] text-rose-500 mt-2"
+            className="font-sans text-[12px] text-rose-500 mt-2"
             data-testid="address-action-error"
           >
             {actionError}
@@ -238,13 +238,13 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   className="h-4 w-4 shrink-0 accent-[var(--theme-gold)]"
                   data-testid="billing-checkbox"
                 />
-                <span className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
+                <span className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
                   {t("Folosește pentru facturare")}
                 </span>
               </label>
             </div>
             {formState.error && (
-              <p className="font-sans text-[10px] text-rose-500 mt-2">
+              <p className="font-sans text-[12px] text-rose-500 mt-2">
                 {formState.error}
               </p>
             )}
@@ -254,13 +254,13 @@ const EditAddress: React.FC<EditAddressProps> = ({
               <button
                 type="reset"
                 onClick={close}
-                className="h-10 px-6 font-sans text-[10px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
+                className="h-10 px-6 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
                 data-testid="cancel-button"
               >
                 {t("Anulează")}
               </button>
               <SubmitButton
-                className="h-10 px-6 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[10px]"
+                className="h-10 px-6 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[12px]"
                 data-testid="save-button"
               >
                 {t("Salvează")}

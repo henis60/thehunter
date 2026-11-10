@@ -53,10 +53,10 @@ export default function CookieConsent() {
             declineButtonText={t("Doar necesare")}
             disableStyles
             containerClasses="flex flex-col gap-3 border-t border-[var(--theme-border)] bg-[var(--theme-chrome)] px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6"
-            contentClasses="font-serif text-[12px] leading-snug text-[var(--theme-text-muted)] sm:text-[13px]"
+            contentClasses="font-serif text-[14px] leading-snug text-[var(--theme-text-muted)] sm:text-[15px]"
             buttonWrapperClasses="flex w-full shrink-0 items-center gap-2 sm:w-auto"
-            buttonClasses="h-10 flex-1 rounded-none bg-hunter-gold px-4 font-sans text-[10px] uppercase tracking-[2px] text-hunter-dark transition-colors hover:bg-hunter-gold-b sm:h-9 sm:flex-none"
-            declineButtonClasses="h-10 flex-1 rounded-none border border-[var(--theme-border)] bg-transparent px-4 font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text)] transition-colors hover:border-[var(--theme-text)] sm:h-9 sm:flex-none"
+            buttonClasses="h-10 flex-1 rounded-none bg-hunter-gold px-4 font-sans text-[12px] uppercase tracking-[2px] text-hunter-dark transition-colors hover:bg-hunter-gold-b sm:h-9 sm:flex-none"
+            declineButtonClasses="h-10 flex-1 rounded-none border border-[var(--theme-border)] bg-transparent px-4 font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text)] transition-colors hover:border-[var(--theme-text)] sm:h-9 sm:flex-none"
             ariaAcceptLabel={t("Accept toate cookies")}
             ariaDeclineLabel={t("Doar cookies necesare")}
           >

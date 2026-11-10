@@ -58,7 +58,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
       return (
         <button
           disabled
-          className="w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[10px] uppercase tracking-[4px] opacity-40 cursor-not-allowed"
+          className="w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[12px] uppercase tracking-[4px] opacity-40 cursor-not-allowed"
         >
           {t("Selectează o metodă de plată")}
         </button>
@@ -93,7 +93,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         disabled={notReady || submitting}
         onClick={handlePayment}
         data-testid="submit-order-button"
-        className={`relative w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[10px] uppercase tracking-[4px] hover:opacity-90 transition-opacity disabled:cursor-not-allowed overflow-hidden ${
+        className={`relative w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[12px] uppercase tracking-[4px] hover:opacity-90 transition-opacity disabled:cursor-not-allowed overflow-hidden ${
           notReady ? "opacity-40" : ""
         }`}
       >
@@ -188,7 +188,7 @@ const NetopiaPaymentButton = ({
         disabled={notReady || submitting}
         onClick={handlePayment}
         data-testid={dataTestId}
-        className={`relative w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[10px] uppercase tracking-[4px] hover:opacity-90 transition-opacity disabled:cursor-not-allowed overflow-hidden ${
+        className={`relative w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[12px] uppercase tracking-[4px] hover:opacity-90 transition-opacity disabled:cursor-not-allowed overflow-hidden ${
           notReady ? "opacity-40" : ""
         }`}
       >

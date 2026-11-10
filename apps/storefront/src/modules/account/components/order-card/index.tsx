@@ -44,7 +44,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
           #{order.display_id}
         </span>
         <span
-          className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
+          className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)]"
           data-testid="order-status"
         >
           {status && `${status}`}
@@ -53,7 +53,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
       <div className="flex items-center gap-4 shrink-0">
         <span
-          className="font-sans text-[13px] tracking-[1px] text-hunter-gold"
+          className="font-sans text-[15px] tracking-[1px] text-hunter-gold"
           data-testid="order-amount"
         >
           {convertToLocale({

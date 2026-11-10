@@ -104,7 +104,7 @@ function FavoriteRow({
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+            <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
               —
             </span>
           </div>
@@ -117,11 +117,11 @@ function FavoriteRow({
             href={`/produs/${item.handle}`}
             className="flex-1 min-w-0"
           >
-            <p className="font-serif text-[16px] leading-[1.2] text-[var(--theme-text)] hover:text-hunter-gold transition-colors truncate">
+            <p className="font-serif text-[18px] leading-[1.2] text-[var(--theme-text)] hover:text-hunter-gold transition-colors truncate">
               {item.title}
             </p>
             {variantLabel && (
-              <p className="font-serif italic text-[12px] text-[var(--theme-text-muted)] mt-0.5">
+              <p className="font-serif italic text-[14px] text-[var(--theme-text-muted)] mt-0.5">
                 {variantLabel}
               </p>
             )}
@@ -148,7 +148,7 @@ function FavoriteRow({
 
         <div className="flex items-end justify-between gap-4 mt-3">
           {cheapestPrice ? (
-            <div className="[&_*]:!text-[12px]">
+            <div className="[&_*]:!text-[14px]">
               <PreviewPrice price={cheapestPrice} />
             </div>
           ) : (
@@ -160,7 +160,7 @@ function FavoriteRow({
               <button
                 onClick={handleAdd}
                 disabled={adding || !inStock}
-                className="shrink-0 h-9 w-[148px] flex items-center justify-center font-sans text-[9px] uppercase tracking-[2.5px] border transition-colors disabled:cursor-not-allowed"
+                className="shrink-0 h-9 w-[148px] flex items-center justify-center font-sans text-[11px] uppercase tracking-[2.5px] border transition-colors disabled:cursor-not-allowed"
                 style={
                   !inStock
                     ? // Out of stock — secondary (outlined, muted), not a
@@ -188,7 +188,7 @@ function FavoriteRow({
             ) : (
               <LocalizedClientLink
                 href={`/produs/${item.handle}`}
-                className="shrink-0 h-9 w-[148px] flex items-center justify-center font-sans text-[9px] uppercase tracking-[2.5px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
+                className="shrink-0 h-9 w-[148px] flex items-center justify-center font-sans text-[11px] uppercase tracking-[2.5px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
               >
                 {t("Alege opțiuni")}
               </LocalizedClientLink>
@@ -265,7 +265,7 @@ export default function FavoritesList() {
   if (favorites.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 gap-6 text-center">
-        <p className="font-sans text-[10px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+        <p className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
           {t("Niciun produs salvat")}
         </p>
         <p className="font-sans text-sm text-[var(--theme-text-muted)] max-w-xs">
@@ -273,7 +273,7 @@ export default function FavoritesList() {
         </p>
         <LocalizedClientLink
           href="/ready-to-wear"
-          className="mt-2 px-6 small:px-8 py-3 font-sans text-[10px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
+          className="mt-2 px-6 small:px-8 py-3 font-sans text-[12px] uppercase tracking-[4px] border border-hunter-gold text-hunter-gold hover:bg-hunter-gold hover:text-hunter-dark transition-colors"
         >
           {t("Descoperă colecția")}
         </LocalizedClientLink>

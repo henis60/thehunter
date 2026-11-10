@@ -10,14 +10,14 @@ export default function PreviewPrice({ price }: { price: VariantPrice }) {
     <div className="flex items-baseline gap-x-2">
       {price.price_type === "sale" && (
         <Text
-          className="line-through text-[14px] text-[var(--theme-text-muted)]"
+          className="line-through text-[16px] text-[var(--theme-text-muted)]"
           data-testid="original-price"
         >
           {price.original_price}
         </Text>
       )}
       <Text
-        className={clx("font-sans text-[14px] tracking-[1px]", {
+        className={clx("font-sans text-[16px] tracking-[1px]", {
           "text-hunter-gold-b": price.price_type === "sale",
           "text-hunter-gold": price.price_type !== "sale",
         })}

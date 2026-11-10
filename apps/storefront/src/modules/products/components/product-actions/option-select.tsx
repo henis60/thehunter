@@ -82,7 +82,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
 
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+      <span className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
         {isColorOption ? t("Selectează culoarea") : t("Selectează mărimea")}
       </span>
       <div className="flex flex-wrap gap-2" data-testid={dataTestId}>
@@ -94,7 +94,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
               onClick={() => updateOption(option.id, v)}
               key={v}
               className={clx(
-                "inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans text-[11px] leading-none uppercase tracking-[2px] transition-colors duration-150",
+                "inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans text-[13px] leading-none uppercase tracking-[2px] transition-colors duration-150",
                 active
                   ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                   : unavailable

@@ -17,7 +17,7 @@ const inputClass = (err?: boolean) =>
   }`
 
 const labelClass =
-  "font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 flex items-center gap-1"
+  "font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2 flex items-center gap-1"
 
 const Label = ({
   htmlFor,
@@ -232,7 +232,7 @@ export default function AppointmentModal({
             {/* Header */}
             <div className="shrink-0 flex items-center justify-between px-6 pt-5 pb-4 border-b border-[var(--theme-border)]">
               <div>
-                <p className="font-sans text-[9px] uppercase tracking-[3px] text-hunter-gold/70 mb-0.5">
+                <p className="font-sans text-[11px] uppercase tracking-[3px] text-hunter-gold/70 mb-0.5">
                   {t("The Hunter House")}
                 </p>
                 <h2
@@ -287,7 +287,7 @@ export default function AppointmentModal({
                         }`}
                       >
                         <span
-                          className={`font-sans text-[9px] uppercase tracking-[2px] transition-colors ${
+                          className={`font-sans text-[11px] uppercase tracking-[2px] transition-colors ${
                             active
                               ? "text-[var(--theme-text)]"
                               : done
@@ -353,7 +353,7 @@ export default function AppointmentModal({
                       </p>
                       <button
                         onClick={handleCloseAfterSuccess}
-                        className="mt-2 h-11 w-100 px-8 font-sans text-[11px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors cursor-pointer"
+                        className="mt-2 h-11 w-100 px-8 font-sans text-[13px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors cursor-pointer"
                       >
                         {t("Închide")}
                       </button>
@@ -378,7 +378,7 @@ export default function AppointmentModal({
                         ].map((item) => (
                           <div key={item} className="flex items-start gap-2.5">
                             <span className="mt-[6px] shrink-0 w-1 h-1 rounded-full bg-hunter-gold/50" />
-                            <p className="font-sans text-[12px] text-[var(--theme-text-muted)] leading-relaxed">
+                            <p className="font-sans text-[14px] text-[var(--theme-text-muted)] leading-relaxed">
                               {item}
                             </p>
                           </div>
@@ -495,14 +495,14 @@ export default function AppointmentModal({
                 {step === 0 ? (
                   <button
                     onClick={() => goTo(1)}
-                    className="w-full h-9 font-sans text-[9px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
+                    className="w-full h-9 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
                   >
                     {t("Începe programarea")}
                   </button>
                 ) : step === 1 ? (
                   <button
                     onClick={nextStep}
-                    className="w-full h-9 font-sans text-[9px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
+                    className="w-full h-9 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
                   >
                     {t("Continuă")}
                   </button>
@@ -510,7 +510,7 @@ export default function AppointmentModal({
                   <button
                     onClick={handleSubmit}
                     disabled={status === "loading"}
-                    className="w-full h-9 font-sans text-[9px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+                    className="w-full h-9 font-sans text-[11px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
                   >
                     {status === "loading"
                       ? t("Se trimite")

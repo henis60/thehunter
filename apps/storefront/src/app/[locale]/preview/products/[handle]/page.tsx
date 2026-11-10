@@ -115,7 +115,7 @@ export default async function ProductPreviewPage(props: Props) {
           textAlign: "center",
           padding: "8px 16px",
           fontWeight: 600,
-          fontSize: "13px",
+          fontSize: "15px",
           letterSpacing: "0.05em",
           position: "sticky",
           top: "64px",

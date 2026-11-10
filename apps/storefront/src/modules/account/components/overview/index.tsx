@@ -61,13 +61,13 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
 
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-2">
-              <p className="font-cinzel text-[11px] tracking-[4px] text-hunter-gold/60 uppercase leading-none">
+              <p className="font-cinzel text-[13px] tracking-[4px] text-hunter-gold/60 uppercase leading-none">
                 {t("The Hunter House")}
               </p>
               <p className="font-serif text-[22px] small:text-[26px] leading-none text-[var(--theme-text)]">
                 {customer?.first_name} <em>{customer?.last_name}</em>
               </p>
-              <p className="font-sans text-[8px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
+              <p className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
                 {t("Membru din")}{" "}
                 {customer?.created_at
                   ? new Date(customer.created_at).toLocaleDateString("ro-RO", {
@@ -77,7 +77,7 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
                   : "—"}
               </p>
             </div>
-            <span className="font-sans text-[5px] small:text-[8px] uppercase tracking-[3px] text-hunter-gold border border-hunter-gold/40 bg-hunter-gold/5 px-1.5 small:px-3 py-1.5 shrink-0 self-start">
+            <span className="font-sans text-[5px] small:text-[10px] uppercase tracking-[3px] text-hunter-gold border border-hunter-gold/40 bg-hunter-gold/5 px-1.5 small:px-3 py-1.5 shrink-0 self-start">
               {t("Standard")}
             </span>
           </div>
@@ -91,7 +91,7 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
         {/* Active orders */}
         {activeOrders && activeOrders.length > 0 && (
           <div>
-            <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-4">
+            <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-4">
               {t("Comenzi active")}
             </p>
             <div className="flex flex-col divide-y divide-[var(--theme-border)] border border-[var(--theme-border)]">
@@ -106,14 +106,14 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
                       <span className="font-display text-[22px] leading-none text-[var(--theme-text)]">
                         #{order.display_id}
                       </span>
-                      <span className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
+                      <span className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
                         {STATUS_KEYS[order.fulfillment_status ?? ""]
                           ? t(STATUS_KEYS[order.fulfillment_status ?? ""])
                           : order.fulfillment_status}
                       </span>
                     </div>
                     <div className="text-right">
-                      <span className="font-sans text-[13px] tracking-[1px] text-hunter-gold">
+                      <span className="font-sans text-[15px] tracking-[1px] text-hunter-gold">
                         {convertToLocale({
                           amount: order.total,
                           currency_code: order.currency_code,
@@ -127,7 +127,7 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
             {activeOrders.length > 3 && (
               <button
                 onClick={() => setExpanded((v) => !v)}
-                className="mt-3 font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+                className="mt-3 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
               >
                 {expanded
                   ? t("Restrânge")
@@ -147,7 +147,7 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full h-11 inline-flex items-center justify-center gap-2 border border-[var(--theme-border)] font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text)] active:border-hunter-gold active:text-hunter-gold transition-colors"
+          className="w-full h-11 inline-flex items-center justify-center gap-2 border border-[var(--theme-border)] font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] active:border-hunter-gold active:text-hunter-gold transition-colors"
           data-testid="logout-button"
         >
           <ArrowRightOnRectangle className="w-3.5 h-3.5" />

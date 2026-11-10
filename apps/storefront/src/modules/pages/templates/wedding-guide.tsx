@@ -56,7 +56,7 @@ const WeddingGuideTemplate = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/75" />
         <div className="absolute bottom-0 left-0 right-0 page-container pb-10 small:pb-14">
           <div className="mb-4">
-            <span className="font-sans text-[10px] uppercase tracking-[5px] text-white/60">
+            <span className="font-sans text-[12px] uppercase tracking-[5px] text-white/60">
               {t("The Hunter House · Tailoring")}
             </span>
           </div>
@@ -102,7 +102,7 @@ const WeddingGuideTemplate = () => {
         <div className="absolute inset-0 bg-black/45" />
         <div className="absolute inset-0 flex items-center page-container">
           <div className="max-w-sm">
-            <p className="font-sans text-[9px] uppercase tracking-[4px] text-hunter-gold mb-3">
+            <p className="font-sans text-[11px] uppercase tracking-[4px] text-hunter-gold mb-3">
               {t("Made to Measure")}
             </p>
             <p className="font-display text-2xl small:text-3xl text-white leading-snug italic">
@@ -163,7 +163,7 @@ const WeddingGuideTemplate = () => {
           </div>
           <button
             onClick={() => setOpen(true)}
-            className="shrink-0 h-11 px-8 flex items-center font-sans text-[10px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
+            className="shrink-0 h-11 px-8 flex items-center font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark hover:opacity-90 transition-opacity cursor-pointer"
           >
             {t("Programează o întâlnire")}
           </button>

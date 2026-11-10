@@ -435,7 +435,7 @@ export default function QuickAddOverlay({
             setMobileOpen(true)
           }}
           disabled={!anyVariantInStock || adding}
-          className="w-full py-2 font-sans text-[8px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] bg-[var(--theme-bg)] transition-colors duration-150 active:border-hunter-gold active:text-hunter-gold disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full py-2 font-sans text-[10px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] bg-[var(--theme-bg)] transition-colors duration-150 active:border-hunter-gold active:text-hunter-gold disabled:opacity-40 disabled:cursor-not-allowed"
           aria-label={mobileTriggerLabel}
         >
           {!anyVariantInStock
@@ -489,7 +489,7 @@ export default function QuickAddOverlay({
                         handleOptionClick(e, option.id ?? "", v.value ?? "")
                       }
                       disabled={unavailable}
-                      className={`min-w-[28px] px-1.5 py-1 font-sans text-[8px] uppercase tracking-[1.5px] border transition-all duration-150 ${
+                      className={`min-w-[28px] px-1.5 py-1 font-sans text-[10px] uppercase tracking-[1.5px] border transition-all duration-150 ${
                         isSelected
                           ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                           : unavailable
@@ -509,7 +509,7 @@ export default function QuickAddOverlay({
             disabled={
               adding || !inStock || (!effectiveVariant && options.length > 0)
             }
-            className="w-full py-2 font-sans text-[8px] uppercase tracking-[4px] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed border"
+            className="w-full py-2 font-sans text-[10px] uppercase tracking-[4px] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed border"
             style={{
               background: added ? "transparent" : "#c9a84c",
               color: added ? "#c9a84c" : "#0d0d0d",
@@ -582,7 +582,7 @@ export default function QuickAddOverlay({
                       )
                       return (
                         <div key={option.id} className="flex flex-col gap-3">
-                          <span className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+                          <span className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
                             {option.title}
                           </span>
                           <div className="flex flex-wrap gap-2">
@@ -604,7 +604,7 @@ export default function QuickAddOverlay({
                                     )
                                   }
                                   disabled={unavailable}
-                                  className={`inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans text-[11px] leading-none uppercase tracking-[2px] transition-colors duration-150 ${
+                                  className={`inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans text-[13px] leading-none uppercase tracking-[2px] transition-colors duration-150 ${
                                     isSelected
                                       ? "border-hunter-gold bg-hunter-gold/10 text-[var(--theme-text)]"
                                       : unavailable
@@ -630,7 +630,7 @@ export default function QuickAddOverlay({
                         closeOverlay()
                       }}
                       onClick={closeOverlay}
-                      className="flex-1 py-3 font-sans text-[10px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
+                      className="flex-1 py-3 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
                     >
                       {t("Înapoi")}
                     </button>
@@ -641,7 +641,7 @@ export default function QuickAddOverlay({
                         !inStock ||
                         (!effectiveVariant && options.length > 0)
                       }
-                      className="flex-[2] py-3 font-sans text-[10px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="flex-[2] py-3 font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       {adding
                         ? t("Se adaugă…")

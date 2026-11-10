@@ -34,7 +34,7 @@ export default function ProductBackLink({ fallbackHref }: { fallbackHref: string
     <LocalizedClientLink
       href={fallbackHref}
       onClick={handleClick}
-      className="inline-flex items-end gap-2 text-[var(--theme-text-muted)] hover:text-[var(--theme-gold)] transition-colors font-sans text-[11px] uppercase tracking-[3px]"
+      className="inline-flex items-end gap-2 text-[var(--theme-text-muted)] hover:text-[var(--theme-gold)] transition-colors font-sans text-[13px] uppercase tracking-[3px]"
     >
       <svg
         width="18"

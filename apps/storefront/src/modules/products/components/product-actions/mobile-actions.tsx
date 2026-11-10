@@ -154,16 +154,16 @@ const MobileActions: React.FC<MobileActionsProps> = ({
           {inStoreOnly ? (
             <div className="bg-[var(--theme-bg)] border-t border-[var(--theme-border)] flex items-center gap-3 px-4 py-3">
               <div className="flex-1 min-w-0">
-                <p className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text)] truncate">
+                <p className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text)] truncate">
                   {product.title}
                 </p>
                 {selectedPrice && (
-                  <p className="font-sans text-[11px] text-hunter-gold mt-0.5">
+                  <p className="font-sans text-[13px] text-hunter-gold mt-0.5">
                     {selectedPrice.calculated_price}
                   </p>
                 )}
               </div>
-              <div className="font-sans text-[8px] uppercase tracking-[4px] text-[#cfd8d2] border border-[rgba(207,216,210,0.35)] px-4 py-2.5 text-center">
+              <div className="font-sans text-[10px] uppercase tracking-[4px] text-[#cfd8d2] border border-[rgba(207,216,210,0.35)] px-4 py-2.5 text-center">
                 {t("Disponibil în magazin")}
               </div>
             </div>
@@ -179,7 +179,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   (!hasPickableOptions && !inStock)
                 }
                 variant="primary"
-                className="w-full h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent hover:!bg-hunter-gold-b font-sans uppercase tracking-[3px] text-[11px] transition-colors"
+                className="w-full h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent hover:!bg-hunter-gold-b font-sans uppercase tracking-[3px] text-[13px] transition-colors"
               >
                 {isAdding
                   ? t("Se adaugă…")
@@ -266,7 +266,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   <div className="px-6 py-4 border-t border-[var(--theme-border)] flex gap-3">
                     <button
                       onClick={() => setOpen(false)}
-                      className="flex-1 py-3 font-sans text-[10px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
+                      className="flex-1 py-3 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
                     >
                       {t("Înapoi")}
                     </button>
@@ -276,7 +276,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                         setOpen(false)
                       }}
                       disabled={!inStock || !variant || isAdding}
-                      className="flex-[2] py-3 font-sans text-[10px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="flex-[2] py-3 font-sans text-[12px] uppercase tracking-[3px] bg-hunter-gold text-hunter-dark transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       {isAdding
                         ? t("Se adaugă…")

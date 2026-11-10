@@ -67,7 +67,7 @@ export default function NewsletterStatus({
   return (
     <div className="border border-[var(--theme-border)] p-6 flex flex-col small:flex-row items-start small:items-center justify-between gap-4">
       <div>
-        <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1.5">
+        <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1.5">
           {t("Newsletter")}
         </p>
         <p className="font-display text-[18px] leading-tight text-[var(--theme-text)]">
@@ -81,18 +81,18 @@ export default function NewsletterStatus({
           )}
         </p>
         {subscribed && (
-          <p className="font-sans text-[11px] text-[var(--theme-text-muted)] mt-1">
+          <p className="font-sans text-[13px] text-[var(--theme-text-muted)] mt-1">
             {t("Primești noutăți exclusive pe")}{" "}
             <span className="text-[var(--theme-text)]">{email}</span>
           </p>
         )}
         {!subscribed && (
-          <p className="font-sans text-[11px] text-[var(--theme-text-muted)] mt-1">
+          <p className="font-sans text-[13px] text-[var(--theme-text-muted)] mt-1">
             {t("Abonează-te pentru oferte și noutăți exclusive")}
           </p>
         )}
         {error && (
-          <p className="font-sans text-[11px] text-red-400 mt-1">{error}</p>
+          <p className="font-sans text-[13px] text-red-400 mt-1">{error}</p>
         )}
       </div>
 
@@ -101,8 +101,8 @@ export default function NewsletterStatus({
         disabled={loading}
         className={
           subscribed
-            ? "shrink-0 h-11 px-6 inline-flex items-center justify-center w-full small:w-auto border border-[var(--theme-border)] font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors disabled:opacity-40"
-            : "shrink-0 h-11 px-6 inline-flex items-center justify-center w-full small:w-auto font-sans text-[10px] uppercase tracking-[3px] text-hunter-dark bg-hunter-gold hover:bg-hunter-gold/90 transition-colors disabled:opacity-40"
+            ? "shrink-0 h-11 px-6 inline-flex items-center justify-center w-full small:w-auto border border-[var(--theme-border)] font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors disabled:opacity-40"
+            : "shrink-0 h-11 px-6 inline-flex items-center justify-center w-full small:w-auto font-sans text-[12px] uppercase tracking-[3px] text-hunter-dark bg-hunter-gold hover:bg-hunter-gold/90 transition-colors disabled:opacity-40"
         }
       >
         {loading ? (

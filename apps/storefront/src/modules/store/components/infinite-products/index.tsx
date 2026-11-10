@@ -508,7 +508,7 @@ export default function InfiniteProducts({
                 const qs = params.toString()
                 router.push(qs ? `${pathname}?${qs}` : pathname)
               }}
-              className="h-11 px-6 inline-flex items-center border border-[var(--theme-border)] font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors"
+              className="h-11 px-6 inline-flex items-center border border-[var(--theme-border)] font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold active:border-hunter-gold active:text-hunter-gold transition-colors"
               data-testid="reset-filters-button"
             >
               {t("Resetează filtrele")}

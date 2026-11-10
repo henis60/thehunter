@@ -37,7 +37,7 @@ export default function ExpandableDescription({
       <p
         ref={ref}
         className={clx(
-          "font-serif text-[13px] small:text-sm text-[var(--theme-text-muted)] leading-snug min-h-[4.125em]",
+          "font-serif text-[15px] small:text-sm text-[var(--theme-text-muted)] leading-snug min-h-[4.125em]",
           !expanded && "line-clamp-3"
         )}
       >
@@ -46,7 +46,7 @@ export default function ExpandableDescription({
       {!expanded && clipped && (
         <button
           onClick={() => setExpanded(true)}
-          className="mt-1 font-sans text-[10px] uppercase tracking-[2px] text-hunter-gold hover:opacity-80 transition-opacity"
+          className="mt-1 font-sans text-[12px] uppercase tracking-[2px] text-hunter-gold hover:opacity-80 transition-opacity"
         >
           {t("Citește mai mult")}
         </button>

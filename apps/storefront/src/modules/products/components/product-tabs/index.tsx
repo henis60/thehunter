@@ -86,8 +86,8 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
     <div className="py-4 flex flex-col gap-2.5">
       {rows.map((row) => (
         <div key={row.label} className="flex items-baseline justify-between gap-4">
-          <span className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">{row.label}</span>
-          <span className="font-sans text-[10px] text-[var(--theme-text)]">{row.value}</span>
+          <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">{row.label}</span>
+          <span className="font-sans text-[12px] text-[var(--theme-text)]">{row.value}</span>
         </div>
       ))}
     </div>
@@ -111,8 +111,8 @@ const ShippingInfoTab = ({ dropship }: { dropship: boolean }) => {
     <div className="py-4 flex flex-col gap-4">
       {items.map((item) => (
         <div key={item.label}>
-          <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-1">{item.label}</p>
-          <p className="font-sans text-[11px] leading-relaxed text-[var(--theme-text-muted)]">{item.desc}</p>
+          <p className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-1">{item.label}</p>
+          <p className="font-sans text-[13px] leading-relaxed text-[var(--theme-text-muted)]">{item.desc}</p>
         </div>
       ))}
     </div>

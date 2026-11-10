@@ -56,7 +56,7 @@ const AddAddress = ({
         data-testid="add-address-button"
       >
         <Plus className="w-5 h-5 transition-transform group-hover:scale-110" />
-        <span className="font-sans text-[9px] uppercase tracking-[3px]">
+        <span className="font-sans text-[11px] uppercase tracking-[3px]">
           {t("Adaugă adresă nouă")}
         </span>
       </button>
@@ -142,14 +142,14 @@ const AddAddress = ({
                   className="h-4 w-4 shrink-0 accent-[var(--theme-gold)]"
                   data-testid="billing-checkbox"
                 />
-                <span className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
+                <span className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)]">
                   {t("Folosește pentru facturare")}
                 </span>
               </label>
             </div>
             {formState.error && (
               <p
-                className="font-sans text-[10px] text-rose-500 mt-2"
+                className="font-sans text-[12px] text-rose-500 mt-2"
                 data-testid="address-error"
               >
                 {formState.error}
@@ -161,13 +161,13 @@ const AddAddress = ({
               <button
                 type="reset"
                 onClick={close}
-                className="h-10 px-6 font-sans text-[10px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
+                className="h-10 px-6 font-sans text-[12px] uppercase tracking-[3px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-[var(--theme-text-muted)] transition-colors"
                 data-testid="cancel-button"
               >
                 {t("Anulează")}
               </button>
               <SubmitButton
-                className="h-10 px-6 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[10px]"
+                className="h-10 px-6 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[12px]"
                 data-testid="save-button"
               >
                 {t("Salvează")}

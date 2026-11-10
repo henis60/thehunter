@@ -289,7 +289,7 @@ export default function DesktopQuickAdd({
                       handleOptionClick(e, option.id ?? "", v.value ?? "")
                     }
                     disabled={unavailable}
-                    className={`min-w-[28px] px-1.5 py-1 font-sans text-[8px] uppercase tracking-[1.5px] border transition-all duration-150 ${
+                    className={`min-w-[28px] px-1.5 py-1 font-sans text-[10px] uppercase tracking-[1.5px] border transition-all duration-150 ${
                       isSelected
                         ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                         : unavailable
@@ -309,7 +309,7 @@ export default function DesktopQuickAdd({
           disabled={
             adding || !inStock || (!effectiveVariant && pickableOptions.length > 0)
           }
-          className="w-full py-2 font-sans text-[8px] uppercase tracking-[4px] border transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full py-2 font-sans text-[10px] uppercase tracking-[4px] border transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
           style={{
             background: "#c9a84c",
             color: "#0d0d0d",

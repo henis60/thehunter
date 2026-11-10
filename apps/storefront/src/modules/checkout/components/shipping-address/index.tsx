@@ -204,7 +204,7 @@ const ShippingAddress = ({
           )}
         </div>
         <input type="checkbox" name="same_as_billing" checked={checked} readOnly className="sr-only" />
-        <span className="font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+        <span className="font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
           {t("Adresa de facturare este aceeași cu cea de livrare")}
         </span>
       </div>

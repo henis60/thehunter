@@ -69,7 +69,7 @@ const Newsletter = () => {
                 <p
                   style={{
                     fontFamily: "var(--rl)",
-                    fontSize: "9px",
+                    fontSize: "11px",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     color: "rgba(232,213,163,0.3)",
@@ -90,7 +90,7 @@ const Newsletter = () => {
                     <p
                       style={{
                         fontFamily: "var(--rl)",
-                        fontSize: "11px",
+                        fontSize: "13px",
                         letterSpacing: "2px",
                         textTransform: "uppercase",
                         color: "rgba(232,213,163,0.85)",
@@ -119,7 +119,7 @@ const Newsletter = () => {
                           flex: 1,
                           minWidth: 0,
                           fontFamily: "var(--rl)",
-                          fontSize: "16px",
+                          fontSize: "18px",
                           letterSpacing: "2px",
                           background: "rgba(255,255,255,0.04)",
                           border: "1px solid rgba(201,168,76,0.25)",
@@ -155,7 +155,7 @@ const Newsletter = () => {
                       style={{
                         margin: "16px 0 0",
                         fontFamily: "var(--rl)",
-                        fontSize: "9px",
+                        fontSize: "11px",
                         color: "rgba(232,213,163,0.3)",
                         letterSpacing: "0.5px",
                       }}
@@ -191,7 +191,7 @@ const Newsletter = () => {
                         <p
                           style={{
                             fontFamily: "var(--rl)",
-                            fontSize: "10px",
+                            fontSize: "12px",
                             letterSpacing: "1px",
                             color: "rgba(200,120,120,0.75)",
                             margin: 0,

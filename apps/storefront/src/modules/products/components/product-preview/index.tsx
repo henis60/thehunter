@@ -21,7 +21,7 @@ function ColorSwatches({ product }: { product: HttpTypes.StoreProduct }) {
         />
       ))}
       {colors.length > 6 && (
-        <span className="text-[9px] text-white/60 ml-0.5">
+        <span className="text-[11px] text-white/60 ml-0.5">
           +{colors.length - 6}
         </span>
       )}
@@ -56,7 +56,7 @@ export default function ProductPreview({
 
   const StockOrPrice = () =>
     outOfStock ? (
-      <span className="font-sans text-[10px] uppercase tracking-[2px] text-[var(--theme-text-muted)] whitespace-nowrap">
+      <span className="font-sans text-[12px] uppercase tracking-[2px] text-[var(--theme-text-muted)] whitespace-nowrap">
         {t("Stoc epuizat")}
       </span>
     ) : cheapestPrice ? (
@@ -88,7 +88,7 @@ export default function ProductPreview({
         style={{ minHeight: "2.5rem" }}
       >
         <p
-          className={`font-sans text-[9px] uppercase tracking-[2.5px] leading-snug line-clamp-2 transition-colors duration-300 ${
+          className={`font-sans text-[11px] uppercase tracking-[2.5px] leading-snug line-clamp-2 transition-colors duration-300 ${
             forceDark
               ? "text-hunter-ivory/80 group-hover:text-hunter-gold"
               : "text-[var(--theme-text)] group-hover:text-hunter-gold"
@@ -97,7 +97,7 @@ export default function ProductPreview({
         >
           {product.title}
         </p>
-        <div className="flex items-center justify-between gap-2 [&_*]:!text-[10px]">
+        <div className="flex items-center justify-between gap-2 [&_*]:!text-[12px]">
           <ColorSwatches product={product} />
           <div className="ml-auto">
             <StockOrPrice />
@@ -108,7 +108,7 @@ export default function ProductPreview({
       {/* Card info — desktop */}
       <div className="mt-4 hidden sm:flex flex-col gap-0.5">
         <p
-          className={`font-sans text-[11px] uppercase tracking-[2px] leading-snug line-clamp-2 transition-colors duration-300 ${
+          className={`font-sans text-[13px] uppercase tracking-[2px] leading-snug line-clamp-2 transition-colors duration-300 ${
             forceDark
               ? "text-hunter-ivory/80 group-hover:text-hunter-gold"
               : "text-[var(--theme-text)] group-hover:text-hunter-gold"

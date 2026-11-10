@@ -30,7 +30,7 @@ export function SubmitButton({
       type="submit"
       disabled={pending}
       data-testid={dataTestId}
-      className={`relative w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[10px] uppercase tracking-[4px] hover:opacity-90 transition-opacity disabled:cursor-not-allowed overflow-hidden ${className ?? ""}`}
+      className={`relative w-full py-3 bg-hunter-gold text-[#0D0D0D] font-sans text-[12px] uppercase tracking-[4px] hover:opacity-90 transition-opacity disabled:cursor-not-allowed overflow-hidden ${className ?? ""}`}
     >
       <span
         className={`flex items-center justify-center gap-2 transition-opacity duration-150 ${

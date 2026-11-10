@@ -10,7 +10,7 @@ const ContactTemplate = async () => {
       {/* Header */}
       <div className="page-container pt-6 pb-4">
         <div className="mb-3">
-          <span className="font-sans text-[10px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
+          <span className="font-sans text-[12px] uppercase tracking-[5px] text-[var(--theme-text-muted)]">
             {t("Contact")}
           </span>
         </div>
@@ -34,7 +34,7 @@ const ContactTemplate = async () => {
           {/* Contact details */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-4 small:gap-x-8 small:gap-y-6 self-center">
             <div>
-              <p className="font-sans text-[8px] small:text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
+              <p className="font-sans text-[10px] small:text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
                 {t("Email")}
               </p>
               <a
@@ -45,7 +45,7 @@ const ContactTemplate = async () => {
               </a>
             </div>
             <div>
-              <p className="font-sans text-[8px] small:text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
+              <p className="font-sans text-[10px] small:text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
                 {t("Telefon")}
               </p>
               <a
@@ -56,7 +56,7 @@ const ContactTemplate = async () => {
               </a>
             </div>
             <div>
-              <p className="font-sans text-[8px] small:text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
+              <p className="font-sans text-[10px] small:text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
                 {t("Locație")}
               </p>
               <a
@@ -69,7 +69,7 @@ const ContactTemplate = async () => {
               </a>
             </div>
             <div>
-              <p className="font-sans text-[8px] small:text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
+              <p className="font-sans text-[10px] small:text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-1 small:mb-2">
                 {t("Program")}
               </p>
               <p className="font-serif text-sm small:text-lg text-[var(--theme-text)] leading-snug">

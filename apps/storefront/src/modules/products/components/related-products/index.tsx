@@ -119,7 +119,7 @@ export default async function RelatedProducts({
       {fitsWithProducts.length > 0 && (
         <div className="border-t border-[var(--theme-border)] content-container py-16">
           <div className="mb-10">
-            <p className="font-sans text-[9px] uppercase tracking-[8px] text-hunter-green dark:text-hunter-green-m mb-3">
+            <p className="font-sans text-[11px] uppercase tracking-[8px] text-hunter-green dark:text-hunter-green-m mb-3">
               {t("Completează ținuta")}
             </p>
             <h2 className="font-display text-3xl text-[var(--theme-text)]">
@@ -139,7 +139,7 @@ export default async function RelatedProducts({
       {similarProducts.length > 0 && (
         <div className="border-t border-[var(--theme-border)] content-container py-16">
           <div className="mb-10">
-            <p className="font-sans text-[9px] uppercase tracking-[5px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors mb-3">
+            <p className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors mb-3">
               {t("S-ar putea să-ți placă")}
             </p>
             <h2 className="font-display text-3xl text-[var(--theme-text)]">

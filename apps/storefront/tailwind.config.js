@@ -77,6 +77,10 @@ module.exports = {
         "2xlarge": "1920px",
       },
       fontSize: {
+        // Bumped one step from Tailwind defaults (12px / 14px): small text
+        // read as too small/thin site-wide.
+        xs: ["0.8125rem", { lineHeight: "1.125rem" }],
+        sm: ["0.9375rem", { lineHeight: "1.375rem" }],
         "3xl": "2rem",
       },
       fontFamily: {

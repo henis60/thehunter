@@ -491,7 +491,7 @@ body.hunter-landing-active::before {
 }
 .eyebrow-text {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 7px;
   text-transform: uppercase;
@@ -577,7 +577,7 @@ body.hunter-landing-active::before {
 /* shop subtitle — appears between logo ornament and badge */
 .hero-sub {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 9px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.5);
@@ -594,7 +594,7 @@ body.hunter-landing-active::before {
   border: 1px solid rgba(201, 168, 76, 0.25);
   padding: 11px 26px;
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: var(--gold);
@@ -686,7 +686,7 @@ body.hunter-landing-active::before {
 }
 .cd-lbl {
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -736,7 +736,7 @@ body.hunter-landing-active::before {
 }
 .hero-cta-text {
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.75);
@@ -787,7 +787,7 @@ body.hunter-landing-active::before {
 }
 .tf-btn-text {
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.6);
@@ -797,7 +797,7 @@ body.hunter-landing-active::before {
   color: rgba(232, 213, 163, 0.9);
 }
 .tf-btn-arrow {
-  font-size: 16px;
+  font-size: 18px;
   color: rgba(201, 168, 76, 0.6);
   transition: transform 0.3s, color 0.3s;
   display: inline-block;
@@ -825,7 +825,7 @@ body.hunter-landing-active::before {
 }
 .mqitem {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -885,7 +885,7 @@ body.hunter-landing-active::before {
   padding-top: 0;
 }
 .newsletter-email-input::placeholder {
-  font-size: 14px;
+  font-size: 16px;
 }
 .newsletter-email-input {
   height: 44px;
@@ -898,7 +898,7 @@ body.hunter-landing-active::before {
 .newsletter-submit-btn {
   flex-shrink: 0;
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--dark);
@@ -910,7 +910,7 @@ body.hunter-landing-active::before {
 }
 @media (max-width: 768px) {
   .newsletter-submit-btn {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     padding: 0 14px;
     height: 38px;
@@ -931,7 +931,7 @@ body.hunter-landing-active::before {
 }
 .subscribe-panel-label {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.7);
@@ -939,9 +939,9 @@ body.hunter-landing-active::before {
 }
 .subscribe-panel-copy {
   font-family: var(--cg);
-  font-size: 15px;
+  font-size: 17px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: rgba(232, 213, 163, 0.64);
   margin-bottom: 16px;
@@ -953,7 +953,7 @@ body.hunter-landing-active::before {
 
 .kicker {
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 7px;
   text-transform: uppercase;
   color: var(--gold-d);
@@ -977,9 +977,9 @@ body.hunter-landing-active::before {
 }
 .sec-body-text {
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.65);
   line-height: 1.75;
   max-width: 600px;
@@ -1083,7 +1083,7 @@ body.hunter-landing-active::before {
 .dviz-label {
   position: absolute;
   font-family: var(--rl);
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.55);
@@ -1093,7 +1093,7 @@ body.hunter-landing-active::before {
   transition: opacity 0.4s;
 }
 .dviz-label.hub {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--gold);
   letter-spacing: 4px;
 }
@@ -1141,7 +1141,7 @@ body.hunter-landing-active::before {
 }
 .pb-lbl {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.3);
@@ -1158,14 +1158,14 @@ body.hunter-landing-active::before {
 }
 .dviz-caption-title {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.6);
 }
 .dviz-caption-sub {
   font-family: var(--cg);
-  font-size: 13px;
+  font-size: 15px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.5);
   margin-top: 3px;
@@ -1220,16 +1220,16 @@ body.hunter-landing-active::before {
 }
 .pl-name {
   font-family: var(--ci);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 5px;
 }
 .pl-desc {
-  font-size: 16px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.62);
   line-height: 1.65;
 }
@@ -1305,16 +1305,16 @@ body.hunter-landing-active::before {
 } /* icons removed */
 .svc-name {
   font-family: var(--ci);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 11px;
 }
 .svc-desc {
-  font-size: 15px;
+  font-size: 17px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.62);
   line-height: 1.7;
   flex: 1;
@@ -1322,7 +1322,7 @@ body.hunter-landing-active::before {
 .svc-foot {
   margin-top: 22px;
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.45);
@@ -1393,7 +1393,7 @@ body.hunter-landing-active::before {
 .band-source {
   margin-top: 4px;
   font-family: var(--rl);
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.55);
@@ -1458,7 +1458,7 @@ body.hunter-landing-active::before {
 }
 .coll-tag {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.7);
@@ -1477,9 +1477,9 @@ body.hunter-landing-active::before {
   color: var(--gold);
 }
 .coll-sub {
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.65);
   line-height: 1.75;
   max-width: 380px;
@@ -1538,7 +1538,7 @@ body.hunter-landing-active::before {
 
 .ev-freq {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--gold-d);
@@ -1558,16 +1558,16 @@ body.hunter-landing-active::before {
 }
 .ev-when {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.5);
   margin-bottom: 12px;
 }
 .ev-desc {
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.65);
   line-height: 1.6;
   margin-bottom: 14px;
@@ -1581,9 +1581,9 @@ body.hunter-landing-active::before {
   display: flex;
   align-items: flex-start;
   gap: 9px;
-  font-size: 15px;
+  font-size: 17px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.55);
 }
 .ev-perk::before {
@@ -1701,7 +1701,7 @@ body.hunter-landing-active::before {
 
 .zone-num {
   font-family: var(--pd);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 3px;
   color: rgba(201, 168, 76, 0.3);
@@ -1710,7 +1710,7 @@ body.hunter-landing-active::before {
 }
 .zone-vname {
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
@@ -1762,7 +1762,7 @@ body.hunter-landing-active::before {
 
 .zone-tag {
   font-family: var(--rl);
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.55);
@@ -1784,9 +1784,9 @@ body.hunter-landing-active::before {
 
 .zone-desc {
   font-family: var(--cg);
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.58);
   line-height: 1.7;
   max-width: 280px;
@@ -1830,7 +1830,7 @@ body.hunter-landing-active::before {
 }
 .stat-lbl {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.5);
@@ -1892,9 +1892,9 @@ body.hunter-landing-active::before {
   color: var(--gold);
 }
 .bar-body {
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.72);
   line-height: 1.75;
   margin-bottom: 34px;
@@ -1920,7 +1920,7 @@ body.hunter-landing-active::before {
 }
 .bs-lbl {
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
@@ -2005,7 +2005,7 @@ body.hunter-landing-active::before {
 }
 .mem-tag {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--gold);
@@ -2013,7 +2013,7 @@ body.hunter-landing-active::before {
 }
 .mem-tier {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.4);
@@ -2040,7 +2040,7 @@ body.hunter-landing-active::before {
 }
 .mem-psub {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.4);
@@ -2060,9 +2060,9 @@ body.hunter-landing-active::before {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 13px;
+  font-size: 15px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.6);
 }
 .mem-perk::before {
@@ -2103,7 +2103,7 @@ body.hunter-landing-active::before {
 }
 .soc {
   font-family: var(--rl);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(232, 213, 163, 0.75);
@@ -2142,7 +2142,7 @@ body.hunter-landing-active::before {
 }
 .cb-type {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.4);
@@ -2152,7 +2152,7 @@ body.hunter-landing-active::before {
 }
 .cb-value {
   font-family: var(--cg);
-  font-size: 16px;
+  font-size: 18px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.7);
   text-decoration: none;
@@ -2163,7 +2163,7 @@ a.cb-value:hover {
 }
 .cb-note {
   font-family: var(--rl);
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.28);
@@ -2182,7 +2182,7 @@ a.cb-value:hover {
 }
 .cb-appt-label {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -2219,7 +2219,7 @@ a.cb-value:hover {
 }
 .cb-appt-desc {
   font-family: var(--cg);
-  font-size: 13px;
+  font-size: 15px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.56);
   margin-top: 14px;
@@ -2227,7 +2227,7 @@ a.cb-value:hover {
 }
 .contact-desc {
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.8);
   margin-top: 20px;
@@ -2255,7 +2255,7 @@ a.cb-value:hover {
 }
 .fl1 {
   font-family: var(--pd);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -2264,7 +2264,7 @@ a.cb-value:hover {
 }
 .fl2 {
   font-family: var(--pd);
-  font-size: 16px;
+  font-size: 18px;
   font-style: italic;
   font-weight: 400;
   color: rgba(201, 168, 76, 0.65);
@@ -2273,7 +2273,7 @@ a.cb-value:hover {
 }
 .foot-copy {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.73);
@@ -2372,7 +2372,7 @@ a.cb-value:hover {
 
 .modal-kicker {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: var(--gold-d);
@@ -2394,9 +2394,9 @@ a.cb-value:hover {
 
 .modal-sub {
   font-family: var(--cg);
-  font-size: 15px;
+  font-size: 17px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.72);
   line-height: 1.65;
   margin-bottom: 28px;
@@ -2410,7 +2410,7 @@ a.cb-value:hover {
 }
 .modal-label {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.6);
@@ -2421,7 +2421,7 @@ a.cb-value:hover {
   border-bottom: 1px solid rgba(201, 168, 76, 0.35);
   padding: 10px 0;
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
   color: var(--ivory);
   outline: none;
@@ -2442,7 +2442,7 @@ a.cb-value:hover {
   padding: 12px;
   margin-top: 6px;
   font-family: var(--rl);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--dark);
@@ -2462,7 +2462,7 @@ a.cb-value:hover {
 
 .modal-note {
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.4);
@@ -2511,9 +2511,9 @@ a.cb-value:hover {
 
 .shop-sub {
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.6);
   line-height: 1.75;
   margin: 16px 0 24px;
@@ -2529,7 +2529,7 @@ a.cb-value:hover {
 }
 .sc {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.5);
@@ -2546,7 +2546,7 @@ a.cb-value:hover {
 
 .shop-note {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.28);
@@ -2629,7 +2629,7 @@ a.cb-value:hover {
   left: 14px;
   right: 14px;
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--gold-b);
@@ -2755,16 +2755,16 @@ a.cb-value:hover {
 
 .mtm-tag {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.5);
   margin-bottom: 10px;
 }
 .mtm-sub {
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.55);
   line-height: 1.75;
 }
@@ -2806,16 +2806,16 @@ a.cb-value:hover {
 }
 .ms-name {
   font-family: var(--ci);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 9px;
 }
 .ms-desc {
-  font-size: 13px;
+  font-size: 15px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.45);
   line-height: 1.65;
 }
@@ -2984,7 +2984,7 @@ a.cb-value:hover {
 .gc-amt {
   flex: 1;
   font-family: var(--cg);
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
   color: rgba(232, 213, 163, 0.35);
   padding: 12px 0;
@@ -3021,16 +3021,16 @@ a.cb-value:hover {
 }
 
 .gc-desc {
-  font-size: 17px;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(232, 213, 163, 0.55);
   line-height: 1.75;
   margin-bottom: 20px;
 }
 .gc-note {
   font-family: var(--rl);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.3);
@@ -3087,7 +3087,7 @@ a.cb-value:hover {
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--rl);
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(201, 168, 76, 0.7);
@@ -3311,7 +3311,7 @@ a.cb-value:hover {
     padding: 20px;
   }
   .subscribe-panel-copy {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 18px;
   }
   .svc-grid,
@@ -3567,7 +3567,7 @@ a.cb-value:hover {
     display: none;
   }
   .coll-sub {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
   }
   #cur,
@@ -3637,7 +3637,7 @@ a.cb-value:hover {
     line-height: 1.55;
   }
   .zone-desc {
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.55;
   }
   .section {
@@ -3681,12 +3681,12 @@ a.cb-value:hover {
     padding: 0 8px;
   }
   .cd-lbl {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 2px;
   }
   .eyebrow-text {
     letter-spacing: 4px;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.7;
   }
   .hero-sub {
@@ -3703,13 +3703,13 @@ a.cb-value:hover {
     padding: 28px 20px;
   }
   .modal-submit {
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 1.5px;
     padding: 8px 6px;
     margin-top: 4px;
   }
   .modal-note {
-    font-size: 7px;
+    font-size: 9px;
   }
 }
 
@@ -3795,7 +3795,7 @@ html {
 }
 .count-badge::after {
   content: attr(data-badge);
-  font-size: 10px;
+  font-size: 12px;
   font-family: var(--rl);
   font-weight: 700;
   letter-spacing: normal;
@@ -3866,7 +3866,7 @@ html {
 }
 @media (max-width: 768px) {
   #sib-container .sib-form-block__button {
-    font-size: 9px !important;
+    font-size: 11px !important;
     letter-spacing: 1.5px !important;
     padding: 14px 6px !important;
     margin-top: 4px !important;
@@ -3977,7 +3977,7 @@ html {
   opacity: 0;
   transition: opacity 0.3s, background 0.3s;
   font-family: var(--rl);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
   color: #e8d5a3;
@@ -4284,7 +4284,7 @@ html {
     flex-direction: column;
     align-items: center !important;
     white-space: normal !important;
-    font-size: 9px !important;
+    font-size: 11px !important;
     gap: 4px;
   }
   .thm-eyebrow-sep {

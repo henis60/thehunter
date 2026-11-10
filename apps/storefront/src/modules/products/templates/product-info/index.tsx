@@ -16,7 +16,7 @@ const ProductInfo = ({ product, action }: ProductInfoProps) => {
           {product.collection ? (
             <LocalizedClientLink
               href={`/collections/${product.collection.handle}`}
-              className="font-sans text-[9px] uppercase tracking-[5px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
             >
               {product.collection.title}
             </LocalizedClientLink>
@@ -25,7 +25,7 @@ const ProductInfo = ({ product, action }: ProductInfoProps) => {
               <LocalizedClientLink
                 key={cat.id}
                 href={`/ready-to-wear/${cat.handle}`}
-                className="font-sans text-[9px] uppercase tracking-[5px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+                className="font-sans text-[11px] uppercase tracking-[5px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
               >
                 {cat.name}
               </LocalizedClientLink>
@@ -44,7 +44,7 @@ const ProductInfo = ({ product, action }: ProductInfoProps) => {
       </Heading>
       {product.subtitle && (
         <Text
-          className="font-serif italic text-[17px] leading-relaxed text-[var(--theme-text-muted)] whitespace-pre-line mt-4"
+          className="font-serif italic text-[18px] leading-relaxed text-[var(--theme-text-muted)] whitespace-pre-line mt-4"
           data-testid="product-subtitle"
         >
           {product.subtitle}

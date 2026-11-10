@@ -24,7 +24,7 @@ const AccountWelcome = ({
         !isOverview && "hidden small:block"
       )}
     >
-      <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
+      <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-2">
         {t("Profil")}
       </p>
       <h1 className="font-display text-3xl small:text-4xl text-[var(--theme-text)] leading-tight">

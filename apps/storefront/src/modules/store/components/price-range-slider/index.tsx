@@ -81,7 +81,7 @@ export default function PriceRangeSlider({
           )}
         />
       </div>
-      <div className="flex justify-between mt-1.5 font-sans text-[11px] text-[var(--theme-text-muted)]">
+      <div className="flex justify-between mt-1.5 font-sans text-[13px] text-[var(--theme-text-muted)]">
         <span>{loValue} LEI</span>
         <span>{hiValue} LEI</span>
       </div>

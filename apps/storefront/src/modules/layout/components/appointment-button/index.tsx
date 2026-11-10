@@ -186,7 +186,7 @@ export default function AppointmentButton({ transparent, hideOnTop, onClick }: P
         </span>
 
         {/* Desktop: text vertical */}
-        <span className="hidden small:flex items-center justify-center font-sans text-[9px] uppercase tracking-[4px] py-5 px-2.5 [writing-mode:vertical-rl] rotate-180">
+        <span className="hidden small:flex items-center justify-center font-sans text-[11px] uppercase tracking-[4px] py-5 px-2.5 [writing-mode:vertical-rl] rotate-180">
           {t("Programare")}
         </span>
       </button>

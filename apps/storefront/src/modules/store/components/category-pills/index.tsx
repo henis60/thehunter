@@ -125,7 +125,7 @@ export default function CategoryPills({
 
   const link = (active: boolean) =>
     clx(
-      "shrink-0 scroll-ml-6 scroll-mr-6 font-sans text-[12px] tracking-[0.5px] leading-none pb-1 border-b-[1.5px] whitespace-nowrap transition-colors",
+      "shrink-0 scroll-ml-6 scroll-mr-6 font-sans text-[14px] tracking-[0.5px] leading-none pb-1 border-b-[1.5px] whitespace-nowrap transition-colors",
       active
         ? "text-[var(--theme-text)] border-[var(--theme-text)]"
         : "text-[var(--theme-text-muted)] border-transparent hover:text-[var(--theme-text)]"

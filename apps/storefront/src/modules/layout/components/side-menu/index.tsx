@@ -136,7 +136,7 @@ function MenuTrigger({
         <span className="flex items-center gap-2">
           {label}
           {badge && (
-            <span className="font-sans text-[10px] uppercase tracking-[3px] text-hunter-gold leading-none">
+            <span className="font-sans text-[12px] uppercase tracking-[3px] text-hunter-gold leading-none">
               {badge}
             </span>
           )}
@@ -172,13 +172,13 @@ function SubmenuHeader({
   const t = useTranslations("layout")
   return (
     <div className="flex items-center justify-between px-8 h-16 border-b border-[var(--theme-border)] shrink-0">
-      <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[var(--theme-text-muted)]">
+      <span className="font-sans text-[12px] uppercase tracking-[0.3em] text-[var(--theme-text-muted)]">
         {title}
       </span>
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+        className="inline-flex items-center gap-1.5 font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
       >
         <svg
           width="18"
@@ -236,7 +236,7 @@ function FeaturedCollectionSubmenu({
           <li>
             <LocalizedClientLink
               href={`/collections/${collection.handle}`}
-              className="block py-2.5 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              className="block py-2.5 font-sans text-[13px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
               onClick={close}
             >
               {t("Toate produsele")}
@@ -288,7 +288,7 @@ function ReadyToWearSubmenu({
           <li>
             <LocalizedClientLink
               href="/ready-to-wear"
-              className="block py-2.5 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              className="block py-2.5 font-sans text-[13px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
               onClick={close}
             >
               {t("Toate produsele")}
@@ -307,7 +307,7 @@ function ReadyToWearSubmenu({
           ))}
           {collections.length > 0 && (
             <li className="mt-4 mb-1">
-              <span className="font-sans text-[10px] uppercase tracking-[2.5px] text-[var(--theme-text-muted)]">
+              <span className="font-sans text-[12px] uppercase tracking-[2.5px] text-[var(--theme-text-muted)]">
                 {t("Colecții")}
               </span>
             </li>
@@ -356,7 +356,7 @@ function AccesoriiSubmenu({
             <li>
               <LocalizedClientLink
                 href={`/ready-to-wear/${parent.handle}`}
-                className="block py-2.5 font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+                className="block py-2.5 font-sans text-[13px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
                 onClick={close}
               >
                 {t("Toate accesoriile")}
@@ -396,7 +396,7 @@ function WorldOfTheHunterSubmenu({
     <div className="flex flex-col h-full">
       <SubmenuHeader title={t("World of The Hunter")} onBack={onBack} />
       <nav className="flex-1 px-8 py-4 overflow-y-auto">
-        <p className="font-sans text-[11px] uppercase tracking-[2.5px] text-[var(--theme-text-muted)] mb-3">
+        <p className="font-sans text-[13px] uppercase tracking-[2.5px] text-[var(--theme-text-muted)] mb-3">
           {t("Style Guides")}
         </p>
         <ul className="flex flex-col">
@@ -405,7 +405,7 @@ function WorldOfTheHunterSubmenu({
               <span className="flex items-center gap-2 py-2 small:py-2.5 font-display text-[20px] small:text-[22px] leading-[1] tracking-[0.02em] text-[var(--theme-text-muted)] cursor-default">
                 {g.label}
                 {g.status === "coming-soon" && (
-                  <span className="font-sans text-[10px] uppercase tracking-[3px] text-hunter-gold leading-none">
+                  <span className="font-sans text-[12px] uppercase tracking-[3px] text-hunter-gold leading-none">
                     {t("Coming Soon")}
                   </span>
                 )}
@@ -519,7 +519,7 @@ const SideMenu = ({
                               >
                                 {/* Header */}
                                 <div className="flex items-center justify-between px-8 h-16 border-b border-[var(--theme-border)] shrink-0">
-                                  <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[var(--theme-text-muted)]">
+                                  <span className="font-sans text-[12px] uppercase tracking-[0.3em] text-[var(--theme-text-muted)]">
                                     {t("Meniu")}
                                   </span>
                                   <button
@@ -616,7 +616,7 @@ const SideMenu = ({
                                       <li key={label}>
                                         <LocalizedClientLink
                                           href={href}
-                                          className="flex items-center py-2 font-sans text-[13px] uppercase tracking-[3px] text-[var(--theme-text-muted)] transition-colors duration-200 hover:text-hunter-gold"
+                                          className="flex items-center py-2 font-sans text-[15px] uppercase tracking-[3px] text-[var(--theme-text-muted)] transition-colors duration-200 hover:text-hunter-gold"
                                           onClick={handleNavigate}
                                         >
                                           {label}

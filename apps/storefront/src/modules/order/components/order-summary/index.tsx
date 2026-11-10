@@ -20,13 +20,13 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
 
   return (
     <div className="small:px-8 py-6">
-      <p className="font-sans text-[9px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-5">
+      <p className="font-sans text-[11px] uppercase tracking-[4px] text-[var(--theme-text-muted)] mb-5">
         {t("Sumar")}
       </p>
       <div className="flex flex-col gap-2">
         {/* order.subtotal already includes shipping in Medusa v2 — the
             products-only figure is item_subtotal (same as checkout) */}
-        <div className="flex items-center justify-between font-sans text-[12px]">
+        <div className="flex items-center justify-between font-sans text-[14px]">
           <span className="text-[var(--theme-text-muted)]">
             {t("Subtotal")}
           </span>
@@ -35,7 +35,7 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
           </span>
         </div>
         {order.gift_card_total > 0 && (
-          <div className="flex items-center justify-between font-sans text-[12px]">
+          <div className="flex items-center justify-between font-sans text-[14px]">
             <span className="text-[var(--theme-text-muted)]">
               {t("Card cadou")}
             </span>
@@ -46,7 +46,7 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
         )}
         {/* Transportul apare doar când costă ceva — cel gratuit nu se menționează. */}
         {order.shipping_subtotal > 0 && (
-          <div className="flex items-center justify-between font-sans text-[12px]">
+          <div className="flex items-center justify-between font-sans text-[14px]">
             <span className="text-[var(--theme-text-muted)]">
               {t("Transport")}
             </span>
@@ -67,7 +67,7 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
           </div>
         )}
         {order.discount_total > 0 && (
-          <div className="flex items-center justify-between font-sans text-[12px]">
+          <div className="flex items-center justify-between font-sans text-[14px]">
             <span className="text-[var(--theme-text-muted)]">
               {t("Reducere")}
             </span>
@@ -77,7 +77,7 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
           </div>
         )}
         {(order.tax_total ?? 0) > 0 && (
-          <div className="flex items-center justify-between font-sans text-[12px]">
+          <div className="flex items-center justify-between font-sans text-[14px]">
             <span className="text-[var(--theme-text-muted)]">{t("Taxe")}</span>
             <span className="text-[var(--theme-text)]">
               {fmt(order.tax_total)}
@@ -85,10 +85,10 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
           </div>
         )}
         <div className="border-t border-[var(--theme-border)] pt-3 mt-1 flex items-baseline justify-between">
-          <span className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
+          <span className="font-sans text-[11px] uppercase tracking-[3px] text-[var(--theme-text-muted)]">
             {t("Total")}
           </span>
-          <span className="font-display text-[16px] leading-none text-hunter-gold">
+          <span className="font-display text-[18px] leading-none text-hunter-gold">
             {fmt(order.total)}
           </span>
         </div>

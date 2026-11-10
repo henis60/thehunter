@@ -58,7 +58,7 @@ const Login = ({ setCurrentView, redirectTo }: Props) => {
       <h1 className="font-display text-[42px] leading-[1] text-[var(--theme-text)] mb-2">
         {t("Bine ai revenit")}
       </h1>
-      <p className="font-sans text-[14px] text-[var(--theme-text-muted)] mb-10 text-center">
+      <p className="font-sans text-[16px] text-[var(--theme-text-muted)] mb-10 text-center">
         {t("Autentifică-te pentru o experiență de cumpărături îmbunătățită")}
       </p>
 
@@ -91,7 +91,7 @@ const Login = ({ setCurrentView, redirectTo }: Props) => {
           <button
             type="button"
             onClick={() => setCurrentView(LOGIN_VIEW.FORGOT_PASSWORD)}
-            className="shrink-0 ml-auto font-sans text-[13px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+            className="shrink-0 ml-auto font-sans text-[15px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
           >
             {t("Ai uitat parola?")}
           </button>
@@ -100,7 +100,7 @@ const Login = ({ setCurrentView, redirectTo }: Props) => {
         <SubmitButton
           data-testid="sign-in-button"
           pending={pending}
-          className="w-full mt-4 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[13px]"
+          className="w-full mt-4 h-12 rounded-none !bg-hunter-gold !text-hunter-dark !border-transparent font-sans uppercase tracking-[3px] text-[15px]"
         >
           {t("Autentificare")}
         </SubmitButton>
@@ -108,13 +108,13 @@ const Login = ({ setCurrentView, redirectTo }: Props) => {
         <button
           type="button"
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
-          className="w-full mt-3 h-12 font-sans uppercase tracking-[3px] text-[11px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
+          className="w-full mt-3 h-12 font-sans uppercase tracking-[3px] text-[13px] border border-[var(--theme-border)] text-[var(--theme-text-muted)] hover:border-hunter-gold hover:text-hunter-gold transition-colors"
           data-testid="switch-to-register-button"
         >
           {t("Creează un cont nou")}
         </button>
 
-        <p className="font-sans text-[11px] text-[var(--theme-text-muted)] mt-4 text-center leading-relaxed">
+        <p className="font-sans text-[13px] text-[var(--theme-text-muted)] mt-4 text-center leading-relaxed">
           {t("Protejat de reCAPTCHA")}{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-hunter-gold transition-colors">{t("Confidențialitate")}</a>
           {" "}&amp;{" "}
