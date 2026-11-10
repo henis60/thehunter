@@ -101,7 +101,16 @@ export default function AppointmentModal({
   // height of its inner wrapper whenever that changes (step switch, time
   // slots appearing, validation messages, …). Starts at "auto" so the
   // modal doesn't grow from 0 on open.
+  // A spring (not a fixed-duration tween) so that when the target height
+  // changes again mid-animation (calendar opening right after a step
+  // switch, etc.) it continues from its current velocity instead of
+  // restarting from rest — the restart is what made it look choppy. The
+  // step indicator uses the same spring so the panel's two growing/shrinking
+  // parts move in sync.
   const reduceMotion = useReducedMotion()
+  const heightSpring = reduceMotion
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 320, damping: 36, mass: 0.9 }
   const contentRef = useRef<HTMLDivElement>(null)
   const [contentHeight, setContentHeight] = useState<number | "auto">("auto")
   const [resizing, setResizing] = useState(false)
@@ -251,44 +260,48 @@ export default function AppointmentModal({
 
             {/* Step indicator */}
             {status !== "success" && (
-              <div
-                className={`shrink-0 flex border-b border-[var(--theme-border)] transition-all duration-300 overflow-hidden ${
-                  step === 0
-                    ? "max-h-0 opacity-0 border-transparent"
-                    : "max-h-16 opacity-100"
-                }`}
+              <motion.div
+                className="shrink-0 overflow-hidden"
+                initial={false}
+                animate={{
+                  height: step === 0 ? 0 : "auto",
+                  opacity: step === 0 ? 0 : 1,
+                }}
+                transition={heightSpring}
               >
-                {STEPS.map((label, i) => {
-                  const n = i + 1
-                  const active = step === n
-                  const done = step > n
-                  return (
-                    <div
-                      key={n}
-                      onClick={() => done && goTo(n)}
-                      className={`flex-1 flex items-center justify-center py-3 border-b-2 transition-colors ${
-                        active
-                          ? "border-hunter-gold"
-                          : done
-                          ? "border-hunter-gold/30 cursor-pointer hover:border-hunter-gold/60"
-                          : "border-transparent"
-                      }`}
-                    >
-                      <span
-                        className={`font-sans text-[9px] uppercase tracking-[2px] transition-colors ${
+                <div className="flex border-b border-[var(--theme-border)]">
+                  {STEPS.map((label, i) => {
+                    const n = i + 1
+                    const active = step === n
+                    const done = step > n
+                    return (
+                      <div
+                        key={n}
+                        onClick={() => done && goTo(n)}
+                        className={`flex-1 flex items-center justify-center py-3 border-b-2 transition-colors ${
                           active
-                            ? "text-[var(--theme-text)]"
+                            ? "border-hunter-gold"
                             : done
-                            ? "text-[var(--theme-text-muted)]"
-                            : "text-[var(--theme-text-muted)] opacity-50"
+                            ? "border-hunter-gold/30 cursor-pointer hover:border-hunter-gold/60"
+                            : "border-transparent"
                         }`}
                       >
-                        {label}
-                      </span>
-                    </div>
-                  )
-                })}
-              </div>
+                        <span
+                          className={`font-sans text-[9px] uppercase tracking-[2px] transition-colors ${
+                            active
+                              ? "text-[var(--theme-text)]"
+                              : done
+                              ? "text-[var(--theme-text-muted)]"
+                              : "text-[var(--theme-text-muted)] opacity-50"
+                          }`}
+                        >
+                          {label}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </motion.div>
             )}
 
             {/* Content */}
@@ -298,10 +311,7 @@ export default function AppointmentModal({
               }`}
               initial={false}
               animate={{ height: contentHeight }}
-              transition={{
-                duration: reduceMotion ? 0 : 0.35,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={heightSpring}
               onAnimationStart={() => setResizing(true)}
               onAnimationComplete={() => setResizing(false)}
             >

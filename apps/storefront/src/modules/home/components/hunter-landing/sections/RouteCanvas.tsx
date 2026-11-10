@@ -322,10 +322,39 @@ export default function RouteCanvas() {
         ctx!.arc(px, py, baseR * 0.45, 0, Math.PI * 2)
         ctx!.fillStyle = "rgba(245,240,232,.7)"
         ctx!.fill()
-        const small = W < 480
-        ctx!.font = isHub
-          ? `500 ${small ? 11 : 15}px ${ralewayFamily},sans-serif`
-          : `400 ${small ? 10 : 13}px ${ralewayFamily},sans-serif`
+      })
+
+      // Labels: always ABOVE their dot. Placed after all dots are drawn, hub
+      // last, so a label that would cover another city's dot or label (the
+      // hub vs. Vienna, which sit at almost the same latitude) is nudged
+      // further up until it's clear.
+      const small = W < 480
+      const placed: { x: number; y: number; w: number; h: number }[] = []
+      const dotBoxes = CITIES.map((c) => ({
+        x: cxF(c) - 9,
+        y: cyF(c) - 9,
+        w: 18,
+        h: 18,
+        city: c,
+      }))
+      const hits = (
+        a: { x: number; y: number; w: number; h: number },
+        b: { x: number; y: number; w: number; h: number }
+      ) =>
+        a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h
+      const order = [
+        ...CITIES.filter((c) => !c.hub),
+        ...CITIES.filter((c) => c.hub),
+      ]
+      order.forEach((c) => {
+        const px = cxF(c),
+          py = cyF(c)
+        const isHub = c.hub
+        const baseR = isHub ? 4.5 : 2.8
+        const fontPx = isHub ? (small ? 11 : 15) : small ? 10 : 13
+        ctx!.font = `${
+          isHub ? 500 : 400
+        } ${fontPx}px ${ralewayFamily},sans-serif`
         ctx!.letterSpacing = isHub
           ? small
             ? "2px"
@@ -340,20 +369,33 @@ export default function RouteCanvas() {
         const wouldOverflowLeft = px - textW - 12 < 4
         // on mobile, place city names (non-hub) above the dot, centered-right
         const mobileCity = small && !isHub
-        // The hub sits at the eastern edge with Vienna just west of it at
-        // almost the same latitude, so its label goes BELOW the dot, ending
-        // at the dot, where it can't collide with Vienna's label.
+        // The hub label is centered over its dot (clamped to the canvas edge)
+        // rather than flipped fully left, which would run it over Vienna.
         const lxRaw = isHub
-          ? px - textW + 10
+          ? px - textW / 2
           : mobileCity
           ? px - textW * 0.35
           : wouldOverflowRight && !wouldOverflowLeft
           ? px - textW - 12
           : px + 10
         const lx = Math.max(4, Math.min(lxRaw, W - textW - 8))
-        const ty = isHub
-          ? py + baseR + (small ? 18 : 24)
-          : py - baseR - (mobileCity ? 12 : 6)
+        let ty = py - baseR - (mobileCity ? 12 : 6)
+
+        const box = () => ({
+          x: lx - 2,
+          y: ty - fontPx,
+          w: textW + 4,
+          h: fontPx + 4,
+        })
+        for (let n = 0; n < 40; n++) {
+          const b = box()
+          const blocked =
+            placed.some((p) => hits(b, p)) ||
+            dotBoxes.some((d) => d.city !== c && hits(b, d))
+          if (!blocked) break
+          ty -= 2
+        }
+        placed.push(box())
 
         ctx!.fillStyle = isHub ? "rgba(201,168,76,.95)" : "rgba(201,168,76,.82)"
         ctx!.fillText(label, lx, ty)

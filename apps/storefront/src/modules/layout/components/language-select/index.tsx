@@ -44,10 +44,7 @@ const LanguageSelect = ({ locales, currentLocale }: LanguageSelectProps) => {
     <div className="flex items-center justify-between font-sans text-[13px] uppercase tracking-[0.2em] text-[var(--theme-text-muted)]">
       <span>{t("Limbă")}</span>
       <div
-        className={clx(
-          "relative flex items-center border border-[var(--theme-border)]",
-          isPending && "cursor-wait"
-        )}
+        className="relative flex items-center border border-[var(--theme-border)]"
         aria-busy={isPending}
       >
         {/* Sliding highlight */}
@@ -76,7 +73,7 @@ const LanguageSelect = ({ locales, currentLocale }: LanguageSelectProps) => {
                 isSelected
                   ? "text-hunter-dark"
                   : "text-[var(--theme-text-muted)] hover:text-hunter-gold",
-                isPending ? "cursor-wait" : "cursor-pointer"
+                "cursor-pointer"
               )}
             >
               {l.code.toUpperCase()}
