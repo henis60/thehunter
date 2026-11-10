@@ -194,7 +194,7 @@ export const listOrders = async (
         limit,
         offset,
         order: "-created_at",
-        fields: "+total,+summary,*items,+items.metadata,*items.variant,*items.product,*fulfillments,*fulfillments.labels",
+        fields: "+total,+credit_line_total,+summary,*items,+items.metadata,*items.variant,*items.product,*fulfillments,*fulfillments.labels",
         ...filters,
       },
       headers,

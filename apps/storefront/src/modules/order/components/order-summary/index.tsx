@@ -1,4 +1,8 @@
 import { convertToLocale } from "@lib/util/money"
+import {
+  getOrderDisplayTotal,
+  getOrderRefundedTotal,
+} from "@lib/util/order-total"
 import { HttpTypes } from "@medusajs/types"
 import { getTranslations } from "next-intl/server"
 
@@ -17,6 +21,8 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
     amount != null
       ? convertToLocale({ amount, currency_code: order.currency_code })
       : null
+
+  const refunded = getOrderRefundedTotal(order)
 
   return (
     <div className="small:px-8 py-6">
@@ -89,9 +95,22 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
             {t("Total")}
           </span>
           <span className="font-display text-[17px] leading-none text-hunter-gold">
-            {fmt(order.total)}
+            {fmt(getOrderDisplayTotal(order))}
           </span>
         </div>
+        {/* Refunds are stored as order credit lines, which Medusa subtracts
+            from order.total (a fully refunded order reports 0). Show the
+            order's own total above and the refund on its own line. */}
+        {refunded > 0 && (
+          <div className="flex items-center justify-between font-sans text-[13px]">
+            <span className="text-[var(--theme-text-muted)]">
+              {t("Rambursat")}
+            </span>
+            <span className="text-[var(--theme-text)]">
+              − {fmt(refunded)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   )

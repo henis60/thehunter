@@ -6,27 +6,26 @@ const toNumber = (value: unknown): number | null => {
   return Number.isFinite(n) ? n : null
 }
 
-// The account order lists (/profil, /profil/comenzi) showed every order as
-// 0,00 on the live site even though the orders were paid. That couldn't be
-// reproduced locally: the backend returned the right `total` there. So this
-// falls back to the order summary, which Medusa stores per order and which is
-// in the store API's default order fields. If `total` is missing or 0, use the
-// summary's current_order_total (or the paid amount), and only show 0 if all
-// of them are 0.
+// Amount refunded to the customer as order credit lines. Medusa's refund
+// (and cancel-with-refund) workflows add a credit line for the refunded
+// amount, and `order.total` subtracts credit lines, so a fully refunded
+// order reports total 0 while its subtotal and shipping stay the same.
+export const getOrderRefundedTotal = (order: HttpTypes.StoreOrder): number =>
+  toNumber((order as any).credit_line_total) ?? 0
+
+// What the order cost: Medusa's total with the refund credit lines added
+// back. Falls back to the order summary if total is missing entirely.
 export const getOrderDisplayTotal = (order: HttpTypes.StoreOrder): number => {
   const total = toNumber(order.total)
-  if (total) return total
+  if (total != null) return total + getOrderRefundedTotal(order)
 
   const summary = (order as any).summary as
     | Record<string, unknown>
     | null
     | undefined
-
   return (
-    toNumber(summary?.current_order_total) ||
-    toNumber(summary?.original_order_total) ||
-    toNumber(summary?.paid_total) ||
-    total ||
+    toNumber(summary?.original_order_total) ??
+    toNumber(summary?.current_order_total) ??
     0
   )
 }
