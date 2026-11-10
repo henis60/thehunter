@@ -19,34 +19,75 @@ export default function RouteCanvas() {
         .getPropertyValue("--font-raleway")
         .trim() || "Raleway"
 
-    function resize() {
-      cvs!.width = cvs!.offsetWidth
-      cvs!.height = cvs!.offsetHeight
+    // Only the hub and the inspiration cities named in the caption next to
+    // the canvas (About.tsx). Real coordinates, projected below.
+    const CITIES = [
+      { name: "The Hunter House", lat: 47.6567, lon: 23.585, hub: true }, // Baia Mare
+      { name: "Londra", lat: 51.5074, lon: -0.1278, hub: false },
+      { name: "Milano", lat: 45.4642, lon: 9.19, hub: false },
+      { name: "Paris", lat: 48.8566, lon: 2.3522, hub: false },
+      { name: "Viena", lat: 48.2082, lon: 16.3738, hub: false },
+      { name: "Zurich", lat: 47.3769, lon: 8.5417, hub: false },
+    ].map((c) => ({ ...c, x: 0, y: 0 }))
+    type City = (typeof CITIES)[number]
+
+    // Logical (CSS px) canvas size; the backing store is scaled by DPR so
+    // labels stay crisp on high-density screens.
+    let W = 0
+    let H = 0
+
+    // Web-Mercator projection, fitted to the canvas with ONE uniform scale
+    // (so relative positions/distances are geographically true), centered,
+    // with padding reserved for the labels.
+    const mercY = (lat: number) =>
+      Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360))
+    const toRad = (deg: number) => (deg * Math.PI) / 180
+    function layoutCities() {
+      const xs = CITIES.map((c) => toRad(c.lon))
+      const ys = CITIES.map((c) => mercY(c.lat))
+      const minX = Math.min(...xs)
+      const maxX = Math.max(...xs)
+      const minY = Math.min(...ys)
+      const maxY = Math.max(...ys)
+      const small = W < 480
+      const padL = W * (small ? 0.1 : 0.08)
+      const padR = W * (small ? 0.1 : 0.08)
+      // The site header overlays the top of this section, so keep the
+      // northernmost city (London) and its label clear of it.
+      const padT = Math.max(H * 0.2, 96)
+      const padB = H * 0.16
+      const scale = Math.min(
+        (W - padL - padR) / (maxX - minX),
+        (H - padT - padB) / (maxY - minY)
+      )
+      const offX = padL + (W - padL - padR - (maxX - minX) * scale) / 2
+      const offY = padT + (H - padT - padB - (maxY - minY) * scale) / 2
+      CITIES.forEach((c, i) => {
+        c.x = offX + (xs[i] - minX) * scale
+        c.y = offY + (maxY - ys[i]) * scale
+      })
     }
 
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      W = cvs!.offsetWidth
+      H = cvs!.offsetHeight
+      cvs!.width = Math.round(W * dpr)
+      cvs!.height = Math.round(H * dpr)
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
+      layoutCities()
+    }
+
+    resize()
     const ro = new ResizeObserver(() => resize())
     ro.observe(cvs)
 
-    const CITIES = [
-      { name: "The Hunter House", px: 0.65, py: 0.55, hub: true }, // Baia Mare 23.6°E 47.7°N
-      { name: "Londra", px: 0.25, py: 0.4, hub: false }, // -0.1°E 51.5°N
-      { name: "Edinburgh", px: 0.18, py: 0.23, hub: false }, // -3.2°E 56.0°N
-      { name: "Milano", px: 0.44, py: 0.64, hub: false }, //  9.2°E 45.5°N
-      { name: "Paris", px: 0.3, py: 0.51, hub: false }, //  2.4°E 48.9°N
-      { name: "Viena", px: 0.59, py: 0.53, hub: false }, // 16.4°E 48.2°N
-      { name: "Florenta", px: 0.49, py: 0.7, hub: false }, // 11.3°E 43.8°N
-      { name: "Berlin", px: 0.53, py: 0.37, hub: false }, // 13.4°E 52.5°N
-      { name: "Madrid", px: 0.17, py: 0.83, hub: false }, // -3.7°E 40.4°N
-      { name: "Lisabona", px: 0.06, py: 0.89, hub: false }, // -9.1°E 38.7°N
-      { name: "Zurich", px: 0.43, py: 0.56, hub: false }, //  8.5°E 47.4°N
-      { name: "Praga", px: 0.55, py: 0.46, hub: false }, // 14.4°E 50.1°N
-    ]
-    const cxF = (c: { px: number }) => c.px * cvs.width
-    const cyF = (c: { py: number }) => c.py * cvs.height
+    const cxF = (c: City) => c.x
+    const cyF = (c: City) => c.y
 
     type Arc = {
-      from: (typeof CITIES)[0]
-      to: (typeof CITIES)[0]
+      from: City
+      to: City
       t: number
       speed: number
       color: string
@@ -105,7 +146,7 @@ export default function RouteCanvas() {
       }
     }
 
-    function controlPt(from: (typeof CITIES)[0], to: (typeof CITIES)[0]) {
+    function controlPt(from: City, to: City) {
       const mx = (cxF(from) + cxF(to)) * 0.5
       const my = (cyF(from) + cyF(to)) * 0.5
       const dx = cxF(to) - cxF(from)
@@ -133,8 +174,6 @@ export default function RouteCanvas() {
       requestAnimationFrame(frame)
       const dt = Math.min(now - last, 40)
       last = now
-      const W = cvs!.width,
-        H = cvs!.height
       ctx!.clearRect(0, 0, W, H)
       ctx!.fillStyle = "#0b120e"
       ctx!.fillRect(0, 0, W, H)
@@ -285,15 +324,15 @@ export default function RouteCanvas() {
         ctx!.fill()
         const small = W < 480
         ctx!.font = isHub
-          ? `400 ${small ? 8 : 11}px ${ralewayFamily},sans-serif`
-          : `300 ${small ? 7 : 9.5}px ${ralewayFamily},sans-serif`
+          ? `500 ${small ? 11 : 15}px ${ralewayFamily},sans-serif`
+          : `400 ${small ? 10 : 13}px ${ralewayFamily},sans-serif`
         ctx!.letterSpacing = isHub
           ? small
-            ? "1.5px"
-            : "3.5px"
+            ? "2px"
+            : "4px"
           : small
-          ? "1px"
-          : "2.5px"
+          ? "1.5px"
+          : "3px"
         const label = c.name.toUpperCase()
         const textW = ctx!.measureText(label).width
         // flip to left if placing right would overflow canvas edge
@@ -301,13 +340,20 @@ export default function RouteCanvas() {
         const wouldOverflowLeft = px - textW - 12 < 4
         // on mobile, place city names (non-hub) above the dot, centered-right
         const mobileCity = small && !isHub
-        const lxRaw = mobileCity
+        // The hub sits at the eastern edge with Vienna just west of it at
+        // almost the same latitude, so its label goes BELOW the dot, ending
+        // at the dot, where it can't collide with Vienna's label.
+        const lxRaw = isHub
+          ? px - textW + 10
+          : mobileCity
           ? px - textW * 0.35
           : wouldOverflowRight && !wouldOverflowLeft
           ? px - textW - 12
           : px + 10
         const lx = Math.max(4, Math.min(lxRaw, W - textW - 8))
-        const ty = py - baseR - (mobileCity ? 12 : 6)
+        const ty = isHub
+          ? py + baseR + (small ? 18 : 24)
+          : py - baseR - (mobileCity ? 12 : 6)
 
         ctx!.fillStyle = isHub ? "rgba(201,168,76,.95)" : "rgba(201,168,76,.82)"
         ctx!.fillText(label, lx, ty)
