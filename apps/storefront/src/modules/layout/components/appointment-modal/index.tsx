@@ -55,7 +55,7 @@ export default function AppointmentModal({
   const [step, setStep] = useState(0)
   const [status, setStatus] = useState<Status>("idle")
   const [errorMsg, setErrorMsg] = useState(
-    t("Nu am putut trimite cererea Încearcă din nou"),
+    t("Nu am putut trimite cererea Încearcă din nou")
   )
   const { preload, getToken } = useRecaptcha()
 
@@ -180,7 +180,7 @@ export default function AppointmentModal({
       if (!res.success) {
         if (res.reason === "rate_limited") {
           setErrorMsg(
-            t("Prea multe încercări Te rugăm să revii peste câteva minute"),
+            t("Prea multe încercări Te rugăm să revii peste câteva minute")
           )
         }
         setStatus("error")
@@ -270,8 +270,8 @@ export default function AppointmentModal({
                         active
                           ? "border-hunter-gold"
                           : done
-                            ? "border-hunter-gold/30 cursor-pointer hover:border-hunter-gold/60"
-                            : "border-transparent"
+                          ? "border-hunter-gold/30 cursor-pointer hover:border-hunter-gold/60"
+                          : "border-transparent"
                       }`}
                     >
                       <span
@@ -279,8 +279,8 @@ export default function AppointmentModal({
                           active
                             ? "text-[var(--theme-text)]"
                             : done
-                              ? "text-[var(--theme-text-muted)]"
-                              : "text-[var(--theme-text-muted)] opacity-50"
+                            ? "text-[var(--theme-text-muted)]"
+                            : "text-[var(--theme-text-muted)] opacity-50"
                         }`}
                       >
                         {label}
@@ -338,7 +338,7 @@ export default function AppointmentModal({
                       </p>
                       <p className="font-sans text-sm text-[var(--theme-text-muted)]">
                         {t(
-                          "Te contactăm în maximum 24 de ore pentru a confirma programarea",
+                          "Te contactăm în maximum 24 de ore pentru a confirma programarea"
                         )}
                       </p>
                       <button
@@ -352,18 +352,18 @@ export default function AppointmentModal({
                     <div key="intro" className="flex flex-col gap-5 py-2">
                       <p className="font-sans text-sm text-[var(--theme-text-muted)] leading-relaxed">
                         {t(
-                          "O întâlnire personalizată în care discutăm despre stilul tău, alegem materialele potrivite și definim fiecare detaliu al costumului dorit Te ghidăm în procesul de creare a unei ținute realizate special pentru tine",
+                          "O întâlnire personalizată în care discutăm despre stilul tău, alegem materialele potrivite și definim fiecare detaliu al costumului dorit Te ghidăm în procesul de creare a unei ținute realizate special pentru tine"
                         )}
                       </p>
                       <div className="flex flex-col gap-2.5 border-t border-[var(--theme-border)] pt-4">
                         {[
                           t(
-                            "Alegerea materialelor și a detaliilor potrivite stilului tău",
+                            "Alegerea materialelor și a detaliilor potrivite stilului tău"
                           ),
                           t("Măsurători precise pentru o potrivire impecabilă"),
                           t("Recomandări de croială și personalizare"),
                           t(
-                            "Crearea unei ținute unice, realizate special pentru tine",
+                            "Crearea unei ținute unice, realizate special pentru tine"
                           ),
                         ].map((item) => (
                           <div key={item} className="flex items-start gap-2.5">
