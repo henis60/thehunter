@@ -299,6 +299,11 @@ export class NetopiaProviderService extends AbstractPaymentProvider<NetopiaOptio
         amountRON,
         currency,
         status: response.payment?.status ?? NetopiaStatus.NEW,
+        // Read by the storefront to decide whether a second "Plătește" click
+        // may reuse this still-open Netopia page instead of creating a new
+        // session — which would delete this one and orphan any payment made
+        // on it (see initiateNetopiaPayment in the storefront's cart.ts).
+        initiated_at: new Date().toISOString(),
       },
     };
   }
@@ -544,6 +549,19 @@ export class NetopiaProviderService extends AbstractPaymentProvider<NetopiaOptio
 
     if (mapped === PS.authorized) {
       const check = await this.matchesSessionAmount(orderID, amount, currency);
+      if (!check.ok && check.missing) {
+        // Paid on a session Medusa has since hard-deleted: a later
+        // "Plătește" click for the same cart replaced it, but the old
+        // Netopia page stayed payable. There is no cart link left to
+        // complete, so a human must refund (or place the order manually).
+        this.logger.error(
+          `Netopia IPN ORFAN — plată ${reason} pe o sesiune ștearsă ` +
+            `(înlocuită de un click ulterior pe „Plătește”): orderID=${orderID} ` +
+            `ntpID=${ipn?.payment?.ntpID ?? "-"} suma=${amount} ${currency || "?"} — ` +
+            `nu există comandă; rambursează din panoul Netopia sau creează comanda manual`,
+        );
+        return { action: "not_supported" };
+      }
       if (!check.ok) {
         // An IPN claiming success for a different amount/currency than the one
         // we asked Netopia to charge must never authorize the session.
@@ -578,6 +596,7 @@ export class NetopiaProviderService extends AbstractPaymentProvider<NetopiaOptio
     ipnCurrency: string,
   ): Promise<{
     ok: boolean;
+    missing?: boolean;
     expectedAmount?: number;
     expectedCurrency?: string;
   }> {
@@ -614,7 +633,8 @@ export class NetopiaProviderService extends AbstractPaymentProvider<NetopiaOptio
         `Netopia IPN: could not load payment session ${sessionId} for amount check ` +
           `(${(err as Error).message}) — refusing to authorize on unverifiable data`,
       );
-      return { ok: false };
+      const notFound = /not found/i.test((err as Error).message);
+      return { ok: false, missing: notFound };
     }
 
     const stored = (session?.data ?? {}) as Record<string, unknown>;

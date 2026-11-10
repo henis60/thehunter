@@ -84,5 +84,8 @@
   "Modifică adresa": "Edit address",
   "Introdu un număr de telefon valid": "Enter a valid phone number.",
   "Gratuit": "Free",
-  "Livrarea pentru unele produse nu este disponibilă momentan Contactează-ne": "Delivery for some products is currently unavailable. Please contact us."
+  "Livrarea pentru unele produse nu este disponibilă momentan Contactează-ne": "Delivery for some products is currently unavailable. Please contact us.",
+  "Sesiune de plată înlocuită": "Payment session replaced",
+  "Această plată aparține unei sesiuni mai vechi Dacă ai fost taxat suma îți va fi returnată Te redirecționăm la checkout": "This payment belongs to an older payment session. If you were charged, the amount will be refunded. Redirecting you to checkout.",
+  "Livrare gratuită (7–10 zile)": "Free shipping (7–10 days)"
 }

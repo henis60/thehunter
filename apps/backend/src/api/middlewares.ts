@@ -292,6 +292,63 @@ const netopiaSessionCartLimiter = rateLimit({
 //
 // Requests without a parseable orderID fall back to the IP bucket: those can't
 // correspond to a real notification, so bucketing them together is the point.
+// Medusa's json/text/urlencoded parsers only run when Content-Type matches.
+// Netopia's "retrimite notificarea" (resend) from its admin panel posts the
+// body with NO Content-Type at all, so no parser touched the stream, rawBody
+// stayed undefined, and signature verification failed closed with
+// "rawBody indisponibil" (the JWT `sub` is a hash of those exact bytes).
+// This fallback reads the untouched stream for any content type. It is a
+// no-op when a regular parser already consumed the body.
+const IPN_MAX_BYTES = 256 * 1024;
+
+function netopiaRawBodyFallback(
+  req: MedusaRequest,
+  res: MedusaResponse,
+  next: (err?: unknown) => void,
+) {
+  const r = req as unknown as {
+    rawBody?: Buffer;
+    body?: unknown;
+    _body?: boolean;
+    readableEnded?: boolean;
+    on: (ev: string, cb: (arg?: any) => void) => void;
+  };
+  if (r.rawBody || r._body || r.readableEnded) return next();
+
+  const chunks: Buffer[] = [];
+  let size = 0;
+  let done = false;
+  const finish = (err?: unknown) => {
+    if (done) return;
+    done = true;
+    next(err);
+  };
+
+  r.on("data", (chunk: Buffer) => {
+    if (done) return;
+    size += chunk.length;
+    if (size > IPN_MAX_BYTES) {
+      done = true;
+      res.status(413).json({ errorCode: 1, message: "Payload too large" });
+      return;
+    }
+    chunks.push(chunk);
+  });
+  r.on("end", () => {
+    if (done) return;
+    const buf = Buffer.concat(chunks);
+    r.rawBody = buf;
+    r._body = true;
+    try {
+      r.body = buf.length ? JSON.parse(buf.toString("utf8")) : {};
+    } catch {
+      r.body = buf.toString("utf8");
+    }
+    finish();
+  });
+  r.on("error", (err) => finish(err));
+}
+
 const netopiaIpnLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 30,
@@ -338,7 +395,8 @@ export default defineMiddlewares({
       // Same single-entry-per-matcher rule as /store/newsletter below: the
       // limiter goes here rather than in a second entry, so the bodyParser
       // config isn't split away from it.
-      middlewares: [netopiaIpnLimiter],
+      // Fallback first: the limiter keys on the orderID in the body.
+      middlewares: [netopiaRawBodyFallback, netopiaIpnLimiter],
     },
     {
       matcher: "/store/netopia/session-cart",

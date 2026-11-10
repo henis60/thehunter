@@ -441,6 +441,29 @@ export async function initiateNetopiaPayment(
   const fullCart = await retrieveCart(cartId)
   const addr = fullCart?.shipping_address
 
+  // Reuse a still-open Netopia page instead of creating a second session.
+  // Creating a session makes Medusa hard-delete the cart's previous one, but
+  // its Netopia page stays payable. A customer with two tabs (or who went
+  // back and clicked again) could pay on the first one, and the IPN would
+  // then reference a session that no longer exists: money taken, no order.
+  // Only reused while fresh and for the exact current amount; a changed cart
+  // always gets a new session.
+  // Read uncached: retrieveCart is force-cached, and the first click skipped
+  // revalidation on purpose, so the cached cart may not show its session yet.
+  const freshPayment = await sdk.client
+    .fetch<HttpTypes.StoreCartResponse>(`/store/carts/${cartId}`, {
+      method: "GET",
+      query: {
+        fields: "id,total,*payment_collection,*payment_collection.payment_sessions",
+      },
+      headers: { ...(await getAuthHeaders()) },
+      cache: "no-store",
+    })
+    .then(({ cart }) => cart)
+    .catch(() => null)
+  const reusable = findReusableNetopiaSession(freshPayment, providerId)
+  if (reusable) return reusable
+
   // Server Actions that throw have their error message stripped by Next.js in
   // production (only a digest reaches the client) — including deliberate,
   // safe-to-show errors like the backend's sandbox-mode checkout block. Catch
@@ -479,10 +502,48 @@ export async function initiateNetopiaPayment(
     ?.redirect_url as string | undefined
 }
 
+// How long a Netopia payment page is treated as still payable/reusable. Kept
+// conservative: an expired page would show the customer an error at Netopia,
+// after which a fresh click past this window creates a new session.
+const NETOPIA_REUSE_WINDOW_MS = 15 * 60 * 1000
+
+function findReusableNetopiaSession(
+  cart: HttpTypes.StoreCart | null | undefined,
+  providerId: string
+): string | undefined {
+  const sessions = cart?.payment_collection?.payment_sessions ?? []
+  const session = sessions.find(
+    (s) => s.provider_id === providerId && s.status === "pending"
+  )
+  const data = (session?.data ?? {}) as Record<string, unknown>
+  const redirectUrl = data.redirect_url
+  const initiatedAt = Date.parse(String(data.initiated_at ?? ""))
+
+  if (typeof redirectUrl !== "string" || !redirectUrl || !data.ntpID) return
+  if (!Number.isFinite(initiatedAt)) return
+  if (Date.now() - initiatedAt > NETOPIA_REUSE_WINDOW_MS) return
+
+  // The session must still charge exactly what the cart now costs.
+  const cartTotal = Number(cart?.total)
+  const sessionAmount = Number(session?.amount)
+  const netopiaAmount = Number(data.amountRON)
+  if (
+    !Number.isFinite(cartTotal) ||
+    Math.abs(sessionAmount - cartTotal) >= 0.01 ||
+    Math.abs(netopiaAmount - cartTotal) >= 0.01
+  ) {
+    return
+  }
+
+  return redirectUrl
+}
+
 export type NetopiaCompletion = {
   orderId?: string
   pending?: boolean
   failed?: boolean
+  // The session is gone: it was replaced by a newer one for the same cart.
+  stale?: boolean
 }
 
 export async function completeNetopiaCart(cartId: string): Promise<NetopiaCompletion> {
@@ -525,6 +586,13 @@ export async function completeNetopiaBySession(sessionId: string): Promise<Netop
 
   if (status === "error" || status === "canceled") {
     return { failed: true }
+  }
+
+  // A session always exists before the customer is sent to Netopia, so an
+  // unknown id with no status means it was deleted, replaced by a later
+  // "Plătește" click for the same cart. Polling would never succeed.
+  if (!cartId && status === null) {
+    return { stale: true }
   }
 
   if (!cartId) {

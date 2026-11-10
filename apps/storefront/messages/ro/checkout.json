@@ -84,5 +84,8 @@
   "Modifică adresa": "Modifică adresa",
   "Introdu un număr de telefon valid": "Introdu un număr de telefon valid.",
   "Gratuit": "Gratuit",
-  "Livrarea pentru unele produse nu este disponibilă momentan Contactează-ne": "Livrarea pentru unele produse nu este disponibilă momentan. Contactează-ne."
+  "Livrarea pentru unele produse nu este disponibilă momentan Contactează-ne": "Livrarea pentru unele produse nu este disponibilă momentan. Contactează-ne.",
+  "Sesiune de plată înlocuită": "Sesiune de plată înlocuită",
+  "Această plată aparține unei sesiuni mai vechi Dacă ai fost taxat suma îți va fi returnată Te redirecționăm la checkout": "Această plată aparține unei sesiuni de plată mai vechi. Dacă ai fost taxat, suma îți va fi returnată. Te redirecționăm la checkout.",
+  "Livrare gratuită (7–10 zile)": "Livrare gratuită (7–10 zile)"
 }

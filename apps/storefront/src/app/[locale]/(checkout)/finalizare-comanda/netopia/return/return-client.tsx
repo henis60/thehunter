@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl"
 const POLL_INTERVAL_MS = 2500
 const MAX_POLLS = 20
 
-type Stage = "verifying" | "rejected" | "timeout"
+type Stage = "verifying" | "rejected" | "timeout" | "stale"
 
 export default function NetopiaReturnClient() {
   const t = useTranslations("checkout")
@@ -40,6 +40,14 @@ export default function NetopiaReturnClient() {
 
       if (result.orderId) {
         router.replace(`/comanda/${orderIdToSlug(result.orderId)}`)
+        return
+      }
+
+      if (result.stale) {
+        // This tab's payment session was replaced by a newer one for the
+        // same cart. No order can come from it, so don't poll or claim one.
+        setStage("stale")
+        setTimeout(() => router.replace("/finalizare-comanda?pas=sumar"), 8000)
         return
       }
 
@@ -73,6 +81,12 @@ export default function NetopiaReturnClient() {
       heading: t("Plată respinsă"),
       body: t(
         "Tranzacția nu a putut fi finalizată Vei fi redirecționat înapoi la checkout"
+      ),
+    },
+    stale: {
+      heading: t("Sesiune de plată înlocuită"),
+      body: t(
+        "Această plată aparține unei sesiuni mai vechi Dacă ai fost taxat suma îți va fi returnată Te redirecționăm la checkout"
       ),
     },
     timeout: {
@@ -194,7 +208,7 @@ export default function NetopiaReturnClient() {
               </g>
             )}
 
-            {stage === "rejected" && (
+            {(stage === "rejected" || stage === "stale") && (
               <g
                 stroke="#722F37"
                 strokeWidth={1.5}
