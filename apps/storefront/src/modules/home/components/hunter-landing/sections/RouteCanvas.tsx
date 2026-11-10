@@ -19,6 +19,20 @@ export default function RouteCanvas() {
         .getPropertyValue("--font-raleway")
         .trim() || "Raleway"
 
+    // Sets the label font on the context; returns its pixel size.
+    function setLabelFont(isHub: boolean, small: boolean) {
+      const fontPx = isHub ? (small ? 11 : 15) : small ? 10 : 13
+      ctx!.font = `${isHub ? 500 : 400} ${fontPx}px ${ralewayFamily},sans-serif`
+      ctx!.letterSpacing = isHub
+        ? small
+          ? "2px"
+          : "4px"
+        : small
+        ? "1.5px"
+        : "3px"
+      return fontPx
+    }
+
     // Only the hub and the inspiration cities named in the caption next to
     // the canvas (About.tsx). Real coordinates, projected below.
     const CITIES = [
@@ -50,8 +64,16 @@ export default function RouteCanvas() {
       const minY = Math.min(...ys)
       const maxY = Math.max(...ys)
       const small = W < 480
-      const padL = W * (small ? 0.1 : 0.08)
-      const padR = W * (small ? 0.1 : 0.08)
+      const padL = W * (small ? 0.06 : 0.08)
+      // The hub is the easternmost point and its label sits to its right
+      // like every other city's, so reserve room for that label.
+      setLabelFont(true, small)
+      const hubLabelW = ctx!.measureText(CITIES[0].name.toUpperCase()).width
+      ctx!.letterSpacing = "0px"
+      const padR = Math.max(
+        W * (small ? 0.1 : 0.08),
+        small ? hubLabelW * 0.65 + 14 : hubLabelW + 24
+      )
       // The site header overlays the top of this section, so keep the
       // northernmost city (London) and its label clear of it.
       const padT = Math.max(H * 0.2, 96)
@@ -81,6 +103,10 @@ export default function RouteCanvas() {
     resize()
     const ro = new ResizeObserver(() => resize())
     ro.observe(cvs)
+    // Label widths (and so the reserved padding) change once Raleway loads.
+    document.fonts?.ready.then(() => {
+      if (!stopped) layoutCities()
+    })
 
     const cxF = (c: City) => c.x
     const cyF = (c: City) => c.y
@@ -324,17 +350,17 @@ export default function RouteCanvas() {
         ctx!.fill()
       })
 
-      // Labels: always ABOVE their dot. Placed after all dots are drawn, hub
-      // last, so a label that would cover another city's dot or label (the
-      // hub vs. Vienna, which sit at almost the same latitude) is nudged
-      // further up until it's clear.
+      // Labels: every city (hub included) uses the same placement, above
+      // and to the right of its dot. Placed after all dots are drawn, hub
+      // last, so a label that would cover another city's dot or label is
+      // nudged further up until it's clear.
       const small = W < 480
       const placed: { x: number; y: number; w: number; h: number }[] = []
       const dotBoxes = CITIES.map((c) => ({
-        x: cxF(c) - 9,
-        y: cyF(c) - 9,
-        w: 18,
-        h: 18,
+        x: cxF(c) - 7,
+        y: cyF(c) - 7,
+        w: 14,
+        h: 14,
         city: c,
       }))
       const hits = (
@@ -351,35 +377,21 @@ export default function RouteCanvas() {
           py = cyF(c)
         const isHub = c.hub
         const baseR = isHub ? 4.5 : 2.8
-        const fontPx = isHub ? (small ? 11 : 15) : small ? 10 : 13
-        ctx!.font = `${
-          isHub ? 500 : 400
-        } ${fontPx}px ${ralewayFamily},sans-serif`
-        ctx!.letterSpacing = isHub
-          ? small
-            ? "2px"
-            : "4px"
-          : small
-          ? "1.5px"
-          : "3px"
+        const fontPx = setLabelFont(isHub, small)
         const label = c.name.toUpperCase()
         const textW = ctx!.measureText(label).width
-        // flip to left if placing right would overflow canvas edge
+        // flip to left only if placing right would overflow the canvas edge
+        // (layoutCities reserves room, so this is just a safety net)
         const wouldOverflowRight = px + 10 + textW + 8 > W - 4
         const wouldOverflowLeft = px - textW - 12 < 4
-        // on mobile, place city names (non-hub) above the dot, centered-right
-        const mobileCity = small && !isHub
-        // The hub label is centered over its dot (clamped to the canvas edge)
-        // rather than flipped fully left, which would run it over Vienna.
-        const lxRaw = isHub
-          ? px - textW / 2
-          : mobileCity
+        // on mobile, labels start a bit left of the dot to save width
+        const lxRaw = small
           ? px - textW * 0.35
           : wouldOverflowRight && !wouldOverflowLeft
           ? px - textW - 12
           : px + 10
         const lx = Math.max(4, Math.min(lxRaw, W - textW - 8))
-        let ty = py - baseR - (mobileCity ? 12 : 6)
+        let ty = py - baseR - 6
 
         const box = () => ({
           x: lx - 2,
