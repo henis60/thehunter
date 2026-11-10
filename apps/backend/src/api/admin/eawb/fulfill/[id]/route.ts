@@ -1,12 +1,12 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
+import { loadEawbOrderScope } from "../../../../../lib/eawb-order"
 import { createOrderFulfillmentWorkflow } from "@medusajs/medusa/core-flows"
 
 /**
  * Pasul 1 din 3: „Creează AWB".
  *
- * Face fulfill pe toate produsele încă nepregătite ale comenzii, într-o singură
- * expediere, cu metoda de livrare eAWB — ceea ce generează AWB-ul la Europarcel.
+ * Face fulfill pe toate produsele încă nepregătite ale comenzii care pleacă cu
+ * curierul (nu și cele în dropshipping), într-o singură expediere, cu metoda de livrare eAWB — ceea ce generează AWB-ul la Europarcel.
  * Fulfillment-ul rămâne NEEXPEDIAT:
  *
  *   1. Creează AWB   → această rută
@@ -22,33 +22,19 @@ import { createOrderFulfillmentWorkflow } from "@medusajs/medusa/core-flows"
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
   const { id } = req.params as { id: string }
 
-  const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
-  const { data: [order] } = await query.graph({
-    entity: "order",
-    fields: [
-      "id",
-      "items.id",
-      "items.detail.quantity",
-      "items.detail.fulfilled_quantity",
-    ],
-    filters: { id },
-  })
+  const { order, eawb_option_id, remaining_items: items } = await loadEawbOrderScope(
+    req.scope,
+    id
+  )
 
   if (!order) {
     return res.status(404).json({ error: "Comanda nu a fost găsită." })
   }
 
-  const items = (order.items ?? [])
-    .map((i: any) => ({
-      id: i.id,
-      quantity: (i.detail?.quantity ?? 0) - (i.detail?.fulfilled_quantity ?? 0),
-    }))
-    .filter((i: { quantity: number }) => i.quantity > 0)
-
   if (!items.length) {
     return res
       .status(400)
-      .json({ error: "Toate produsele sunt deja pregătite de expediere." })
+      .json({ error: "Toate produsele livrate prin curier sunt deja pregătite de expediere." })
   }
 
   const { result: fulfillment } = await createOrderFulfillmentWorkflow(
@@ -57,6 +43,9 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
     input: {
       order_id: id,
       items,
+      // Explicit: într-o comandă mixtă, metoda implicită (prima) poate fi
+      // livrarea gratuită în dropshipping, care n-are AWB.
+      ...(eawb_option_id ? { shipping_option_id: eawb_option_id } : {}),
       additional_data: {},
     },
   })

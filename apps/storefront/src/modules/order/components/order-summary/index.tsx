@@ -27,23 +27,31 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
         {/* order.subtotal already includes shipping in Medusa v2 — the
             products-only figure is item_subtotal (same as checkout) */}
         <div className="flex items-center justify-between font-sans text-[12px]">
-          <span className="text-[var(--theme-text-muted)]">{t("Subtotal")}</span>
+          <span className="text-[var(--theme-text-muted)]">
+            {t("Subtotal")}
+          </span>
           <span className="text-[var(--theme-text)]">
             {fmt(order.item_subtotal)}
           </span>
         </div>
         {order.gift_card_total > 0 && (
           <div className="flex items-center justify-between font-sans text-[12px]">
-            <span className="text-[var(--theme-text-muted)]">{t("Card cadou")}</span>
+            <span className="text-[var(--theme-text-muted)]">
+              {t("Card cadou")}
+            </span>
             <span className="text-emerald-500">
               − {fmt(order.gift_card_total)}
             </span>
           </div>
         )}
-        <div className="flex items-center justify-between font-sans text-[12px]">
-          <span className="text-[var(--theme-text-muted)]">{t("Transport")}</span>
-          <span className="text-[var(--theme-text)]">
-            {/* shipping_total is NET of any shipping-specific discount (e.g.
+        {/* Transportul apare doar când costă ceva — cel gratuit nu se menționează. */}
+        {order.shipping_subtotal > 0 && (
+          <div className="flex items-center justify-between font-sans text-[12px]">
+            <span className="text-[var(--theme-text-muted)]">
+              {t("Transport")}
+            </span>
+            <span className="text-[var(--theme-text)]">
+              {/* shipping_total is NET of any shipping-specific discount (e.g.
                 a 100%-off-shipping promo zeroes it) — showing that alongside
                 a separate Discount line double-counts the waived amount out
                 of the math the customer can see: Subtotal + Shipping(net 0)
@@ -54,12 +62,15 @@ const OrderSummary = async ({ order }: OrderSummaryProps) => {
                 index.tsx already uses for the cart/checkout summary — so
                 Subtotal + Shipping + Discount consistently reconciles to
                 Total again. */}
-            {fmt(order.shipping_subtotal)}
-          </span>
-        </div>
+              {fmt(order.shipping_subtotal)}
+            </span>
+          </div>
+        )}
         {order.discount_total > 0 && (
           <div className="flex items-center justify-between font-sans text-[12px]">
-            <span className="text-[var(--theme-text-muted)]">{t("Reducere")}</span>
+            <span className="text-[var(--theme-text-muted)]">
+              {t("Reducere")}
+            </span>
             <span className="text-emerald-500">
               − {fmt(order.discount_total)}
             </span>

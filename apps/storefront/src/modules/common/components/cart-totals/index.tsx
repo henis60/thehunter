@@ -49,14 +49,15 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals, items, showTax = false 
           </span>
         </div>
 
-        <div className="flex justify-between text-[var(--theme-text-muted)]">
-          <span>{t("Livrare")}</span>
-          <span data-testid="cart-shipping" data-value={shipping_subtotal ?? 0}>
-            {shipping_subtotal
-              ? convertToLocale({ amount: shipping_subtotal, currency_code })
-              : "—"}
-          </span>
-        </div>
+        {/* Livrarea apare doar când costă ceva — cea gratuită nu se menționează. */}
+        {!!shipping_subtotal && (
+          <div className="flex justify-between text-[var(--theme-text-muted)]">
+            <span>{t("Livrare")}</span>
+            <span data-testid="cart-shipping" data-value={shipping_subtotal}>
+              {convertToLocale({ amount: shipping_subtotal, currency_code })}
+            </span>
+          </div>
+        )}
 
         {!!totalDiscount && (
           <div className="flex justify-between text-hunter-gold">

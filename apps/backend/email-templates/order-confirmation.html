@@ -495,6 +495,19 @@
                     </tr>
                   </table>
                   {% endfor %}
+                  {% if params.dropship_notice %}
+                  <p
+                    style="
+                      margin: 8px 0 0;
+                      font-family: Helvetica, Arial, sans-serif;
+                      font-size: 12px;
+                      line-height: 1.6;
+                      color: rgba(232, 213, 163, 0.7);
+                    "
+                  >
+                    {{ params.dropship_notice }}
+                  </p>
+                  {% endif %}
                 </td>
               </tr>
 

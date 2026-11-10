@@ -6,6 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 import { useTranslations } from "next-intl"
 import { bodyMutedClass, sectionTitleClass } from "@modules/checkout/components/typography"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { hasAllShippingMethods } from "@lib/util/dropshipping"
 
 // Netopia is the store's only payment provider, so there's no method to pick
 // — the session is initiated silently as soon as this step opens, instead of
@@ -26,7 +27,7 @@ const Review = ({
   )
 
   const previousStepsCompleted =
-    cart.shipping_address && (cart.shipping_methods?.length ?? 0) > 0
+    cart.shipping_address && hasAllShippingMethods(cart)
 
   // Nicio sesiune de plată nu se mai creează aici.
   //

@@ -30,7 +30,7 @@ import { normalizePhone } from "@lib/util/phone"
  * @returns The cart object if found, or null if not found.
  */
 const DEFAULT_CART_FIELDS =
-  "*items, *region, *items.variant, +items.variant.thumbnail, +items.variant.inventory_quantity, +items.variant.manage_inventory, +items.variant.allow_backorder, *items.variant.images, +items.variant.options, +items.variant.options.option, *items.variant.product, +items.variant.product.thumbnail, *items.variant.product.images, +items.variant.product.options, +items.variant.product.options.values, *items.variant.product.variants, *items.variant.product.variants.options, *items.variant.product.variants.images, *items.thumbnail, *items.metadata, +items.total, +items.original_total, +items.compare_at_unit_price, *promotions, +shipping_methods.name, *payment_collection, +payment_collection.payment_sessions"
+  "*items, *region, *items.variant, +items.variant.thumbnail, +items.variant.inventory_quantity, +items.variant.manage_inventory, +items.variant.allow_backorder, *items.variant.images, +items.variant.options, +items.variant.options.option, *items.variant.product, +items.variant.product.thumbnail, *items.variant.product.images, +items.variant.product.options, +items.variant.product.options.values, *items.variant.product.variants, *items.variant.product.variants.options, *items.variant.product.variants.images, *items.thumbnail, *items.metadata, +items.total, +items.original_total, +items.compare_at_unit_price, *promotions, +shipping_methods.name, +shipping_methods.shipping_option_id, +items.variant.product.shipping_profile.id, *payment_collection, +payment_collection.payment_sessions"
 
 // A misconfigured promotion (e.g. a campaign budget requiring a customer
 // attribute the cart doesn't have yet) can make Medusa throw while
@@ -359,13 +359,15 @@ export async function setShippingMethod({
     ...(await getAuthHeaders()),
   }
 
-  return sdk.store.cart
-    .addShippingMethod(
-      cartId,
-      { option_id: shippingMethodId, ...(data ? { data } : {}) },
-      {},
-      headers
-    )
+  // Ruta custom păstrează câte o metodă per profil de livrare (curier pentru
+  // produsele obișnuite + livrarea gratuită pentru cele în dropshipping);
+  // addShippingMethod din SDK le-ar șterge pe celelalte.
+  return sdk.client
+    .fetch(`/store/carts/${cartId}/profile-shipping-method`, {
+      method: "POST",
+      body: { option_id: shippingMethodId, ...(data ? { data } : {}) },
+      headers,
+    })
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
       revalidateTag(cartCacheTag)

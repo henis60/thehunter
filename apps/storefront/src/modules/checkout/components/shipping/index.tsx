@@ -32,6 +32,11 @@ import { usePathname, useRouter } from "@i18n/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import { getDisplayableErrorMessage } from "@lib/util/stale-deployment"
+import {
+  isDropshipOption,
+  itemShippingProfileId,
+  requiredShippingProfiles,
+} from "@lib/util/dropshipping"
 
 // A shipping option that delivers to a parcel locker requires the customer
 // to pick a specific locker. Detection is purely structural: the eAWB
@@ -68,7 +73,43 @@ const Shipping: React.FC<ShippingProps> = ({
   availableShippingMethods,
 }) => {
   const t = useTranslations("checkout")
+
+  // Coș mixt: produsele obișnuite pleacă prin curier (metoda aleasă mai jos),
+  // cele în dropshipping au livrarea lor gratuită, de la furnizor — setată
+  // automat. Fiecare are propria metodă de livrare pe coș.
+  const requiredProfiles = requiredShippingProfiles(cart)
+  const profileApplies = (o: HttpTypes.StoreCartShippingOption) =>
+    !requiredProfiles || requiredProfiles.has(o.shipping_profile_id)
+  const dropshipOption = availableShippingMethods?.find(
+    (o) => isDropshipOption(o) && profileApplies(o)
+  )
+  const dropshipProfileIds = new Set(
+    (availableShippingMethods ?? [])
+      .filter(isDropshipOption)
+      .map((o) => o.shipping_profile_id)
+  )
+  const dropshipItems = (cart.items ?? []).filter((i) => {
+    const profile = itemShippingProfileId(i)
+    return !!profile && dropshipProfileIds.has(profile)
+  })
+  const needsDropship = dropshipItems.length > 0
+  // Fără informația de profil (null) păstrăm comportamentul vechi: curier.
+  const needsCourier =
+    !requiredProfiles ||
+    Array.from(requiredProfiles).some((p) => !dropshipProfileIds.has(p))
+  const dropshipMethodSet =
+    !!dropshipOption &&
+    !!cart.shipping_methods?.some(
+      (sm) => sm.shipping_option_id === dropshipOption.id
+    )
+  const courierMethodOnCart = cart.shipping_methods
+    ?.filter(
+      (sm) => !dropshipOption || sm.shipping_option_id !== dropshipOption.id
+    )
+    .at(-1)
+
   const [isLoading, setIsLoading] = useState(false)
+  const [dropshipError, setDropshipError] = useState<string | null>(null)
   const [isLoadingPrices, setIsLoadingPrices] = useState(true)
   const [showPickupOptions, setShowPickupOptions] =
     useState<string>(PICKUP_OPTION_OFF)
@@ -85,7 +126,7 @@ const Shipping: React.FC<ShippingProps> = ({
     "address_rejected" | "unavailable" | null
   >(null)
   const [shippingMethodId, setShippingMethodId] = useState<string | null>(
-    cart.shipping_methods?.at(-1)?.shipping_option_id || null
+    needsCourier ? courierMethodOnCart?.shipping_option_id || null : null
   )
   // Locker picker state (for "...to locker" services).
   const [lockerOptionId, setLockerOptionId] = useState<string | null>(null)
@@ -100,10 +141,15 @@ const Shipping: React.FC<ShippingProps> = ({
   const pathname = usePathname()
   const isOpen = searchParams.get("pas") === "livrare"
 
-  const _shippingMethods = availableShippingMethods?.filter(
+  const courierCandidates = needsCourier
+    ? availableShippingMethods?.filter(
+        (sm) => !isDropshipOption(sm) && profileApplies(sm)
+      )
+    : []
+  const _shippingMethods = courierCandidates?.filter(
     (sm) => (sm as any).service_zone?.fulfillment_set?.type !== "pickup"
   )
-  const _pickupMethods = availableShippingMethods?.filter(
+  const _pickupMethods = courierCandidates?.filter(
     (sm) => (sm as any).service_zone?.fulfillment_set?.type === "pickup"
   )
   const hasPickupOptions = !!_pickupMethods?.length
@@ -172,8 +218,33 @@ const Shipping: React.FC<ShippingProps> = ({
     )
     if (hasCalculated) {
       fetchPrices()
+    } else {
+      setIsLoadingPrices(false)
     }
-  }, [destinationSignature])
+  }, [destinationSignature, needsCourier])
+
+  // Livrarea gratuită pentru produsele în dropshipping nu are ce alege, deci se
+  // setează singură. Tot aici se curăță o metodă rămasă fără produse (de ex.
+  // curierul plătit, după ce clientul a scos produsele obișnuite): ruta din
+  // backend păstrează doar metodele profilurilor încă prezente în coș.
+  const methodIds = (cart.shipping_methods ?? [])
+    .map((sm) => sm.shipping_option_id)
+    .join("|")
+  const hasStaleCourierMethod = !needsCourier && !!courierMethodOnCart
+  useEffect(() => {
+    if (!isOpen || !needsDropship || !dropshipOption) return
+    if (dropshipMethodSet && !hasStaleCourierMethod) return
+    setDropshipError(null)
+    setShippingMethod({
+      cartId: cart.id,
+      shippingMethodId: dropshipOption.id,
+    }).catch((err) =>
+      setDropshipError(
+        getDisplayableErrorMessage(err, t("A apărut o eroare Reîncearcă"))
+      )
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, needsDropship, dropshipOption?.id, methodIds, hasStaleCourierMethod])
 
   useEffect(() => {
     if (_pickupMethods?.find((m) => m.id === shippingMethodId)) {
@@ -371,7 +442,10 @@ const Shipping: React.FC<ShippingProps> = ({
 
       {isOpen ? (
         <>
-          <div data-testid="delivery-options-container" className="mb-6">
+          <div
+            data-testid="delivery-options-container"
+            className={needsCourier ? "mb-6" : "hidden"}
+          >
             {hasPickupOptions && (
               <RadioGroup
                 value={showPickupOptions}
@@ -515,6 +589,7 @@ const Shipping: React.FC<ShippingProps> = ({
 
             {!isLoadingPrices &&
               !pricesError &&
+              needsCourier &&
               (visibleShippingMethods?.length ?? 0) === 0 &&
               !hasPickupOptions && (
                 <p className={`${bodyMutedClass} py-2`}>
@@ -593,6 +668,44 @@ const Shipping: React.FC<ShippingProps> = ({
             </RadioGroup>
           )}
 
+          {/* Clientul vede un singur transport: curierul, dacă există produse
+              obișnuite în coș, altfel livrarea gratuită. Metoda gratuită pentru
+              produsele în dropshipping se setează oricum pe coș, în fundal
+              (Medusa cere câte o metodă per profil de livrare). */}
+          {needsDropship && (
+            <div className="mb-6" data-testid="dropship-delivery">
+              {!needsCourier &&
+                (dropshipOption ? (
+                  <div className={radioClass(true)}>
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-3 rounded-full border flex-shrink-0 border-hunter-gold bg-hunter-gold" />
+                      <span className="font-serif text-[14px] text-[var(--theme-text)]">
+                        {dropshipOption.name}
+                      </span>
+                    </div>
+                    <span className={priceTextClass}>{t("Gratuit")}</span>
+                  </div>
+                ) : (
+                  <p className={`${bodyMutedClass} py-2`}>
+                    {t(
+                      "Livrarea pentru unele produse nu este disponibilă momentan Contactează-ne"
+                    )}
+                  </p>
+                ))}
+              {needsCourier && !dropshipOption && (
+                <p className={`${bodyMutedClass} py-2`}>
+                  {t(
+                    "Livrarea pentru unele produse nu este disponibilă momentan Contactează-ne"
+                  )}
+                </p>
+              )}
+              <ErrorMessage
+                error={dropshipError}
+                data-testid="dropship-error-message"
+              />
+            </div>
+          )}
+
           <ErrorMessage
             error={error}
             data-testid="delivery-option-error-message"
@@ -601,7 +714,9 @@ const Shipping: React.FC<ShippingProps> = ({
             onClick={handleSubmit}
             disabled={
               isLoading ||
-              (!cart.shipping_methods?.[0] && !shippingMethodId) ||
+              (needsCourier && !shippingMethodId) ||
+              (needsDropship && !dropshipMethodSet) ||
+              hasStaleCourierMethod ||
               // A locker service is selected but no locker chosen yet.
               (!!lockerOptionId && !selectedLocker)
             }
@@ -625,18 +740,26 @@ const Shipping: React.FC<ShippingProps> = ({
         </>
       ) : (
         <div>
-          {cart && (cart.shipping_methods?.length ?? 0) > 0 && (
+          {cart && cart.shipping_methods?.some((sm) => (sm.amount ?? 0) > 0) && (
             <div className="flex flex-col gap-1">
               <span className={fieldLabelClass}>{t("Metodă")}</span>
-              <span className="font-serif italic text-[14px] text-[var(--theme-text)]">
-                {cart.shipping_methods!.at(-1)!.name}{" "}
-                <span className={priceTextClass}>
-                  {convertToLocale({
-                    amount: cart.shipping_methods!.at(-1)!.amount!,
-                    currency_code: cart?.currency_code,
-                  })}
+              {/* Livrarea gratuită nu se menționează — doar metodele plătite. */}
+              {cart
+                .shipping_methods!.filter((sm) => (sm.amount ?? 0) > 0)
+                .map((sm) => (
+                <span
+                  key={sm.id}
+                  className="font-serif italic text-[14px] text-[var(--theme-text)]"
+                >
+                  {sm.name}{" "}
+                  <span className={priceTextClass}>
+                    {convertToLocale({
+                      amount: sm.amount,
+                      currency_code: cart?.currency_code,
+                    })}
+                  </span>
                 </span>
-              </span>
+              ))}
             </div>
           )}
         </div>

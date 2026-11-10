@@ -9,6 +9,10 @@ type ShippingDetailsProps = {
 const ShippingDetails = async ({ order }: ShippingDetailsProps) => {
   const t = await getTranslations("order")
   const addr = order.shipping_address
+  // Livrarea gratuită (de ex. produsele în dropshipping) nu se menționează.
+  const paidShippingMethods = (order.shipping_methods ?? []).filter(
+    (sm) => (sm.total ?? 0) > 0,
+  )
 
   return (
     <div className="small:px-8 py-6">
@@ -45,22 +49,29 @@ const ShippingDetails = async ({ order }: ShippingDetailsProps) => {
           </div>
         </div>
 
-        <div data-testid="shipping-method-summary">
-          <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
-            {t("Metodă de livrare")}
-          </p>
-          <div className="flex flex-col gap-0.5 font-sans text-[12px] text-[var(--theme-text)]">
-            <span>
-              {(order.shipping_methods?.[0] as { name?: string })?.name}
-            </span>
-            <span className="text-[var(--theme-text-muted)]">
-              {convertToLocale({
-                amount: order.shipping_methods?.[0]?.total ?? 0,
-                currency_code: order.currency_code,
-              })}
-            </span>
+        {paidShippingMethods.length > 0 && (
+          <div data-testid="shipping-method-summary">
+            <p className="font-sans text-[9px] uppercase tracking-[3px] text-[var(--theme-text-muted)] mb-2">
+              {t("Metodă de livrare")}
+            </p>
+            <div className="flex flex-col gap-2">
+              {paidShippingMethods.map((sm) => (
+                <div
+                  key={sm.id}
+                  className="flex flex-col gap-0.5 font-sans text-[12px] text-[var(--theme-text)]"
+                >
+                  <span>{(sm as { name?: string }).name}</span>
+                  <span className="text-[var(--theme-text-muted)]">
+                    {convertToLocale({
+                      amount: sm.total ?? 0,
+                      currency_code: order.currency_code,
+                    })}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )
