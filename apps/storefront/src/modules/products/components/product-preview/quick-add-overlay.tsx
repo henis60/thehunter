@@ -490,7 +490,7 @@ export default function QuickAddOverlay({
                       }
                       disabled={unavailable}
                       aria-pressed={isSelected}
-                      className={`min-w-[28px] px-1.5 py-1 font-sans text-[9px] uppercase tracking-[1.5px] border transition-all duration-150 ${
+                      className={`min-w-[28px] px-1.5 py-1 font-sans font-medium text-[9px] uppercase tracking-[1.5px] border transition-all duration-150 ${
                         isSelected
                           ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                           : unavailable
@@ -606,7 +606,7 @@ export default function QuickAddOverlay({
                                   }
                                   disabled={unavailable}
                                   aria-pressed={isSelected}
-                                  className={`inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans text-[12px] leading-none uppercase tracking-[2px] transition-colors duration-150 ${
+                                  className={`inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans font-medium text-[12px] leading-none uppercase tracking-[2px] transition-colors duration-150 ${
                                     isSelected
                                       ? "border-hunter-gold bg-hunter-gold/10 text-[var(--theme-text)]"
                                       : unavailable

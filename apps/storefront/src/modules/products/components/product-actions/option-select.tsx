@@ -95,7 +95,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
               aria-pressed={active}
               key={v}
               className={clx(
-                "inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans text-[12px] leading-none uppercase tracking-[2px] transition-colors duration-150",
+                "inline-flex items-center justify-center h-8 min-w-[48px] px-3 border font-sans font-medium text-[12px] leading-none uppercase tracking-[2px] transition-colors duration-150",
                 active
                   ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                   : unavailable

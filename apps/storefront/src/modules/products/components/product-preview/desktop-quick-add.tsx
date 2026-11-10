@@ -290,7 +290,7 @@ export default function DesktopQuickAdd({
                     }
                     disabled={unavailable}
                     aria-pressed={isSelected}
-                    className={`min-w-[28px] px-1.5 py-1 font-sans text-[9px] uppercase tracking-[1.5px] border transition-all duration-150 ${
+                    className={`min-w-[28px] px-1.5 py-1 font-sans font-medium text-[9px] uppercase tracking-[1.5px] border transition-all duration-150 ${
                       isSelected
                         ? "border-hunter-gold bg-hunter-gold text-hunter-dark"
                         : unavailable
