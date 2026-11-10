@@ -107,7 +107,8 @@ const SideMenuScrollGuard = ({ open, navigatingRef }: ScrollGuardProps) => {
 const subLinkClass =
   "block py-2 small:py-2.5 font-display text-[20px] small:text-[22px] leading-[1] tracking-[0.02em] text-[var(--theme-text)] hover:text-hunter-gold transition-colors"
 
-type SubmenuKey = "rtw" | "accesorii" | "featured" | "hunter"
+// "cat:<id>" = the submenu of one metadata.featured category.
+type SubmenuKey = "rtw" | "featured" | "hunter" | `cat:${string}`
 
 function MenuTrigger({
   label,
@@ -271,8 +272,8 @@ function ReadyToWearSubmenu({
   close: () => void
 }) {
   const t = useTranslations("layout")
-  // All root categories except whichever one is metadata.featured (that one
-  // gets pulled out into its own "Accesorii" trigger/submenu instead) —
+  // All root categories except the metadata.featured ones (each of those
+  // gets pulled out into its own top-level trigger/submenu instead) —
   // previously excluded by matching category.name === "accesorii", which
   // broke under any locale but the one that name was typed in (category.name
   // is translated).
@@ -329,40 +330,32 @@ function ReadyToWearSubmenu({
   )
 }
 
-function AccesoriiSubmenu({
-  categories,
+function FeaturedCategorySubmenu({
+  category,
   onBack,
   close,
 }: {
-  categories: HttpTypes.StoreProductCategory[]
+  category: HttpTypes.StoreProductCategory
   onBack: () => void
   close: () => void
 }) {
   const t = useTranslations("layout")
-  // Flagged explicitly via metadata.featured — instead of matching on
-  // category.name === "accesorii", which broke under any locale but the one
-  // that name was typed in (category.name is translated).
-  const parent = categories.find((c) =>
-    isMetadataFlagSet(c.metadata, "featured"),
-  )
-  const subcategories = parent?.category_children ?? []
+  const subcategories = category.category_children ?? []
 
   return (
     <div className="flex flex-col h-full">
-      <SubmenuHeader title={t("Accesorii")} onBack={onBack} />
+      <SubmenuHeader title={category.name} onBack={onBack} />
       <nav className="flex-1 px-8 py-4 overflow-y-auto">
         <ul className="flex flex-col">
-          {parent && (
-            <li>
-              <LocalizedClientLink
-                href={`/ready-to-wear/${parent.handle}`}
-                className="block py-2.5 font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
-                onClick={close}
-              >
-                {t("Toate accesoriile")}
-              </LocalizedClientLink>
-            </li>
-          )}
+          <li>
+            <LocalizedClientLink
+              href={`/ready-to-wear/${category.handle}`}
+              className="block py-2.5 font-sans text-[12px] uppercase tracking-[3px] text-[var(--theme-text-muted)] hover:text-hunter-gold transition-colors"
+              onClick={close}
+            >
+              {t("Toate produsele")}
+            </LocalizedClientLink>
+          </li>
           {subcategories.map((c) => (
             <li key={c.id}>
               <LocalizedClientLink
@@ -438,6 +431,17 @@ const SideMenu = ({
   // one is passed separately as featuredCollection) — see
   // layout/templates/nav/index.tsx.
   const otherCollections = collections ?? []
+
+  // Every root category flagged metadata.featured gets its own top-level
+  // entry (outside Ready to Wear), in the categories' existing order. Flagged
+  // explicitly instead of matching category.name === "accesorii", which broke
+  // under any locale but the one that name was typed in (name is translated).
+  const featuredCategories = (categories ?? []).filter(
+    (c) => !c.parent_category && isMetadataFlagSet(c.metadata, "featured"),
+  )
+  const activeFeaturedCategory = activeSubmenu?.startsWith("cat:")
+    ? featuredCategories.find((c) => `cat:${c.id}` === activeSubmenu)
+    : undefined
 
   useEffect(() => {
     setMounted(true)
@@ -554,13 +558,17 @@ const SideMenu = ({
                                       disabled
                                     />
 
-                                    {/* Accesorii â†’ submeniu */}
-                                    <MenuTrigger
-                                      label={t("Accesorii")}
-                                      onOpen={() =>
-                                        setActiveSubmenu("accesorii")
-                                      }
-                                    />
+                                    {/* Categoriile featured → câte un submeniu
+                                        fiecare (subcategoriile lor) */}
+                                    {featuredCategories.map((c) => (
+                                      <MenuTrigger
+                                        key={c.id}
+                                        label={c.name}
+                                        onOpen={() =>
+                                          setActiveSubmenu(`cat:${c.id}`)
+                                        }
+                                      />
+                                    ))}
 
                                     {/* Prima colecție din sortare → submeniu cu categorii */}
                                     {featuredCollection && (
@@ -658,9 +666,9 @@ const SideMenu = ({
                                         onBack={() => setActiveSubmenu(null)}
                                         close={handleNavigate}
                                       />
-                                    ) : activeSubmenu === "accesorii" ? (
-                                      <AccesoriiSubmenu
-                                        categories={categories ?? []}
+                                    ) : activeFeaturedCategory ? (
+                                      <FeaturedCategorySubmenu
+                                        category={activeFeaturedCategory}
                                         onBack={() => setActiveSubmenu(null)}
                                         close={handleNavigate}
                                       />
