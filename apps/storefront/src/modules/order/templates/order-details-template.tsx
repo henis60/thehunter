@@ -4,6 +4,7 @@ import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import React, { useEffect, useState } from "react"
 import { lineItemsToTrackItems, trackPurchase } from "@lib/util/analytics"
+import { orderTrackingUrl } from "@lib/util/order-tracking"
 import { useTranslations } from "next-intl"
 import { useRouter } from "@i18n/navigation"
 
@@ -54,6 +55,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
   const t = useTranslations("order")
   const [downloading, setDownloading] = useState(false)
   const [downloadError, setDownloadError] = useState<string | null>(null)
+  const trackUrl = orderTrackingUrl(order)
 
   // GA4 purchase — only on the standalone post-checkout success page (not when
   // viewing a past order in the account). A sessionStorage guard prevents a
@@ -153,6 +155,22 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
         <Section>{orderDetailsSlot}</Section>
         <Section>{shippingDetailsSlot}</Section>
         <Section>{orderSummarySlot}</Section>
+
+        {/* Courier tracking — same full-width-on-mobile action as the
+            buttons below, outside the details card. */}
+        {trackUrl && (
+          <div className="small:px-8 pt-1 small:pt-6 pb-2 small:pb-8 !border-t-0 flex flex-col small:items-end">
+            <a
+              href={trackUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full small:w-auto h-12 small:px-8 flex items-center justify-center border border-[var(--theme-border)] text-[var(--theme-text)] hover:border-hunter-gold hover:text-hunter-gold transition-colors font-sans uppercase tracking-[3px] text-[11px]"
+              data-testid="order-track-link"
+            >
+              {t("Urmărește comanda")}
+            </a>
+          </div>
+        )}
 
         {/* Invoice download — primary action */}
         {canDownloadInvoice && (
