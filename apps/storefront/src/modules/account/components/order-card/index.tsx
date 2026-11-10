@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { convertToLocale } from "@lib/util/money"
+import { getOrderDisplayTotal } from "@lib/util/order-total"
 import { HttpTypes } from "@medusajs/types"
 
 const STATUS_KEYS: Record<string, string> = {
@@ -57,7 +58,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
           data-testid="order-amount"
         >
           {convertToLocale({
-            amount: order.total,
+            amount: getOrderDisplayTotal(order),
             currency_code: order.currency_code,
           })}
         </span>

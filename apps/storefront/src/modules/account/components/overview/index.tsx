@@ -9,6 +9,7 @@ import { emitCartUpdated } from "@lib/util/cart-events"
 import { ArrowRightOnRectangle } from "@medusajs/icons"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { convertToLocale } from "@lib/util/money"
+import { getOrderDisplayTotal } from "@lib/util/order-total"
 
 const FULFILLED_STATUSES = [
   "fulfilled",
@@ -115,7 +116,7 @@ const Overview = ({ customer, orders, newsletterSubscribed }: OverviewProps) => 
                     <div className="text-right">
                       <span className="font-sans text-[14px] tracking-[1px] text-hunter-gold">
                         {convertToLocale({
-                          amount: order.total,
+                          amount: getOrderDisplayTotal(order),
                           currency_code: order.currency_code,
                         })}
                       </span>
