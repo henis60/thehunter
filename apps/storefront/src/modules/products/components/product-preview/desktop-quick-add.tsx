@@ -6,71 +6,10 @@ import { HttpTypes } from "@medusajs/types"
 import { useEffect, useState, useMemo } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { COLOR_OPTION_NAMES as COLOR_TITLES } from "@lib/util/product"
-
-const SIZE_ORDER = [
-  "2XS",
-  "XS",
-  "S",
-  "M",
-  "L",
-  "XL",
-  "2XL",
-  "XXL",
-  "3XL",
-  "XXXL",
-  "4XL",
-  "5XL",
-  "6XL",
-  "7XL",
-  "8XL",
-  "9XL",
-  "10XL",
-  "44",
-  "46",
-  "48",
-  "50",
-  "52",
-  "54",
-  "56",
-  "58",
-  "60",
-  "62",
-  "64",
-  "66",
-  "68",
-  "70",
-  "72",
-  "74",
-  "76",
-  "78",
-  "80",
-  "82",
-  "84",
-  "86",
-  "88",
-  "90",
-  "92",
-  "94",
-  "96",
-  "98",
-  "100",
-  "102",
-  "104",
-  "106",
-  "108",
-  "110",
-]
+import { compareSizeValues } from "@lib/util/sort-sizes"
 
 const sortOptionValues = (values: HttpTypes.StoreProductOptionValue[]) =>
-  [...values].sort((a, b) => {
-    const ai = SIZE_ORDER.indexOf((a.value ?? "").toUpperCase())
-    const bi = SIZE_ORDER.indexOf((b.value ?? "").toUpperCase())
-    if (ai === -1 && bi === -1)
-      return (a.value ?? "").localeCompare(b.value ?? "")
-    if (ai === -1) return 1
-    if (bi === -1) return -1
-    return ai - bi
-  })
+  [...values].sort((a, b) => compareSizeValues(a.value, b.value))
 
 // Colors follow variant_rank (matches image grouping — see Galerie media),
 // same as the product page's option-select.tsx — the raw option.values order

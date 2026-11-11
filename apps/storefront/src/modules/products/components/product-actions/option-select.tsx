@@ -5,6 +5,7 @@ import { clx } from "@modules/common/components/ui"
 import { isColorOption as isColorOptionTitle } from "@lib/util/product"
 import { useTranslations } from "next-intl"
 import React from "react"
+import { compareSizeValues } from "@lib/util/sort-sizes"
 
 type OptionSelectProps = {
   option: HttpTypes.StoreProductOption
@@ -28,18 +29,6 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   variants,
 }) => {
   const t = useTranslations("products")
-  const SIZE_ORDER = [
-    "xxs",
-    "xs",
-    "s",
-    "m",
-    "l",
-    "xl",
-    "xxl",
-    "2xl",
-    "3xl",
-    "4xl",
-  ]
   const isColorOption = isColorOptionTitle(title)
 
   const rawValues = (option.values ?? []).map((v) => v.value)
@@ -68,17 +57,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   // Colors keep variant order; only sizes are sorted logically.
   const filteredOptions = isColorOption
     ? colorOrdered()
-    : [...rawValues].sort((a, b) => {
-        const ai = SIZE_ORDER.indexOf((a ?? "").toLowerCase())
-        const bi = SIZE_ORDER.indexOf((b ?? "").toLowerCase())
-        if (ai !== -1 && bi !== -1) return ai - bi
-        if (ai !== -1) return -1
-        if (bi !== -1) return 1
-        const an = parseFloat(a ?? "")
-        const bn = parseFloat(b ?? "")
-        if (!isNaN(an) && !isNaN(bn)) return an - bn
-        return (a ?? "").localeCompare(b ?? "")
-      })
+    : [...rawValues].sort(compareSizeValues)
 
   return (
     <div className="flex flex-col gap-y-3">
