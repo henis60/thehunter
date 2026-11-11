@@ -194,7 +194,7 @@ function SubmenuHeader({
         >
           <polyline points="15 6 9 12 15 18" />
         </svg>
-        {t("Înapoi")}
+        <span className="sr-only">{t("Înapoi")}</span>
       </button>
     </div>
   )
@@ -215,7 +215,7 @@ function FeaturedCollectionSubmenu({
   const categoriesWithChildren = new Set(
     categories
       .filter((c) => (c.category_children?.length ?? 0) > 0)
-      .map((c) => c.id),
+      .map((c) => c.id)
   )
   const seen = new Set<string>()
   const productCategories: HttpTypes.StoreProductCategory[] = []
@@ -278,7 +278,7 @@ function ReadyToWearSubmenu({
   // broke under any locale but the one that name was typed in (category.name
   // is translated).
   const nonAccesoriiCategories = categories.filter(
-    (c) => !c.parent_category && !isMetadataFlagSet(c.metadata, "featured"),
+    (c) => !c.parent_category && !isMetadataFlagSet(c.metadata, "featured")
   )
 
   return (
@@ -437,7 +437,7 @@ const SideMenu = ({
   // explicitly instead of matching category.name === "accesorii", which broke
   // under any locale but the one that name was typed in (name is translated).
   const featuredCategories = (categories ?? []).filter(
-    (c) => !c.parent_category && isMetadataFlagSet(c.metadata, "featured"),
+    (c) => !c.parent_category && isMetadataFlagSet(c.metadata, "featured")
   )
   const activeFeaturedCategory = activeSubmenu?.startsWith("cat:")
     ? featuredCategories.find((c) => `cat:${c.id}` === activeSubmenu)
@@ -471,7 +471,10 @@ const SideMenu = ({
             }
             return (
               <>
-                <SideMenuScrollGuard open={open} navigatingRef={navigatingRef} />
+                <SideMenuScrollGuard
+                  open={open}
+                  navigatingRef={navigatingRef}
+                />
 
                 <div className="relative flex h-full">
                   <Popover.Button
@@ -559,16 +562,30 @@ const SideMenu = ({
                                     />
 
                                     {/* Categoriile featured → câte un submeniu
-                                        fiecare (subcategoriile lor) */}
-                                    {featuredCategories.map((c) => (
-                                      <MenuTrigger
-                                        key={c.id}
-                                        label={c.name}
-                                        onOpen={() =>
-                                          setActiveSubmenu(`cat:${c.id}`)
-                                        }
-                                      />
-                                    ))}
+                                        fiecare (subcategoriile lor). Fără
+                                        subcategorii, submeniul ar avea doar
+                                        „Toate produsele”, așa că e link direct. */}
+                                    {featuredCategories.map((c) =>
+                                      c.category_children?.length ? (
+                                        <MenuTrigger
+                                          key={c.id}
+                                          label={c.name}
+                                          onOpen={() =>
+                                            setActiveSubmenu(`cat:${c.id}`)
+                                          }
+                                        />
+                                      ) : (
+                                        <li key={c.id}>
+                                          <LocalizedClientLink
+                                            href={`/ready-to-wear/${c.handle}`}
+                                            className="flex items-center py-2 small:py-2.5 font-display text-[20px] small:text-[22px] leading-[1] tracking-[0.02em] text-[var(--theme-text)] transition-colors duration-200 hover:text-hunter-gold"
+                                            onClick={handleNavigate}
+                                          >
+                                            {c.name}
+                                          </LocalizedClientLink>
+                                        </li>
+                                      )
+                                    )}
 
                                     {/* Prima colecție din sortare → submeniu cu categorii */}
                                     {featuredCollection && (
@@ -694,7 +711,7 @@ const SideMenu = ({
                         </>
                       )}
                     </AnimatePresence>,
-                    document.body,
+                    document.body
                   )}
               </>
             )
